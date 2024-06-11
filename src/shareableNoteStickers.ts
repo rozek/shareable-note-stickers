@@ -10,7 +10,7 @@
     ValuesDiffer,
     ValueIsBoolean,
     ValueIsNumber, ValueIsNumberInRange, ValueIsFiniteNumber,
-      ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal, ValueIsCardinal,
+      ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal,
     ValueIsString, ValueIsStringMatching, ValueIsText, ValueIsTextline,
     ValueIsFunction,
     ValueIsObject, ValueIsPlainObject,
@@ -24,7 +24,7 @@
       allowOrdinal, expectOrdinal, allowCardinal,
     allowText, allowTextline, expectTextline,
     allowPlainObject,
-    allowList, expectListSatisfying,
+    expectListSatisfying,
     allowFunction, expectFunction,
     allowOneOf,
     allowColor, ValueIsEMailAddress, allowURL,
@@ -463,6 +463,7 @@
     }
 
     try {
+// @ts-ignore TS7053 allow indexing of "Folder"
       Folder[Property] = Value
     } catch (Signal:any) {
       console.warn('unsupported "' + Property + '" value received')
@@ -610,6 +611,7 @@
     }
 
     try {
+// @ts-ignore TS7053 allow indexing of "Sticker"
       Sticker[Property] = Value
     } catch (Signal:any) {
       console.warn('unsupported "' + Property + '" value received')
@@ -1025,16 +1027,16 @@
 
 /**** default Renderer ****/
 
-  function DefaultRenderer (PropSet:Indexable):any {
-    return html`<div class="SNS DefaultSticker" style=${CSSStyleOfVisual(this as SNS_Visual)}/>`
+  function DefaultRenderer (this:SNS_Visual):any {
+    return html`<div class="SNS DefaultSticker" style=${CSSStyleOfVisual(this)}/>`
   }
 
 /**** Error Renderer ****/
 
-  function ErrorRenderer (PropSet:Indexable):any {
+  function ErrorRenderer (this:SNS_Visual):any {
 // @ts-ignore TS2532 "ErrorRenderer.call(this)" will define "this"
     const Error = this.Error
-    if (Error == null) { return DefaultRenderer(PropSet) }// should never happen
+    if (Error == null) { return DefaultRenderer.call(this) }// should never happen
 
 // @ts-ignore TS2532 "ErrorRenderer.call(this)" will define "this"
     const onClick = () => this.Project.showError(this,Error)
@@ -2483,7 +2485,7 @@
   const TimePattern = '\\d{2}:\\d{2}'
   const TimeRegExp  = /\d{2}:\d{2}/
 
-  function TimeMatcher (Value) {
+  function TimeMatcher (Value:any):boolean {
     return ValueIsStringMatching(Value,TimeRegExp)
   }
 
@@ -2571,7 +2573,7 @@
   const DateTimePattern = '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}'
   const DateTimeRegExp  = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/
 
-  function DateTimeMatcher (Value) {
+  function DateTimeMatcher (Value:any):boolean {
     return ValueIsStringMatching(Value,DateTimeRegExp)
   }
   registerBehavior('native Controls', 'Date and Time Input', 'DateTimeInput', {
@@ -2658,7 +2660,7 @@
   const DatePattern = '\\d{4}-\\d{2}-\\d{2}'
   const DateRegExp  = /\d{4}-\d{2}-\d{2}/
 
-  function DateMatcher (Value) {
+  function DateMatcher (Value:any):boolean {
     return ValueIsStringMatching(Value,DateRegExp)
   }
 
@@ -2746,7 +2748,7 @@
   const WeekPattern = '\\d{4}-W\\d{2}'
   const WeekRegExp  = /\d{4}-W\d{2}/
 
-  function WeekMatcher (Value) {
+  function WeekMatcher (Value:any):boolean {
     return ValueIsStringMatching(Value,WeekRegExp)
   }
 
@@ -2789,7 +2791,7 @@
       const Maximum  = acceptableOptionalStringMatching(my.Maximum, undefined, WeekRegExp)
 
       const Suggestions = acceptableOptionalListSatisfying(
-        my.Suggestions, undefined, DateMatcher
+        my.Suggestions, undefined, WeekMatcher
       )
 
       if (document.activeElement === my.View) {
@@ -2834,7 +2836,7 @@
   const MonthPattern = '\\d{4}-\\d{2}'
   const MonthRegExp  = /\d{4}-\d{2}/
 
-  function MonthMatcher (Value) {
+  function MonthMatcher (Value:any):boolean {
     return ValueIsStringMatching(Value,MonthRegExp)
   }
 
@@ -2877,7 +2879,7 @@
       const Maximum  = acceptableOptionalStringMatching(my.Maximum, undefined, MonthRegExp)
 
       const Suggestions = acceptableOptionalListSatisfying(
-        my.Suggestions, undefined, DateMatcher
+        my.Suggestions, undefined, MonthMatcher
       )
 
       if (document.activeElement === my.View) {
@@ -3016,7 +3018,6 @@
     }
 
     my.Renderer = () => {
-      let   Value           = acceptableTextline(my.Value,'').trim()
       const Icon            = acceptableURL(my.Icon,'/img/arrow-up-from-bracket.png')
       const Color           = acceptableColor(my.Color,'black')
       const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes)
@@ -4489,6 +4490,7 @@
 
   /**** observed ****/
 
+// @ts-ignore TS2564 allow "_observed" to be assigned upon first use
     protected _observed:Indexable
 
     public get observed ():Indexable {
@@ -4501,6 +4503,7 @@
 
   /**** unobserved ****/
 
+// @ts-ignore TS2564 allow "_unobserved" to be assigned upon first use
     protected _unobserved:Indexable
 
     public get unobserved ():Indexable {
@@ -4752,7 +4755,9 @@
       Serialization.Id = this.Id                                 // special case
 
       const serializeProperty = (Name:string) => {
+// @ts-ignore TS7053 allow indexing of "this"
         if (this['_'+Name] != null) {
+// @ts-ignore TS7053 allow indexing of "this" and "Serialization"
           Serialization[Name] = this[Name]
         }
       }
@@ -4771,6 +4776,7 @@
       const deserializeProperty = (Name:string) => {
         if (Serialization[Name] != null) {
           try {
+// @ts-ignore TS7053 allow indexing of "this" and "Serialization"
             this[Name] = Serialization[Name]   // also validates the given value
           } catch (Signal:any) {
             console.warn(
@@ -5229,7 +5235,6 @@
     }
 
     public mayShiftBoardOut (BoardOrNameOrIndex:SNS_Board|SNS_Name|number):boolean {
-      const Board = this.existingBoard(BoardOrNameOrIndex)
       return (this._Folder != null)
     }
 
@@ -5392,7 +5397,9 @@
       super._serializeConfigurationInto(Serialization)
 
       const serializeProperty = (Name:string) => {
+// @ts-ignore TS7053 allow indexing of "this"
         if (this['_'+Name] != null) {
+// @ts-ignore TS7053 allow indexing of "Serialization"
           Serialization[Name] = this[Name]
         }
       }
@@ -5410,6 +5417,7 @@
       const deserializeProperty = (Name:string) => {
         if (Serialization[Name] != null) {
           try {
+// @ts-ignore TS7053 allow indexing of "this"
             this[Name] = Serialization[Name]   // also validates the given value
           } catch (Signal:any) {
             console.warn(
@@ -5559,6 +5567,7 @@
 
       ArgList.unshift(this, Change, Visual)
       this._onChange.forEach(
+// @ts-ignore TS2345 skip checking of individual "ArgList" elements
         (Callback:SNS_onChangeCallback) => Callback.apply(this,ArgList)
       )
     }
