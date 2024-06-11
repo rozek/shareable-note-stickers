@@ -3256,7 +3256,15 @@
         list=${SuggestionId}
       />${SuggestionList}`
     }
-  })
+  },`
+/**** ColorInput ****/
+
+  .SNS.Sticker > .SNS.ColorInput {
+    border:solid 1px #888888; border-radius:2px;
+    background:#e8f0ff;
+    padding:0px 2px 0px 2px;
+  }
+  `)
 
 /**** DropDown ****/
 
