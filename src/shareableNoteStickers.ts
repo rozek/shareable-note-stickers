@@ -32,7 +32,7 @@
 
   const ValueIsPhoneNumber = ValueIsTextline // *C* should be implemented
 
-  import { html } from 'preact-with-htm'
+  import { html } from 'htm/preact'
 
   import { customAlphabet }   from 'nanoid'
 // @ts-ignore TS2307 typescript has problems importing "nanoid-dictionary"
