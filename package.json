@@ -29,7 +29,7 @@
   "dependencies": {
     "hyperactiv": "github:rozek/hyperactiv",
     "javascript-interface-library": "^1.0.6",
-    "nanoid": "github:rozek/nanoid",
-    "nanoid-dictionary": "github:rozek/nanoid-dictionary"
+    "nanoid": "^5.0.7",
+    "nanoid-dictionary": "^4.3.0"
   }
 }
