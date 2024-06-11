@@ -35,6 +35,7 @@
   import { html } from 'preact-with-htm'
 
   import { customAlphabet }   from 'nanoid'
+// @ts-ignore TS2307 typescript has problems importing "nanoid-dictionary"
   import { nolookalikesSafe } from 'nanoid-dictionary'
 
   import hyperactiv from 'hyperactiv'
