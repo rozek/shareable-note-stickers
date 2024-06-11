@@ -1,7 +1,19 @@
 {
   "name": "shareable-note-stickers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "basic data model for a shareable application with scriptable \"sticky notes\"",
+  "type": "module",
+  "source": "src/shareableNoteStickers.ts",
+  "exports": {
+    "types": "./dist/shareableNoteStickers.d.ts",
+    "require": "./dist/shareableNoteStickers.cjs",
+    "default": "./dist/shareableNoteStickers.modern.js"
+  },
+  "main": "./dist/shareableNoteStickers.cjs",
+  "module": "./dist/shareableNoteStickers.esm.js",
+  "svelte": "./dist/shareableNoteStickers.esm.js",
+  "umd:main": "./dist/shareableNoteStickers.umd.js",
+  "types": "./dist/shareableNoteStickers.d.ts",
   "keywords": [
     "crdt"
   ],
@@ -11,7 +23,6 @@
   "bugs": {
     "url": "https://github.com/rozek/shareable-note-stickers/issues"
   },
-  "type": "module",
   "scripts": {
     "build": "rimraf dist && tsc && vite build --sourcemap true --assetsDir .",
     "test": "echo \"Error: no test specified\" && exit 1"
