@@ -1,0 +1,35 @@
+{
+  "name": "shareable-note-stickers",
+  "version": "0.0.1",
+  "description": "basic data model for a shareable application with scriptable \"sticky notes\"",
+  "keywords": [
+    "crdt"
+  ],
+  "author": "Andreas Rozek <a.rozek@gmx.de> (https://www.rozek.de/)",
+  "license": "MIT",
+  "homepage": "https://github.com/rozek/shareable-note-stickers#readme",
+  "bugs": {
+    "url": "https://github.com/rozek/shareable-note-stickers/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && tsc && vite build --sourcemap true --assetsDir .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rozek/shareable-note-stickers.git"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "hyperactiv": "github:rozek/hyperactiv",
+    "javascript-interface-library": "^1.0.5",
+    "nanoid": "github:rozek/nanoid",
+    "nanoid-dictionary": "github:rozek/nanoid-dictionary"
+  }
+}
