@@ -2715,7 +2715,15 @@ p("native Controls", "Color Input", "ColorInput", {
         list=${h}
       />${c}`;
   };
-});
+}, `
+/**** ColorInput ****/
+
+  .SNS.Sticker > .SNS.ColorInput {
+    border:solid 1px #888888; border-radius:2px;
+    background:#e8f0ff;
+    padding:0px 2px 0px 2px;
+  }
+  `);
 p("native Controls", "DropDown", "DropDown", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
