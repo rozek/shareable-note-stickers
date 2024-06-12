@@ -9,7 +9,7 @@ export default defineConfig({
   		name:    'shareable-note-stickers',
   		formats: ['es']
   	},
-  	minify: true,
+  	minify: false,
   	rollupOptions: {
   		external: ['javascript-interface-library','htm','preact','nanoid','nanoid-dictionary'],
       output: {
