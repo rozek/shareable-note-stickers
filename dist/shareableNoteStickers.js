@@ -1,534 +1,13 @@
-var gr = Object.defineProperty;
-var fr = (r, e, t) => e in r ? gr(r, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : r[e] = t;
-var k = (r, e, t) => (fr(r, typeof e != "symbol" ? e + "" : e, t), t);
-function H(r) {
-  var e = /^([$a-zA-Z][$a-zA-Z0-9]*):\s*(\S.+)\s*$/.exec(r);
-  if (e == null)
-    throw new Error(r);
-  var t = new Error(e[2]);
-  throw t.name = e[1], t;
-}
-function He(r) {
-  return typeof r == "boolean" || r instanceof Boolean;
-}
-function te(r) {
-  return typeof r == "number" || r instanceof Number;
-}
-function O(r) {
-  return (typeof r == "number" || r instanceof Number) && isFinite(r.valueOf());
-}
-function Lt(r, e, t, i, n) {
-  if (i === void 0 && (i = !0), n === void 0 && (n = !0), !te(r) || isNaN(r))
-    return !1;
-  if (O(e)) {
-    if (O(t)) {
-      if (r < e || !i && r === e || r > t || !n && r === t)
-        return !1;
-    } else if (r < e || !i && r === e)
-      return !1;
-  } else if (O(t) && (r > t || !n && r === t))
-    return !1;
-  return !0;
-}
-function j(r) {
-  return typeof r != "number" && !(r instanceof Number) ? !1 : (r = r.valueOf(), isFinite(r) && Math.round(r) === r);
-}
-function Nt(r, e, t) {
-  if (!j(r) || isNaN(r))
-    return !1;
-  if (O(e)) {
-    if (O(t)) {
-      if (r < e || r > t)
-        return !1;
-    } else if (r < e)
-      return !1;
-  } else if (O(t) && r > t)
-    return !1;
-  return !0;
-}
-function de(r) {
-  return typeof r != "number" && !(r instanceof Number) ? !1 : (r = r.valueOf(), isFinite(r) && Math.round(r) === r && r >= 0);
-}
-function pr(r) {
-  return typeof r != "number" && !(r instanceof Number) ? !1 : (r = r.valueOf(), isFinite(r) && Math.round(r) === r && r >= 1);
-}
-function z(r) {
-  return typeof r == "string" || r instanceof String;
-}
-function M(r, e) {
-  return (typeof r == "string" || r instanceof String) && e.test(r.valueOf());
-}
-var Sr = /^[^\x00-\x09\x0B\x0C\x0E-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]*$/;
-function Ae(r) {
-  return M(r, Sr);
-}
-var br = /^[^\x00-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]*$/;
-function G(r) {
-  return M(r, br);
-}
-function Te(r) {
-  return typeof r == "function";
-}
-function at(r) {
-  return r != null && typeof r == "object";
-}
-function he(r) {
-  return r != null && typeof r == "object" && Object.getPrototypeOf(r) === Object.prototype;
-}
-var Ct = Array.isArray;
-function Be(r, e, t) {
-  if (Ct(r)) {
-    for (var i = 0, n = r.length; i < n; i++)
-      if (r[i] === void 0)
-        return !1;
-    return !0;
-  }
-  return !1;
-}
-function ge(r, e, t, i) {
-  if (Ct(r))
-    try {
-      for (var n = 0, o = r.length; n < o; n++)
-        if (e(r[n]) == !1)
-          return !1;
-      return !(t != null && r.length < t || i != null && r.length > i);
-    } catch {
-    }
-  return !1;
-}
-function Vt(r, e) {
-  return e.indexOf(r) >= 0;
-}
-function Ge(r) {
-  return z(r) && (Vr.hasOwnProperty(r) || /^#[a-fA-F0-9]{6}$/.test(r) || /^#[a-fA-F0-9]{8}$/.test(r) || /^rgb\([0-9]+,\s*[0-9]+,\s*[0-9]+\)$/.test(r) || // not perfect
-  /^rgba\([0-9]+,\s*[0-9]+,\s*[0-9]+,([01]|[0]?[.][0-9]+)\)$/.test(r));
-}
-var mr = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-function Dt(r) {
-  return M(r, mr);
-}
-var vr = /^[^\s\x00-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]*$/;
-function st(r) {
-  if (!M(r, vr) || r === "")
-    return !1;
-  try {
-    return new URL(r, "file://"), !0;
-  } catch {
-    return !1;
-  }
-}
-var B = !1, $ = !0;
-function kr(r, e, t, i, n) {
-  if (e == null) {
-    if (i)
-      return e;
-    H("MissingArgument: no ".concat(D(r), " given"));
-  } else if (t(e))
-    switch (!0) {
-      case e instanceof Boolean:
-      case e instanceof Number:
-      case e instanceof String:
-        return e.valueOf();
-      default:
-        return e;
-    }
-  else
-    H("InvalidArgument: the given ".concat(D(r), " is no valid ").concat(D(n)));
-}
-function v(r, e, t) {
-  var i = function(u, s) {
-    return kr(u, s, r, e, t);
-  }, n = r.name;
-  if (n != null && /^ValueIs/.test(n)) {
-    var o = n.replace(
-      // derive name from validator
-      /^ValueIs/,
-      e ? "allow" : "expect"
-    );
-    return _r(i, o);
-  } else
-    return i;
-}
-function _r(r, e) {
-  if (r == null && H("MissingArgument: no function given"), typeof r != "function" && H("InvalidArgument: the given 1st Argument is not a JavaScript function"), e == null && H("MissingArgument: no desired name given"), typeof e != "string" && !(e instanceof String) && H("InvalidArgument: the given desired name is not a string"), r.name === e)
-    return r;
-  try {
-    if (Object.defineProperty(r, "name", { value: e }), r.name === e)
-      return r;
-  } catch {
-  }
-  var t = new Function("originalFunction", "return function " + e + " () {return originalFunction.apply(this,Array.prototype.slice.apply(arguments))}");
-  return t(r);
-}
-function Mt(r, e) {
-  if (e == null)
-    H("MissingArgument: no ".concat(D(r), " given"));
-  else
-    return e.valueOf();
-}
-var xr = /* @__PURE__ */ v(He, $, "boolean value"), Xe = /* @__PURE__ */ v(He, B, "boolean value"), me = /* @__PURE__ */ v(j, $, "integral numeric value"), Y = /* @__PURE__ */ v(j, B, "integral numeric value");
-function wr(r, e, t, i) {
-  return e == null ? e : $r(r, e, t, i);
-}
-function se(r, e, t, i) {
-  if (Y(r, e), isNaN(e) && H("InvalidArgument: the given ".concat(D(r), " is not-a-number")), t != null && isFinite(t)) {
-    if (i != null && isFinite(i)) {
-      if (e < t || e > i)
-        throw new RangeError("the given ".concat(D(r), " (").concat(e, ") is outside ") + "the allowed range (".concat(t, "...").concat(i, ")"));
-    } else if (e < t)
-      throw new RangeError("the given ".concat(D(r), " is below the allowed ") + "minimum (".concat(e, " < ").concat(t, ")"));
-  } else if (i != null && isFinite(i) && e > i)
-    throw new RangeError("the given ".concat(D(r), " exceeds the allowed ") + "maximum (".concat(e, " > ").concat(i, ")"));
-  return e.valueOf();
-}
-var $r = se, Ie = /* @__PURE__ */ v(de, $, "ordinal number"), Pe = /* @__PURE__ */ v(de, B, "ordinal number"), vt = /* @__PURE__ */ v(pr, $, "cardinal number"), kt = /* @__PURE__ */ v(Ae, $, "literal text"), yr = /* @__PURE__ */ v(G, $, "single line of text"), Ke = /* @__PURE__ */ v(G, B, "single line of text"), ve = /* @__PURE__ */ v(Te, $, "JavaScript function"), oe = /* @__PURE__ */ v(Te, B, "JavaScript function"), Br = /* @__PURE__ */ v(he, $, '"plain" JavaScript object');
-function Ir(r, e, t, i, n, o) {
-  if (e == null && H("MissingArgument: no ".concat(D(r), " given")), ge(e, t, n, o))
-    return e;
-  H("InvalidArgument: the given ".concat(D(r), " is ") + (i == null ? "either not a list or contains invalid elements" : "no " + D(i)));
-}
-function Fr(r, e, t) {
-  return e == null ? e : Nr(r, e, t);
-}
-function Lr(r, e, t) {
-  if (e == null && H("MissingArgument: no ".concat(D(r), " given")), Vt(e, t))
-    return (
-      // unboxes any primitives
-      e == null || typeof e.valueOf != "function" ? e : e.valueOf()
-    );
-  H("InvalidArgument: the given ".concat(D(r), " is not among the supported values"));
-}
-var Nr = Lr, _t = /* @__PURE__ */ v(Ge, $, "CSS color specification"), Wt = /* @__PURE__ */ v(st, $, "URL");
-function D(r) {
-  var e = /\\x[0-9a-zA-Z]{2}|\\u[0-9a-zA-Z]{4}|\\[0bfnrtv'"\\\/]?/g, t = /[\x00-\x1f\x7f-\x9f]/g;
-  return r.replace(e, function(i) {
-    return i === "\\" ? "\\\\" : i;
-  }).replace(t, function(i) {
-    switch (i) {
-      case "\0":
-        return "\\0";
-      case "\b":
-        return "\\b";
-      case "\f":
-        return "\\f";
-      case `
-`:
-        return "\\n";
-      case "\r":
-        return "\\r";
-      case "	":
-        return "\\t";
-      case "\v":
-        return "\\v";
-      default: {
-        var n = i.charCodeAt(0).toString(16);
-        return "\\x" + "00".slice(n.length) + n;
-      }
-    }
-  });
-}
-function Cr(r, e) {
-  e === void 0 && (e = '"');
-  var t = /\\x[0-9a-zA-Z]{2}|\\u[0-9a-zA-Z]{4}|\\[0bfnrtv'"\\\/]?|'/g, i = /\\x[0-9a-zA-Z]{2}|\\u[0-9a-zA-Z]{4}|\\[0bfnrtv'"\\\/]?|"/g, n = /[\x00-\x1f\x7f-\x9f]/g;
-  return r.replace(e === "'" ? t : i, function(o) {
-    switch (o) {
-      case "'":
-        return "\\'";
-      case '"':
-        return '\\"';
-      case "\\":
-        return "\\\\";
-      default:
-        return o;
-    }
-  }).replace(n, function(o) {
-    switch (o) {
-      case "\0":
-        return "\\0";
-      case "\b":
-        return "\\b";
-      case "\f":
-        return "\\f";
-      case `
-`:
-        return "\\n";
-      case "\r":
-        return "\\r";
-      case "	":
-        return "\\t";
-      case "\v":
-        return "\\v";
-      default: {
-        var u = o.charCodeAt(0).toString(16);
-        return "\\x" + "00".slice(u.length) + u;
-      }
-    }
-  });
-}
-function X(r, e) {
-  return e === void 0 && (e = '"'), e + Cr(r, e) + e;
-}
-function ae(r, e, t) {
-  if (r === e)
-    return !1;
-  var i = typeof r;
-  if (i !== typeof e)
-    return !0;
-  function n(u, s, l) {
-    if (!Array.isArray(s) || u.length !== s.length)
-      return !0;
-    for (var a = 0, d = u.length; a < d; a++)
-      if (ae(u[a], s[a]))
-        return !0;
-    return !1;
-  }
-  function o(u, s, l) {
-    if (Object.getPrototypeOf(u) !== Object.getPrototypeOf(s))
-      return !0;
-    for (var a in u)
-      if (!(a in s))
-        return !0;
-    for (var a in s)
-      if (!(a in u) || ae(u[a], s[a]))
-        return !0;
-    return !1;
-  }
-  switch (i) {
-    case "undefined":
-    case "boolean":
-    case "string":
-    case "function":
-      return !0;
-    case "number":
-      return isNaN(r) !== isNaN(e) || Math.abs(r - e) > Number.EPSILON;
-    case "object":
-      return r == null || e == null ? !0 : Array.isArray(r) ? n(r, e) : o(r, e);
-    default:
-      return !0;
-  }
-  return !0;
-}
-var Vr = {
-  transparent: "rgba(0,0,0,0,0.0)",
-  aliceblue: "rgba(240,248,255,1.0)",
-  lightpink: "rgba(255,182,193,1.0)",
-  antiquewhite: "rgba(250,235,215,1.0)",
-  lightsalmon: "rgba(255,160,122,1.0)",
-  aqua: "rgba(0,255,255,1.0)",
-  lightseagreen: "rgba(32,178,170,1.0)",
-  aquamarine: "rgba(127,255,212,1.0)",
-  lightskyblue: "rgba(135,206,250,1.0)",
-  azure: "rgba(240,255,255,1.0)",
-  lightslategray: "rgba(119,136,153,1.0)",
-  beige: "rgba(245,245,220,1.0)",
-  lightslategrey: "rgba(119,136,153,1.0)",
-  bisque: "rgba(255,228,196,1.0)",
-  lightsteelblue: "rgba(176,196,222,1.0)",
-  black: "rgba(0,0,0,1.0)",
-  lightyellow: "rgba(255,255,224,1.0)",
-  blanchedalmond: "rgba(255,235,205,1.0)",
-  lime: "rgba(0,255,0,1.0)",
-  blue: "rgba(0,0,255,1.0)",
-  limegreen: "rgba(50,205,50,1.0)",
-  blueviolet: "rgba(138,43,226,1.0)",
-  linen: "rgba(250,240,230,1.0)",
-  brown: "rgba(165,42,42,1.0)",
-  magenta: "rgba(255,0,255,1.0)",
-  burlywood: "rgba(222,184,135,1.0)",
-  maroon: "rgba(128,0,0,1.0)",
-  cadetblue: "rgba(95,158,160,1.0)",
-  mediumaquamarine: "rgba(102,205,170,1.0)",
-  chartreuse: "rgba(127,255,0,1.0)",
-  mediumblue: "rgba(0,0,205,1.0)",
-  chocolate: "rgba(210,105,30,1.0)",
-  mediumorchid: "rgba(186,85,211,1.0)",
-  coral: "rgba(255,127,80,1.0)",
-  mediumpurple: "rgba(147,112,219,1.0)",
-  cornflowerblue: "rgba(100,149,237,1.0)",
-  mediumseagreen: "rgba(60,179,113,1.0)",
-  cornsilk: "rgba(255,248,220,1.0)",
-  mediumslateblue: "rgba(123,104,238,1.0)",
-  crimson: "rgba(220,20,60,1.0)",
-  mediumspringgreen: "rgba(0,250,154,1.0)",
-  cyan: "rgba(0,255,255,1.0)",
-  mediumturquoise: "rgba(72,209,204,1.0)",
-  darkblue: "rgba(0,0,139,1.0)",
-  mediumvioletred: "rgba(199,21,133,1.0)",
-  darkcyan: "rgba(0,139,139,1.0)",
-  midnightblue: "rgba(25,25,112,1.0)",
-  darkgoldenrod: "rgba(184,134,11,1.0)",
-  mintcream: "rgba(245,255,250,1.0)",
-  darkgray: "rgba(169,169,169,1.0)",
-  mistyrose: "rgba(255,228,225,1.0)",
-  darkgreen: "rgba(0,100,0,1.0)",
-  moccasin: "rgba(255,228,181,1.0)",
-  darkgrey: "rgba(169,169,169,1.0)",
-  navajowhite: "rgba(255,222,173,1.0)",
-  darkkhaki: "rgba(189,183,107,1.0)",
-  navy: "rgba(0,0,128,1.0)",
-  darkmagenta: "rgba(139,0,139,1.0)",
-  oldlace: "rgba(253,245,230,1.0)",
-  darkolivegreen: "rgba(85,107,47,1.0)",
-  olive: "rgba(128,128,0,1.0)",
-  darkorange: "rgba(255,140,0,1.0)",
-  olivedrab: "rgba(107,142,35,1.0)",
-  darkorchid: "rgba(153,50,204,1.0)",
-  orange: "rgba(255,165,0,1.0)",
-  darkred: "rgba(139,0,0,1.0)",
-  orangered: "rgba(255,69,0,1.0)",
-  darksalmon: "rgba(233,150,122,1.0)",
-  orchid: "rgba(218,112,214,1.0)",
-  darkseagreen: "rgba(143,188,143,1.0)",
-  palegoldenrod: "rgba(238,232,170,1.0)",
-  darkslateblue: "rgba(72,61,139,1.0)",
-  palegreen: "rgba(152,251,152,1.0)",
-  darkslategray: "rgba(47,79,79,1.0)",
-  paleturquoise: "rgba(175,238,238,1.0)",
-  darkslategrey: "rgba(47,79,79,1.0)",
-  palevioletred: "rgba(219,112,147,1.0)",
-  darkturquoise: "rgba(0,206,209,1.0)",
-  papayawhip: "rgba(255,239,213,1.0)",
-  darkviolet: "rgba(148,0,211,1.0)",
-  peachpuff: "rgba(255,218,185,1.0)",
-  deeppink: "rgba(255,20,147,1.0)",
-  peru: "rgba(205,133,63,1.0)",
-  deepskyblue: "rgba(0,191,255,1.0)",
-  pink: "rgba(255,192,203,1.0)",
-  dimgray: "rgba(105,105,105,1.0)",
-  plum: "rgba(221,160,221,1.0)",
-  dimgrey: "rgba(105,105,105,1.0)",
-  powderblue: "rgba(176,224,230,1.0)",
-  dodgerblue: "rgba(30,144,255,1.0)",
-  purple: "rgba(128,0,128,1.0)",
-  firebrick: "rgba(178,34,34,1.0)",
-  red: "rgba(255,0,0,1.0)",
-  floralwhite: "rgba(255,250,240,1.0)",
-  rosybrown: "rgba(188,143,143,1.0)",
-  forestgreen: "rgba(34,139,34,1.0)",
-  royalblue: "rgba(65,105,225,1.0)",
-  fuchsia: "rgba(255,0,255,1.0)",
-  saddlebrown: "rgba(139,69,19,1.0)",
-  gainsboro: "rgba(220,220,220,1.0)",
-  salmon: "rgba(250,128,114,1.0)",
-  ghostwhite: "rgba(248,248,255,1.0)",
-  sandybrown: "rgba(244,164,96,1.0)",
-  gold: "rgba(255,215,0,1.0)",
-  seagreen: "rgba(46,139,87,1.0)",
-  goldenrod: "rgba(218,165,32,1.0)",
-  seashell: "rgba(255,245,238,1.0)",
-  gray: "rgba(128,128,128,1.0)",
-  sienna: "rgba(160,82,45,1.0)",
-  green: "rgba(0,128,0,1.0)",
-  silver: "rgba(192,192,192,1.0)",
-  greenyellow: "rgba(173,255,47,1.0)",
-  skyblue: "rgba(135,206,235,1.0)",
-  grey: "rgba(128,128,128,1.0)",
-  slateblue: "rgba(106,90,205,1.0)",
-  honeydew: "rgba(240,255,240,1.0)",
-  slategray: "rgba(112,128,144,1.0)",
-  hotpink: "rgba(255,105,180,1.0)",
-  slategrey: "rgba(112,128,144,1.0)",
-  indianred: "rgba(205,92,92,1.0)",
-  snow: "rgba(255,250,250,1.0)",
-  indigo: "rgba(75,0,130,1.0)",
-  springgreen: "rgba(0,255,127,1.0)",
-  ivory: "rgba(255,255,240,1.0)",
-  steelblue: "rgba(70,130,180,1.0)",
-  khaki: "rgba(240,230,140,1.0)",
-  tan: "rgba(210,180,140,1.0)",
-  lavender: "rgba(230,230,250,1.0)",
-  teal: "rgba(0,128,128,1.0)",
-  lavenderblush: "rgba(255,240,245,1.0)",
-  thistle: "rgba(216,191,216,1.0)",
-  lawngreen: "rgba(124,252,0,1.0)",
-  tomato: "rgba(255,99,71,1.0)",
-  lemonchiffon: "rgba(255,250,205,1.0)",
-  turquoise: "rgba(64,224,208,1.0)",
-  lightblue: "rgba(173,216,230,1.0)",
-  violet: "rgba(238,130,238,1.0)",
-  lightcoral: "rgba(240,128,128,1.0)",
-  wheat: "rgba(245,222,179,1.0)",
-  lightcyan: "rgba(224,255,255,1.0)",
-  white: "rgba(255,255,255,1.0)",
-  lightgoldenrodyellow: "rgba(250,250,210,1.0)",
-  whitesmoke: "rgba(245,245,245,1.0)",
-  lightgray: "rgba(211,211,211,1.0)",
-  yellow: "rgba(255,255,0,1.0)",
-  lightgreen: "rgba(144,238,144,1.0)",
-  yellowgreen: "rgba(154,205,50,1.0)",
-  lightgrey: "rgba(211,211,211,1.0)"
-}, Rt, Qe, Ht, Dr = [];
-function Mr(r, e, t) {
-  var i, n, o, u = {};
-  for (o in e)
-    o == "key" ? i = e[o] : o == "ref" ? n = e[o] : u[o] = e[o];
-  if (arguments.length > 2 && (u.children = arguments.length > 3 ? Rt.call(arguments, 2) : t), typeof r == "function" && r.defaultProps != null)
-    for (o in r.defaultProps)
-      u[o] === void 0 && (u[o] = r.defaultProps[o]);
-  return Wr(r, u, i, n, null);
-}
-function Wr(r, e, t, i, n) {
-  var o = { type: r, props: e, key: t, ref: i, __k: null, __: null, __b: 0, __e: null, __d: void 0, __c: null, constructor: void 0, __v: n ?? ++Ht, __i: -1, __u: 0 };
-  return n == null && Qe.vnode != null && Qe.vnode(o), o;
-}
-Rt = Dr.slice, Qe = { __e: function(r, e, t, i) {
-  for (var n, o, u; e = e.__; )
-    if ((n = e.__c) && !n.__)
-      try {
-        if ((o = n.constructor) && o.getDerivedStateFromError != null && (n.setState(o.getDerivedStateFromError(r)), u = n.__d), n.componentDidCatch != null && (n.componentDidCatch(r, i || {}), u = n.__d), u)
-          return n.__E = n;
-      } catch (s) {
-        r = s;
-      }
-  throw r;
-} }, Ht = 0, typeof Promise == "function" && Promise.prototype.then.bind(Promise.resolve());
-var At = function(r, e, t, i) {
-  var n;
-  e[0] = 0;
-  for (var o = 1; o < e.length; o++) {
-    var u = e[o++], s = e[o] ? (e[0] |= u ? 1 : 2, t[e[o++]]) : e[++o];
-    u === 3 ? i[0] = s : u === 4 ? i[1] = Object.assign(i[1] || {}, s) : u === 5 ? (i[1] = i[1] || {})[e[++o]] = s : u === 6 ? i[1][e[++o]] += s + "" : u ? (n = r.apply(s, At(r, s, t, ["", null])), i.push(n), s[0] ? e[0] |= 2 : (e[o - 2] = 0, e[o] = n)) : i.push(s);
-  }
-  return i;
-}, xt = /* @__PURE__ */ new Map();
-function Rr(r) {
-  var e = xt.get(this);
-  return e || (e = /* @__PURE__ */ new Map(), xt.set(this, e)), (e = At(this, e.get(r) || (e.set(r, e = function(t) {
-    for (var i, n, o = 1, u = "", s = "", l = [0], a = function(h) {
-      o === 1 && (h || (u = u.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? l.push(0, h, u) : o === 3 && (h || u) ? (l.push(3, h, u), o = 2) : o === 2 && u === "..." && h ? l.push(4, h, 0) : o === 2 && u && !h ? l.push(5, 0, !0, u) : o >= 5 && ((u || !h && o === 5) && (l.push(o, 0, u, n), o = 6), h && (l.push(o, h, 0, n), o = 6)), u = "";
-    }, d = 0; d < t.length; d++) {
-      d && (o === 1 && a(), a(d));
-      for (var c = 0; c < t[d].length; c++)
-        i = t[d][c], o === 1 ? i === "<" ? (a(), l = [l], o = 3) : u += i : o === 4 ? u === "--" && i === ">" ? (o = 1, u = "") : u = i + u[0] : s ? i === s ? s = "" : u += i : i === '"' || i === "'" ? s = i : i === ">" ? (a(), o = 1) : o && (i === "=" ? (o = 5, n = u, u = "") : i === "/" && (o < 5 || t[d][c + 1] === ">") ? (a(), o === 3 && (l = l[0]), o = l, (l = l[0]).push(2, 0, o), o = 0) : i === " " || i === "	" || i === `
-` || i === "\r" ? (a(), o = 2) : u += i), o === 3 && u === "!--" && (o = 4, l = l[0]);
-    }
-    return a(), l;
-  }(r)), e), arguments, [])).length > 1 ? e : e[0];
-}
-var Ee = Rr.bind(Mr);
-let Hr = (r) => crypto.getRandomValues(new Uint8Array(r)), Ar = (r, e, t) => {
-  let i = (2 << Math.log(r.length - 1) / Math.LN2) - 1, n = -~(1.6 * i * e / r.length);
-  return (o = e) => {
-    let u = "";
-    for (; ; ) {
-      let s = t(n), l = n;
-      for (; l--; )
-        if (u += r[s[l] & i] || "", u.length === o)
-          return u;
-    }
-  };
-}, Tr = (r, e = 21) => Ar(r, e, Hr);
-var Tt = "abcdefghijklmnopqrstuvwxyz", Gt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", Pt = "0123456789", Gr = "346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz", Pr = "6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz";
-const Er = Pt, Ur = Tt, zr = Gt;
-var Or = Er + Ur + zr, Zr = {
-  lowercase: Tt,
-  uppercase: Gt,
-  numbers: Pt,
-  nolookalikes: Gr,
-  nolookalikesSafe: Pr,
-  alphanumeric: Or
-};
-const qr = [
+var ti = Object.defineProperty;
+var ii = (i, e, t) => e in i ? ti(i, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : i[e] = t;
+var _ = (i, e, t) => (ii(i, typeof e != "symbol" ? e + "" : e, t), t);
+import { ValidatorForClassifier as v, acceptNil as F, rejectNil as L, quoted as z, ValueIsTextline as G, ValueIsStringMatching as P, ValueIsFiniteNumber as vt, ValueIsObject as Ke, ValueIsPlainObject as Fe, ValueIsOneOf as ri, ValueIsText as Qe, expectOrdinal as Le, allowOrdinal as me, ValueIsBoolean as xt, ValueIsNumber as ne, ValueIsNumberInRange as wt, ValueIsInteger as Ne, ValueIsIntegerInRange as $t, ValueIsOrdinal as Je, ValueIsString as O, ValueIsFunction as Bt, ValueIsList as ke, ValueIsListSatisfying as De, ValueIsColor as et, ValueIsEMailAddress as yt, ValueIsURL as It, expectTextline as ze, allowPlainObject as ni, allowFunction as ue, allowColor as ht, allowURL as Vt, allowTextline as oi, allowIntegerInRange as ai, allowOneOf as si, ValuesDiffer as Te, allowText as gt, allowBoolean as li, allowCardinal as pt, expectValue as Ft, expectInteger as q, allowInteger as de, expectIntegerInRange as _e, expectListSatisfying as ui, expectFunction as ee, expectBoolean as Ge } from "javascript-interface-library";
+import { h as di } from "preact";
+import ci from "htm";
+import { customAlphabet as hi } from "nanoid";
+import { nolookalikesSafe as gi } from "nanoid-dictionary";
+var Ce = ci.bind(di);
+const pi = [
   "String",
   "Number",
   "Object",
@@ -536,159 +15,159 @@ const qr = [
   "Boolean",
   "Date"
 ];
-function Ye(r) {
-  return r && typeof r == "object";
+function Pe(i) {
+  return i && typeof i == "object";
 }
-function et(r, e, t) {
-  Object.defineProperty(r, e, { value: t, enumerable: !1, configurable: !0 });
+function Oe(i, e, t) {
+  Object.defineProperty(i, e, { value: t, enumerable: !1, configurable: !0 });
 }
-function wt(r, e, t) {
-  et(r, "__key", e), et(r, "__parent", t);
+function ft(i, e, t) {
+  Oe(i, "__key", e), Oe(i, "__parent", t);
 }
-function Xr(r) {
-  return Object.getOwnPropertyNames(r).concat(
-    Object.getPrototypeOf(r) && qr.indexOf(Object.getPrototypeOf(r).constructor.name) < 0 ? Object.getOwnPropertyNames(Object.getPrototypeOf(r)) : []
-  ).filter((e) => e !== "constructor" && typeof r[e] == "function");
+function fi(i) {
+  return Object.getOwnPropertyNames(i).concat(
+    Object.getPrototypeOf(i) && pi.indexOf(Object.getPrototypeOf(i).constructor.name) < 0 ? Object.getOwnPropertyNames(Object.getPrototypeOf(i)) : []
+  ).filter((e) => e !== "constructor" && typeof i[e] == "function");
 }
-const lt = {
+const tt = {
   computedStack: [],
   trackerSymbol: Symbol("tracker")
 };
-let ee = null;
-const Fe = Symbol();
-function tt() {
-  if (ee) {
-    for (const r of ee)
-      r(), r[Fe] = !1;
-    ee = null;
+let j = null;
+const be = Symbol();
+function Ze() {
+  if (j) {
+    for (const i of j)
+      i(), i[be] = !1;
+    j = null;
   }
 }
-function $t(r, e) {
-  r[Fe] || (ee === null && (ee = [], e === !0 ? queueMicrotask(tt) : setTimeout(tt, e)), ee.push(r));
+function St(i, e) {
+  i[be] || (j === null && (j = [], e === !0 ? queueMicrotask(Ze) : setTimeout(Ze, e)), j.push(i));
 }
-const { computedStack: be, trackerSymbol: je } = lt, Je = Symbol("__observed"), U = Symbol("modifiedProperty");
-function ke(r, e = {}) {
+const { computedStack: le, trackerSymbol: Ee } = tt, Ue = Symbol("__observed"), T = Symbol("modifiedProperty");
+function ce(i, e = {}) {
   const {
     props: t,
-    ignore: i,
+    ignore: r,
     batch: n,
-    deep: o = !0,
-    bubble: u,
+    deep: a = !0,
+    bubble: d,
     bind: s
   } = e;
-  if (r[Je])
-    return r;
-  const l = (h) => h !== Je && (t == null || t instanceof Array && t.includes(h)) && (i == null || i instanceof Array && !i.includes(h));
-  o && Object.entries(r).forEach(function([h, g]) {
-    Ye(g) && l(h) && (r[h] = ke(g, e), u && wt(r[h], h, r));
+  if (i[Ue])
+    return i;
+  const l = (h) => h !== Ue && (t == null || t instanceof Array && t.includes(h)) && (r == null || r instanceof Array && !r.includes(h));
+  a && Object.entries(i).forEach(function([h, g]) {
+    Pe(g) && l(h) && (i[h] = ce(g, e), d && ft(i[h], h, i));
   });
-  function a(h, g, f) {
+  function o(h, g, p) {
     if (g === "__handler")
-      et(h, "__handler", f);
+      Oe(h, "__handler", p);
     else if (!l(g))
-      h[g] = f;
-    else if (Array.isArray(h) && g === "length" || Yr(h[g], f)) {
-      const S = g !== U && o && Ye(f), b = h[g];
-      h[g] = S ? ke(f, e) : f, S && u && wt(h[g], g, h);
-      const m = [g];
+      h[g] = p;
+    else if (Array.isArray(h) && g === "length" || Si(h[g], p)) {
+      const S = g !== T && a && Pe(p), m = h[g];
+      h[g] = S ? ce(p, e) : p, S && d && ft(h[g], g, h);
+      const k = [g];
       let x = h;
-      for (; x && !(x.__handler && x.__handler(m, f, b, c) === !1); )
-        x.__key && x.__parent ? (m.unshift(x.__key), x = x.__parent) : x = null;
-      const E = d.get(g);
-      if (E)
-        for (const A of E) {
-          const T = A[je], K = T && T.get(h), Se = K && K.has(g);
-          A.__disposed || T && !Se ? E.delete(A) : A !== be[0] && (typeof n < "u" && n !== !1 ? ($t(A, n), A[Fe] = !0) : A());
+      for (; x && !(x.__handler && x.__handler(k, p, m, u) === !1); )
+        x.__key && x.__parent ? (k.unshift(x.__key), x = x.__parent) : x = null;
+      const A = c.get(g);
+      if (A)
+        for (const W of A) {
+          const R = W[Ee], X = R && R.get(h), se = X && X.has(g);
+          W.__disposed || R && !se ? A.delete(W) : W !== le[0] && (typeof n < "u" && n !== !1 ? (St(W, n), W[be] = !0) : W());
         }
-      if (g !== U) {
-        h[U] = g;
-        const A = d.get(U);
-        if (A)
-          for (const T of A) {
-            const K = T[je], Se = K && K.get(h), hr = Se && Se.has(U);
-            T.__disposed || K && !hr ? A.delete(T) : T !== be[0] && (typeof n < "u" && n !== !1 ? ($t(T, n), T[Fe] = !0) : T());
+      if (g !== T) {
+        h[T] = g;
+        const W = c.get(T);
+        if (W)
+          for (const R of W) {
+            const X = R[Ee], se = X && X.get(h), ei = se && se.has(T);
+            R.__disposed || X && !ei ? W.delete(R) : R !== le[0] && (typeof n < "u" && n !== !1 ? (St(R, n), R[be] = !0) : R());
           }
       }
     }
   }
-  const d = /* @__PURE__ */ new Map(), c = new Proxy(r, {
+  const c = /* @__PURE__ */ new Map(), u = new Proxy(i, {
     get(h, g) {
-      if (g === Je)
+      if (g === Ue)
         return !0;
-      if (l(g) && be.length) {
-        const f = be[0], S = f[je];
+      if (l(g) && le.length) {
+        const p = le[0], S = p[Ee];
         if (S) {
-          let m = S.get(r);
-          m || (m = /* @__PURE__ */ new Set(), S.set(r, m)), m.add(g);
+          let k = S.get(i);
+          k || (k = /* @__PURE__ */ new Set(), S.set(i, k)), k.add(g);
         }
-        let b = d.get(g);
-        b || (b = /* @__PURE__ */ new Set(), d.set(g, b)), b.add(f);
+        let m = c.get(g);
+        m || (m = /* @__PURE__ */ new Set(), c.set(g, m)), m.add(p);
       }
-      return r[g];
+      return i[g];
     },
-    set(h, g, f) {
-      return a(r, g, f), !0;
+    set(h, g, p) {
+      return o(i, g, p), !0;
     },
-    defineProperty(h, g, f) {
+    defineProperty(h, g, p) {
       if (g === "__handler")
         throw new Error("Don't track bubble handlers");
       if (l(g)) {
-        if (!Array.isArray(r) || g === "length") {
-          "value" in f && o && Ye(f.value) && (f = { ...f }, f.value = ke(f.value, e));
-          const S = Reflect.defineProperty(r, g, f);
-          return g !== U && (r[U] = g), S;
+        if (!Array.isArray(i) || g === "length") {
+          "value" in p && a && Pe(p.value) && (p = { ...p }, p.value = ce(p.value, e));
+          const S = Reflect.defineProperty(i, g, p);
+          return g !== T && (i[T] = g), S;
         }
       } else
-        return Reflect.defineProperty(r, g, f);
+        return Reflect.defineProperty(i, g, p);
       return !1;
     },
     deleteProperty(h, g) {
-      if (g === U)
+      if (g === T)
         throw new Error(
           'internal property Symbol("modifiedProperty") must not be deleted'
         );
-      return g in r && a(r, g, void 0), Reflect.deleteProperty(h, g);
+      return g in i && o(i, g, void 0), Reflect.deleteProperty(h, g);
     }
   });
-  return s && Xr(r).forEach((h) => r[h] = r[h].bind(c)), c;
+  return s && fi(i).forEach((h) => i[h] = i[h].bind(u)), u;
 }
-function Yr(r, e, t) {
-  const i = /* @__PURE__ */ new Map();
-  function n(o, u, s) {
-    if (o === u)
+function Si(i, e, t) {
+  const r = /* @__PURE__ */ new Map();
+  function n(a, d, s) {
+    if (a === d)
       return !1;
-    let l = typeof o;
-    if (l !== typeof u)
+    let l = typeof a;
+    if (l !== typeof d)
       return !0;
-    function a(c, h, g) {
-      if (!Array.isArray(h) || c.length !== h.length)
+    function o(u, h, g) {
+      if (!Array.isArray(h) || u.length !== h.length)
         return !0;
-      if (i.has(c) || i.has(h)) {
-        if (i.has(c) && i.get(c).has(h) || i.has(h) && i.get(h).has(c))
+      if (r.has(u) || r.has(h)) {
+        if (r.has(u) && r.get(u).has(h) || r.has(h) && r.get(h).has(u))
           return !1;
-        i.has(c) || i.set(c, /* @__PURE__ */ new Set()), i.get(c).add(h);
+        r.has(u) || r.set(u, /* @__PURE__ */ new Set()), r.get(u).add(h);
       }
-      for (let f = 0, S = c.length; f < S; f++)
-        if (n(c[f], h[f], g))
+      for (let p = 0, S = u.length; p < S; p++)
+        if (n(u[p], h[p], g))
           return !0;
       return !1;
     }
-    function d(c, h, g = "by-value") {
-      if (Object.getPrototypeOf(c) !== Object.getPrototypeOf(h))
+    function c(u, h, g = "by-value") {
+      if (Object.getPrototypeOf(u) !== Object.getPrototypeOf(h))
         return !0;
-      for (let f in c)
-        if (!(f in h))
+      for (let p in u)
+        if (!(p in h))
           return !0;
-      for (let f in h)
-        if (!(f in c))
+      for (let p in h)
+        if (!(p in u))
           return !0;
-      if (i.has(c) || i.has(h)) {
-        if (i.has(c) && i.get(c).has(h) || i.has(h) && i.get(h).has(c))
+      if (r.has(u) || r.has(h)) {
+        if (r.has(u) && r.get(u).has(h) || r.has(h) && r.get(h).has(u))
           return !1;
-        i.has(c) || i.set(c, /* @__PURE__ */ new Set()), i.get(c).add(h);
+        r.has(u) || r.set(u, /* @__PURE__ */ new Set()), r.get(u).add(h);
       }
-      for (let f in c)
-        if (n(c[f], h[f], g))
+      for (let p in u)
+        if (n(u[p], h[p], g))
           return !0;
       return !1;
     }
@@ -699,46 +178,46 @@ function Yr(r, e, t) {
       case "function":
         return !0;
       case "number":
-        return isNaN(o) !== isNaN(u) || Math.abs(o - u) > Number.EPSILON;
+        return isNaN(a) !== isNaN(d) || Math.abs(a - d) > Number.EPSILON;
       case "object":
-        return o == null || u == null ? !0 : s === "by-value" && (o instanceof Boolean || o instanceof Number || o instanceof String) ? o.valueOf() !== u.valueOf() : Array.isArray(o) ? a(o, u, s) : s === "by-reference" ? !0 : d(o, u, s);
+        return a == null || d == null ? !0 : s === "by-value" && (a instanceof Boolean || a instanceof Number || a instanceof String) ? a.valueOf() !== d.valueOf() : Array.isArray(a) ? o(a, d, s) : s === "by-reference" ? !0 : c(a, d, s);
       default:
         return !0;
     }
     return !0;
   }
-  return n(r, e, t);
+  return n(i, e, t);
 }
-const { computedStack: yt, trackerSymbol: jr } = lt;
-function Jr(r, { autoRun: e = !0, callback: t, bind: i, disableTracking: n = !1 } = {}) {
-  function o(l, a = []) {
-    const d = t || s;
-    n || (d[jr] = /* @__PURE__ */ new WeakMap()), yt.unshift(d), a.length > 0 ? a = [...a, u] : a = [u];
-    const c = l ? l() : i ? r.apply(i, a) : r(...a);
-    return yt.shift(), c;
+const { computedStack: mt, trackerSymbol: mi } = tt;
+function ki(i, { autoRun: e = !0, callback: t, bind: r, disableTracking: n = !1 } = {}) {
+  function a(l, o = []) {
+    const c = t || s;
+    n || (c[mi] = /* @__PURE__ */ new WeakMap()), mt.unshift(c), o.length > 0 ? o = [...o, d] : o = [d];
+    const u = l ? l() : r ? i.apply(r, o) : i(...o);
+    return mt.shift(), u;
   }
-  const u = { computeAsync: o }, s = (...l) => o(null, l);
+  const d = { computeAsync: a }, s = (...l) => a(null, l);
   return e && s(), s;
 }
-function Kr(r) {
-  return r[lt.trackerSymbol] = null, r.__disposed = !0;
+function _i(i) {
+  return i[tt.trackerSymbol] = null, i.__disposed = !0;
 }
-const Qr = {
-  observe: ke,
-  modifiedProperty: U,
-  computed: Jr,
-  dispose: Kr,
-  batch: tt
-}, Et = G, { observe: ei, computed: Ut, dispose: ti } = Qr, Le = document.createElement("style");
-Le.innerHTML = `
+const bi = {
+  observe: ce,
+  modifiedProperty: T,
+  computed: ki,
+  dispose: _i,
+  batch: Ze
+}, Lt = G, { observe: vi, computed: Nt, dispose: xi } = bi, ve = document.createElement("style");
+ve.innerHTML = `
 /**** DefaultSticker ****/
 
   .SNS.DefaultSticker {
     left:0px; top:0px; right:0px; bottom:0px;
   }
 `;
-document.head.appendChild(Le);
-const ri = ["normal", "italic"], ii = [
+document.head.appendChild(ve);
+const wi = ["normal", "italic"], $i = [
   "missing Behaviour",
   "Behaviour Execution Failure",
   "Script Compilation Failure",
@@ -748,200 +227,200 @@ const ri = ["normal", "italic"], ii = [
   '"onMount" Callback Failure',
   '"onUnmount" Callback Failure'
 ];
-function C(r) {
-  let e = /^([$a-zA-Z][$a-zA-Z0-9]*):\s*(\S.+)\s*$/.exec(r);
+function N(i) {
+  let e = /^([$a-zA-Z][$a-zA-Z0-9]*):\s*(\S.+)\s*$/.exec(i);
   if (e == null)
-    throw new Error(r);
+    throw new Error(i);
   {
     let t = new Error(e[2]);
     throw t.name = e[1], t;
   }
 }
-function _(r) {
-  C(
-    "ReadOnlyProperty: property " + X(r) + " must not be set"
+function b(i) {
+  N(
+    "ReadOnlyProperty: property " + z(i) + " must not be set"
   );
 }
-function zt(r) {
-  return r instanceof ft;
+function Dt(i) {
+  return i instanceof st;
 }
-const ni = v(
-  zt,
-  $,
+const Bi = v(
+  Dt,
+  F,
   "SNS visual"
-), Zi = ni, Ot = v(
-  zt,
-  B,
+), kr = Bi, Ct = v(
+  Dt,
+  L,
   "SNS visual"
-), qi = Ot;
-function le(r) {
-  return r instanceof pt;
+), _r = Ct;
+function te(i) {
+  return i instanceof lt;
 }
-const oi = v(
-  le,
-  $,
+const yi = v(
+  te,
+  F,
   "SNS folder"
-), Xi = oi, ut = v(
-  le,
-  B,
+), br = yi, it = v(
+  te,
+  L,
   "SNS folder"
-), Yi = ut;
-function fe(r) {
-  return r instanceof qe;
+), vr = it;
+function oe(i) {
+  return i instanceof Ae;
 }
-const ai = v(
-  fe,
-  $,
+const Ii = v(
+  oe,
+  F,
   "SNS project"
-), ji = ai, W = v(
-  fe,
-  B,
+), xr = Ii, C = v(
+  oe,
+  L,
   "SNS project"
-), Ji = W;
-function Ne(r) {
-  return r instanceof bt;
+), wr = C;
+function xe(i) {
+  return i instanceof dt;
 }
-const si = v(
-  Ne,
-  $,
+const Vi = v(
+  xe,
+  F,
   "SNS board"
-), Ki = si, ct = v(
-  Ne,
-  B,
+), $r = Vi, rt = v(
+  xe,
+  L,
   "SNS board"
-), Qi = ct;
-function Ce(r) {
-  return r instanceof mt;
+), Br = rt;
+function we(i) {
+  return i instanceof ct;
 }
-const li = v(
-  Ce,
-  $,
+const Fi = v(
+  we,
+  F,
   "SNS sticker"
-), en = li, Ue = v(
-  Ce,
-  B,
+), yr = Fi, Me = v(
+  we,
+  L,
   "SNS sticker"
-), tn = Ue;
-function Zt(r) {
-  return G(r);
+), Ir = Me;
+function Mt(i) {
+  return G(i);
 }
-const ui = v(
-  Zt,
-  $,
+const Li = v(
+  Mt,
+  F,
   "unique SNS id"
-), qt = ui, I = v(
-  Zt,
-  B,
+), Wt = Li, B = v(
+  Mt,
+  L,
   "unique SNS id"
-), rn = I, ci = /^[a-z$_][a-z$_0-9]*$/i;
-function Xt(r) {
-  return M(r, ci);
+), Vr = B, Ni = /^[a-z$_][a-z$_0-9]*$/i;
+function Rt(i) {
+  return P(i, Ni);
 }
-const di = v(
-  Xt,
-  $,
+const Di = v(
+  Rt,
+  F,
   "note stickers identifier"
-), nn = di, re = v(
-  Xt,
-  B,
+), Fr = Di, K = v(
+  Rt,
+  L,
   "note stickers identifier"
-), on = re;
-function ze(r) {
-  return G(r);
+), Lr = K;
+function We(i) {
+  return G(i);
 }
-const Yt = v(
-  ze,
-  $,
+const Ht = v(
+  We,
+  F,
   "SNS name"
-), an = Yt, ue = v(
-  ze,
-  B,
+), Nr = Ht, ie = v(
+  We,
+  L,
   "SNS name"
-), sn = ue;
-function Z(r) {
-  return O(r);
+), Dr = ie;
+function E(i) {
+  return vt(i);
 }
-const hi = v(
-  Z,
-  $,
+const Ci = v(
+  E,
+  F,
   "sticker coordinate"
-), ln = hi, rt = v(
-  Z,
-  B,
+), Cr = Ci, Xe = v(
+  E,
+  L,
   "sticker coordinate"
-), un = rt;
-function q(r) {
-  return O(r) && r >= 0;
+), Mr = Xe;
+function U(i) {
+  return vt(i) && i >= 0;
 }
-const ne = v(
-  q,
-  $,
+const J = v(
+  U,
+  F,
   "sticker dimension"
-), cn = ne, it = v(
-  q,
-  B,
+), Wr = J, Ye = v(
+  U,
+  L,
   "sticker dimension"
-), dn = it;
-function jt(r) {
-  return at(r) && Z(r.x) && Z(r.y);
+), Rr = Ye;
+function At(i) {
+  return Ke(i) && E(i.x) && E(i.y);
 }
-const gi = v(
-  jt,
-  $,
+const Mi = v(
+  At,
+  F,
   "sticker position"
-), hn = gi, Jt = v(
-  jt,
-  B,
+), Hr = Mi, Tt = v(
+  At,
+  L,
   "sticker position"
-), gn = Jt;
-function Kt(r) {
-  return at(r) && q(r.Width) && q(r.Height);
+), Ar = Tt;
+function Gt(i) {
+  return Ke(i) && U(i.Width) && U(i.Height);
 }
-const fi = v(
-  Kt,
-  $,
+const Wi = v(
+  Gt,
+  F,
   "sticker size"
-), fn = fi, Qt = v(
-  Kt,
-  B,
+), Tr = Wi, Pt = v(
+  Gt,
+  L,
   "sticker size"
-), pn = Qt;
-function er(r) {
-  return at(r) && Z(r.x) && q(r.Width) && Z(r.y) && q(r.Height);
+), Gr = Pt;
+function Et(i) {
+  return Ke(i) && E(i.x) && U(i.Width) && E(i.y) && U(i.Height);
 }
-const pi = v(
-  er,
-  $,
+const Ri = v(
+  Et,
+  F,
   "sticker geometry"
-), Sn = pi, tr = v(
-  er,
-  B,
+), Pr = Ri, Ut = v(
+  Et,
+  L,
   "sticker geometry"
-), bn = tr;
-function rr(r) {
-  return he(r) && Vt(r.Type, ii) && Ae(r.Message);
+), Er = Ut;
+function zt(i) {
+  return Fe(i) && ri(i.Type, $i) && Qe(i.Message);
 }
-const nt = v(
-  rr,
-  $,
+const qe = v(
+  zt,
+  F,
   "error descriptor"
-), mn = nt, Si = v(
-  rr,
-  B,
+), Ur = qe, Hi = v(
+  zt,
+  L,
   "error descriptor"
-), vn = Si;
-function ir(r) {
-  return he(r);
+), zr = Hi;
+function Ot(i) {
+  return Fe(i);
 }
-const bi = v(
-  ir,
-  $,
+const Ai = v(
+  Ot,
+  F,
   "serializable object"
-), kn = bi, Oe = v(
-  ir,
-  B,
+), Or = Ai, Re = v(
+  Ot,
+  L,
   "serializable object"
-), _n = Oe, xn = [
+), Zr = Re, Xr = [
   "createBoard",
   "configureFolder",
   "attachBoard",
@@ -953,409 +432,409 @@ const bi = v(
   "detachSticker",
   "destroySticker"
 ];
-function wn(r, e) {
-  if (W("SNS project", r), I("board id", e), e === r.Id) {
+function Yr(i, e) {
+  if (C("SNS project", i), B("board id", e), e === i.Id) {
     console.error('the given "BoardId" is the id of the current project');
     return;
   }
-  let t = r.BoardWithId(e);
+  let t = i.BoardWithId(e);
   if (t != null) {
     console.error('a board with the given "BoardId" exists already');
     return;
   }
-  t = new bt(r, e);
+  t = new dt(i, e);
 }
-function $n(r, e, t, i) {
-  W("SNS project", r), I("folder id", e), re("property identifier", t);
-  let n = r.FolderWithId(e);
+function qr(i, e, t, r) {
+  C("SNS project", i), B("folder id", e), K("property identifier", t);
+  let n = i.FolderWithId(e);
   if (n == null) {
     console.error('no folder with the given "FolderId" found');
     return;
   }
-  const o = fe(n) ? dr : St;
-  if (!(t in o)) {
+  const a = oe(n) ? Jt : ut;
+  if (!(t in a)) {
     console.warn('unsupported folder property "' + t + '"');
     return;
   }
   try {
-    n[t] = i;
+    n[t] = r;
   } catch {
     console.warn('unsupported "' + t + '" value received');
     return;
   }
 }
-function yn(r, e, t, i) {
-  if (W("SNS project", r), I("board id", e), I("folder id", t), Pe("insertion index", i), e === r.Id) {
+function jr(i, e, t, r) {
+  if (C("SNS project", i), B("board id", e), B("folder id", t), Le("insertion index", r), e === i.Id) {
     console.error('the given "BoardId" is the id of the current project');
     return;
   }
-  let n = r.BoardWithId(e);
+  let n = i.BoardWithId(e);
   if (n == null) {
     console.error('no board with the given "BoardId" found');
     return;
   }
-  let o = r.FolderWithId(t);
-  if (o == null) {
+  let a = i.FolderWithId(t);
+  if (a == null) {
     console.error('no folder with the given "FolderId" found');
     return;
   }
-  if (n === o) {
+  if (n === a) {
     console.error("cannot attach a board to itself");
     return;
   }
-  if (n.containsFolder(o)) {
+  if (n.containsFolder(a)) {
     console.error("cannot attach an outer board to one of its inner boards");
     return;
   }
-  const u = n.Folder;
+  const d = n.Folder;
   switch (!0) {
-    case u === o:
-      setTimeout(() => Bt(r, u, n, i), 0);
+    case d === a:
+      setTimeout(() => kt(i, d, n, r), 0);
       break;
-    case u != null:
-      setTimeout(() => Bt(r, u, n), 0);
+    case d != null:
+      setTimeout(() => kt(i, d, n), 0);
   }
-  o._attachBoardAt(n, i);
+  a._attachBoardAt(n, r);
 }
-function Bn(r, e, t, i) {
-  if (W("SNS project", r), I("board id", e), I("folder id", t), Pe("insertion index", i), e === r.Id) {
+function Kr(i, e, t, r) {
+  if (C("SNS project", i), B("board id", e), B("folder id", t), Le("insertion index", r), e === i.Id) {
     console.error('the given "BoardId" is the id of the current project');
     return;
   }
-  let n = r.BoardWithId(e);
+  let n = i.BoardWithId(e);
   if (n == null)
     return;
-  let o = r.FolderWithId(t);
-  o != null && n.Folder === o && o.Board(i) === n && o._detachBoardAt(i);
+  let a = i.FolderWithId(t);
+  a != null && n.Folder === a && a.Board(r) === n && a._detachBoardAt(r);
 }
-function In(r, e) {
-  if (W("SNS project", r), I("board id", e), e === r.Id) {
+function Qr(i, e) {
+  if (C("SNS project", i), B("board id", e), e === i.Id) {
     console.error('the given "BoardId" is the id of the current project');
     return;
   }
-  let t = r.BoardWithId(e);
+  let t = i.BoardWithId(e);
   if (t != null) {
     if (t.Folder != null || t.BoardCount > 0 || t.StickerCount > 0) {
       console.error("cannot destroy a board that is still in use");
       return;
     }
-    t._Project = void 0, ar(t);
+    t._Project = void 0, Yt(t);
   }
 }
-function Fn(r, e) {
-  W("SNS project", r), I("sticker id", e);
-  let t = r.StickerWithId(e);
+function Jr(i, e) {
+  C("SNS project", i), B("sticker id", e);
+  let t = i.StickerWithId(e);
   if (t != null) {
     console.error('a sticker with the given "StickerId" exists already');
     return;
   }
-  t = new mt(r, e);
+  t = new ct(i, e);
 }
-function Ln(r, e, t, i) {
-  W("SNS project", r), I("sticker id", e), re("property identifier", t);
-  let n = r.StickerWithId(e);
+function en(i, e, t, r) {
+  C("SNS project", i), B("sticker id", e), K("property identifier", t);
+  let n = i.StickerWithId(e);
   if (n == null) {
     console.error('no sticker with the given "StickerId" found');
     return;
   }
-  if (!(t in zi)) {
+  if (!(t in cr)) {
     console.warn('unsupported sticker property "' + t + '"');
     return;
   }
   try {
-    n[t] = i;
+    n[t] = r;
   } catch {
     console.warn('unsupported "' + t + '" value received');
     return;
   }
 }
-function Nn(r, e, t, i) {
-  W("SNS project", r), I("sticker id", e), I("board id", t), Pe("insertion index", i);
-  let n = r.StickerWithId(e);
+function tn(i, e, t, r) {
+  C("SNS project", i), B("sticker id", e), B("board id", t), Le("insertion index", r);
+  let n = i.StickerWithId(e);
   if (n == null) {
     console.error('no sticker with the given "StickerId" found');
     return;
   }
-  let o = r.BoardWithId(t);
-  if (o == null) {
+  let a = i.BoardWithId(t);
+  if (a == null) {
     console.error('no board with the given "BoardId" found');
     return;
   }
-  const u = n.Board;
+  const d = n.Board;
   switch (!0) {
-    case u === o:
-      setTimeout(() => It(r, u, n, i), 0);
+    case d === a:
+      setTimeout(() => _t(i, d, n, r), 0);
       break;
-    case u != null:
-      setTimeout(() => It(r, u, n), 0);
+    case d != null:
+      setTimeout(() => _t(i, d, n), 0);
   }
-  o._attachStickerAt(n, i);
+  a._attachStickerAt(n, r);
 }
-function Cn(r, e, t, i) {
-  W("SNS project", r), I("sticker id", e), I("board id", t), Pe("insertion index", i);
-  let n = r.StickerWithId(e);
+function rn(i, e, t, r) {
+  C("SNS project", i), B("sticker id", e), B("board id", t), Le("insertion index", r);
+  let n = i.StickerWithId(e);
   if (n == null)
     return;
-  let o = r.BoardWithId(t);
-  o != null && n.Board === o && o.Sticker(i) === n && o._detachStickerAt(i);
+  let a = i.BoardWithId(t);
+  a != null && n.Board === a && a.Sticker(r) === n && a._detachStickerAt(r);
 }
-function Vn(r, e) {
-  W("SNS project", r), I("sticker id", e);
-  let t = r.StickerWithId(e);
+function nn(i, e) {
+  C("SNS project", i), B("sticker id", e);
+  let t = i.StickerWithId(e);
   if (t != null) {
     if (t.Board != null) {
       console.error("cannot destroy a sticker that is still in use");
       return;
     }
-    t._Project = void 0, sr(t);
+    t._Project = void 0, qt(t);
   }
 }
-function Bt(r, e, t, i) {
-  W("SNS project", r), ut("folder", e), ct("board", t), Ie("index", i);
+function kt(i, e, t, r) {
+  C("SNS project", i), it("folder", e), rt("board", t), me("index", r);
   let n = /* @__PURE__ */ new Set();
-  const o = e.BoardList;
-  for (let u = o.length - 1; u >= 0; u--) {
-    const s = o[u];
+  const a = e.BoardList;
+  for (let d = a.length - 1; d >= 0; d--) {
+    const s = a[d];
     s.Folder !== e || //"Board" doesn't belong to "Folder"
-    s === t && i !== u || n.has(s) ? e._detachBoardAt(u) : n.add(s);
+    s === t && r !== d || n.has(s) ? e._detachBoardAt(d) : n.add(s);
   }
 }
-function It(r, e, t, i) {
-  W("SNS project", r), ct("board", e), Ue("sticker", t), Ie("index", i);
+function _t(i, e, t, r) {
+  C("SNS project", i), rt("board", e), Me("sticker", t), me("index", r);
   let n = /* @__PURE__ */ new Set();
-  const o = e.StickerList;
-  for (let u = o.length - 1; u >= 0; u--) {
-    const s = o[u];
+  const a = e.StickerList;
+  for (let d = a.length - 1; d >= 0; d--) {
+    const s = a[d];
     s.Board !== e || // "Sticker" belongs elsewhere
-    s === t && i !== u || n.has(s) ? e._detachStickerAt(u) : n.add(s);
+    s === t && r !== d || n.has(s) ? e._detachStickerAt(d) : n.add(s);
   }
 }
-const Q = { x: 20, y: 20, Width: 80, Height: 60 }, mi = 10, vi = void 0, ki = 10, _i = void 0, xi = 10, wi = 10;
-function $i(r, e) {
-  return He(r) ? r : e;
+const Y = { x: 20, y: 20, Width: 80, Height: 60 }, Ti = 10, Gi = void 0, Pi = 10, Ei = void 0, Ui = 10, zi = 10;
+function Oi(i, e) {
+  return xt(i) ? i : e;
 }
-function y(r, e) {
-  return r == null ? void 0 : He(r) ? r : e;
+function $(i, e) {
+  return i == null ? void 0 : xt(i) ? i : e;
 }
-function Ze(r, e) {
-  return te(r) ? r : e;
+function He(i, e) {
+  return ne(i) ? i : e;
 }
-function P(r, e) {
-  return te(r) ? r : e;
+function H(i, e) {
+  return ne(i) ? i : e;
 }
-function Dn(r, e, t = -1 / 0, i = 1 / 0, n = !1, o = !1) {
-  return Lt(r, t, i, n, o) ? r : e;
+function on(i, e, t = -1 / 0, r = 1 / 0, n = !1, a = !1) {
+  return wt(i, t, r, n, a) ? i : e;
 }
-function J(r, e, t = -1 / 0, i = 1 / 0, n = !1, o = !1) {
-  return Lt(r, t, i, n, o) ? r : e;
+function Z(i, e, t = -1 / 0, r = 1 / 0, n = !1, a = !1) {
+  return wt(i, t, r, n, a) ? i : e;
 }
-function Mn(r, e) {
-  return j(r) ? r : e;
+function an(i, e) {
+  return Ne(i) ? i : e;
 }
-function Wn(r, e) {
-  return j(r) ? r : e;
+function sn(i, e) {
+  return Ne(i) ? i : e;
 }
-function Rn(r, e, t = -1 / 0, i = 1 / 0) {
-  return Nt(r, t, i) ? r : e;
+function ln(i, e, t = -1 / 0, r = 1 / 0) {
+  return $t(i, t, r) ? i : e;
 }
-function Hn(r, e, t = -1 / 0, i = 1 / 0) {
-  return Nt(r, t, i) ? r : e;
+function un(i, e, t = -1 / 0, r = 1 / 0) {
+  return $t(i, t, r) ? i : e;
 }
-function An(r, e) {
-  return de(r) ? r : e;
+function dn(i, e) {
+  return Je(i) ? i : e;
 }
-function V(r, e) {
-  return de(r) ? r : e;
+function D(i, e) {
+  return Je(i) ? i : e;
 }
-function Tn(r, e) {
-  return z(r) ? r : e;
+function cn(i, e) {
+  return O(i) ? i : e;
 }
-function Gn(r, e) {
-  return z(r) ? r : e;
+function hn(i, e) {
+  return O(i) ? i : e;
 }
-function Pn(r, e) {
-  return z(r) && r.trim() !== "" ? r : e;
+function gn(i, e) {
+  return O(i) && i.trim() !== "" ? i : e;
 }
-function En(r, e) {
-  return z(r) && r.trim() !== "" ? r : e;
+function pn(i, e) {
+  return O(i) && i.trim() !== "" ? i : e;
 }
-function Un(r, e, t) {
-  return M(r, t) ? r : e;
+function fn(i, e, t) {
+  return P(i, t) ? i : e;
 }
-function L(r, e, t) {
-  return M(r, t) ? r : e;
+function I(i, e, t) {
+  return P(i, t) ? i : e;
 }
-function pe(r, e) {
-  return Ae(r) ? r : e;
+function ae(i, e) {
+  return Qe(i) ? i : e;
 }
-function zn(r, e) {
-  return Ae(r) ? r : e;
+function Sn(i, e) {
+  return Qe(i) ? i : e;
 }
-function N(r, e) {
-  return (G(r) ? r : e).replace(
+function V(i, e) {
+  return (G(i) ? i : e).replace(
     /[\f\r\n\v\u0085\u2028\u2029].*$/,
     "..."
   );
 }
-function F(r, e) {
-  const t = G(r) ? r : e;
+function y(i, e) {
+  const t = G(i) ? i : e;
   return t == null ? void 0 : t.replace(/[\f\r\n\v\u0085\u2028\u2029].*$/, "...");
 }
-function On(r, e) {
-  return Te(r) ? r : e;
+function mn(i, e) {
+  return Bt(i) ? i : e;
 }
-function Zn(r, e) {
-  return Te(r) ? r : e;
+function kn(i, e) {
+  return Bt(i) ? i : e;
 }
-function qn(r, e) {
-  return Be(r) ? r : e;
+function _n(i, e) {
+  return ke(i) ? i : e;
 }
-function Xn(r, e) {
-  return Be(r) ? r : e;
+function bn(i, e) {
+  return ke(i) ? i : e;
 }
-function nr(r, e, t) {
-  return ge(r, t) ? r : e;
+function Zt(i, e, t) {
+  return De(i, t) ? i : e;
 }
-function R(r, e, t) {
-  return ge(r, t) ? r : e;
+function M(i, e, t) {
+  return De(i, t) ? i : e;
 }
-function dt(r, e) {
-  return Ge(r) ? r : e;
+function nt(i, e) {
+  return et(i) ? i : e;
 }
-function yi(r, e) {
-  return Ge(r) ? r : e;
+function Zi(i, e) {
+  return et(i) ? i : e;
 }
-function Bi(r, e) {
-  return Dt(r) ? r : e;
+function Xi(i, e) {
+  return yt(i) ? i : e;
 }
-function Ii(r, e) {
-  return Et(r) ? r : e;
+function Yi(i, e) {
+  return Lt(i) ? i : e;
 }
-function ie(r, e) {
-  return st(r) ? r : e;
+function Q(i, e) {
+  return It(i) ? i : e;
 }
-function or() {
-  return Ee`<div class="SNS DefaultSticker" style=${cr(this)}/>`;
+function Xt() {
+  return Ce`<div class="SNS DefaultSticker" style=${Qt(this)}/>`;
 }
-function Ve() {
-  const r = this.Error;
-  return r == null ? or.call(this) : Ee`<div class="SNS DefaultSticker">
-      <div class="SNS ErrorIndicator" onClick=${() => this.Project.showError(this, r)}/>
+function $e() {
+  const i = this.Error;
+  return i == null ? Xt.call(this) : Ce`<div class="SNS DefaultSticker">
+      <div class="SNS ErrorIndicator" onClick=${() => this.Project.showError(this, i)}/>
     </div>`;
 }
-const Fi = Tr(Zr.nolookalikesSafe, 21), De = /* @__PURE__ */ new WeakMap();
-function Li(r, e) {
-  let t = De.get(r);
-  t == null && De.set(r, t = /* @__PURE__ */ Object.create(null));
-  const i = e.Id;
-  i in t && C(
-    "NonUniqueId: the id of the given folder (" + X(i) + ") has already been registered"
-  ), t[i] = e;
+const qi = hi(gi, 21), Be = /* @__PURE__ */ new WeakMap();
+function ji(i, e) {
+  let t = Be.get(i);
+  t == null && Be.set(i, t = /* @__PURE__ */ Object.create(null));
+  const r = e.Id;
+  r in t && N(
+    "NonUniqueId: the id of the given folder (" + z(r) + ") has already been registered"
+  ), t[r] = e;
 }
-function ar(r) {
-  const e = r.Project;
-  let t = De.get(e);
-  t != null && delete t[r.Id];
+function Yt(i) {
+  const e = i.Project;
+  let t = Be.get(e);
+  t != null && delete t[i.Id];
 }
-function Ft(r, e) {
-  let t = De.get(r);
+function bt(i, e) {
+  let t = Be.get(i);
   if (t != null)
     return t[e];
 }
-const Me = /* @__PURE__ */ new WeakMap();
-function Ni(r, e) {
-  let t = Me.get(r);
-  t == null && Me.set(r, t = /* @__PURE__ */ Object.create(null));
-  const i = e.Id;
-  i in t && C(
-    "NonUniqueId: the id of the given sticker (" + X(i) + ") has already been registered"
-  ), t[i] = e;
+const ye = /* @__PURE__ */ new WeakMap();
+function Ki(i, e) {
+  let t = ye.get(i);
+  t == null && ye.set(i, t = /* @__PURE__ */ Object.create(null));
+  const r = e.Id;
+  r in t && N(
+    "NonUniqueId: the id of the given sticker (" + z(r) + ") has already been registered"
+  ), t[r] = e;
 }
-function sr(r) {
-  const e = r.Project;
-  let t = Me.get(e);
-  t != null && delete t[r.Id];
+function qt(i) {
+  const e = i.Project;
+  let t = ye.get(e);
+  t != null && delete t[i.Id];
 }
-function Ci(r, e) {
-  let t = Me.get(r);
+function Qi(i, e) {
+  let t = ye.get(i);
   if (t != null)
     return t[e];
 }
-function We(r) {
-  Oe("serialization", r), delete r.Id, Be(r.BoardList) && r.BoardList.forEach(
-    (e) => We(e)
-  ), Be(r.StickerList) && r.StickerList.forEach(
-    (e) => We(e)
+function Ie(i) {
+  Re("serialization", i), delete i.Id, ke(i.BoardList) && i.BoardList.forEach(
+    (e) => Ie(e)
+  ), ke(i.StickerList) && i.StickerList.forEach(
+    (e) => Ie(e)
   );
 }
-const ot = /* @__PURE__ */ new WeakMap();
-function lr(r, e) {
-  let t = ot.get(r);
-  t == null && ot.set(r, t = []), t.push(e);
+const je = /* @__PURE__ */ new WeakMap();
+function jt(i, e) {
+  let t = je.get(i);
+  t == null && je.set(i, t = []), t.push(e);
 }
-function ht(r) {
-  let e = ot.get(r);
+function ot(i) {
+  let e = je.get(i);
   e != null && e.forEach((t) => {
-    ti(t);
+    xi(t);
   });
 }
-const Re = /* @__PURE__ */ Object.create(null), ce = /* @__PURE__ */ Object.create(null), ur = /* @__PURE__ */ Object.create(null);
-function p(r, e, t, i, n, o) {
-  Ke("behavior group label", r), Ke("behavior label", e), re("behavior name", t), Br("sticker template", i), ve("behavior function", n);
-  const u = r.toLowerCase().replace(/\s/g, ""), s = t.toLowerCase(), l = { ...i };
+const Ve = /* @__PURE__ */ Object.create(null), re = /* @__PURE__ */ Object.create(null), Kt = /* @__PURE__ */ Object.create(null);
+function f(i, e, t, r, n, a) {
+  ze("behavior group label", i), ze("behavior label", e), K("behavior name", t), ni("sticker template", r), ue("behavior function", n);
+  const d = i.toLowerCase().replace(/\s/g, ""), s = t.toLowerCase(), l = { ...r };
   l.activeScript == null ? l.activeScript = `useBehavior('${t}')
 ` : l.activeScript = l.activeScript.replace(/^\s*\n/, "").replace(/\n\s*$/, `
-`), s in ce && C(
-    "BehaviorExists: behavior " + X(t) + " was already registered"
+`), s in re && N(
+    "BehaviorExists: behavior " + z(t) + " was already registered"
   );
-  let a = Re[u];
-  a == null && (Re[u] = a = {
-    GroupLabel: r,
+  let o = Ve[d];
+  o == null && (Ve[d] = o = {
+    GroupLabel: i,
     BehaviorSet: /* @__PURE__ */ Object.create(null)
-  }), a.BehaviorSet[t] = {
+  }), o.BehaviorSet[t] = {
     Label: e,
     Executable: n,
     Template: l
-  }, n != null && (ur[s] = l, ce[s] = n), o != null && Le.innerHTML.indexOf(o.trim()) < 0 && (Le.innerHTML += o);
+  }, n != null && (Kt[s] = l, re[s] = n), a != null && ve.innerHTML.indexOf(a.trim()) < 0 && (ve.innerHTML += a);
 }
-function Yn() {
-  const r = [];
+function vn() {
+  const i = [];
   function e(t) {
-    const i = [], n = t.BehaviorSet;
-    for (let o in n)
-      i.push({
-        Label: n[o].Label,
-        Name: o,
-        disabled: !(o.toLowerCase() in ce)
+    const r = [], n = t.BehaviorSet;
+    for (let a in n)
+      r.push({
+        Label: n[a].Label,
+        Name: a,
+        disabled: !(a.toLowerCase() in re)
       });
-    return { GroupLabel: t.GroupLabel, BehaviorEntryList: i };
+    return { GroupLabel: t.GroupLabel, BehaviorEntryList: r };
   }
-  for (let t in Re)
-    r.push(e(Re[t]));
-  return r;
+  for (let t in Ve)
+    i.push(e(Ve[t]));
+  return i;
 }
-function Vi(r) {
-  Ue("visual", this), re("behavior name", r);
-  const e = ce[r.toLowerCase()];
-  e == null && C(
-    "NoSuchBehavior: no behavior called " + X(r) + " found"
+function Ji(i) {
+  Me("visual", this), K("behavior name", i);
+  const e = re[i.toLowerCase()];
+  e == null && N(
+    "NoSuchBehavior: no behavior called " + z(i) + " found"
   );
-  const t = (u) => {
-    oe("reactive function", u), lr(this, Ut(u));
-  }, i = this.onRender.bind(this), n = this.onMount.bind(this), o = this.onUnmount.bind(this);
-  e.call(this, this, this, Ee, t, i, n, o);
+  const t = (d) => {
+    ee("reactive function", d), jt(this, Nt(d));
+  }, r = this.onRender.bind(this), n = this.onMount.bind(this), a = this.onUnmount.bind(this);
+  e.call(this, this, this, Ce, t, r, n, a);
 }
-function jn(r) {
-  re("behavior name", r);
-  const e = r.toLowerCase();
-  return ce[e] == null && C(
-    "NoSuchBehavior: no behavior called " + X(r) + " found"
-  ), ur[e];
+function xn(i) {
+  K("behavior name", i);
+  const e = i.toLowerCase();
+  return re[e] == null && N(
+    "NoSuchBehavior: no behavior called " + z(i) + " found"
+  ), Kt[e];
 }
-p("basic Views", "plain Sticker", "plainSticker", {
+f("basic Views", "plain Sticker", "plainSticker", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 },
   activeScript: 'onRender(() => html`<div class="SNS Placeholder"></div>`)'
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => t`<div class="SNS plainSticker"></div>`);
 }, `
 /**** plain Stickers ****/
@@ -1364,30 +843,30 @@ p("basic Views", "plain Sticker", "plainSticker", {
     border:dotted 1px gray;
   }
   `);
-p("basic Views", "sticky Note", "stickyNote", {
+f("basic Views", "sticky Note", "stickyNote", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 },
   minWidth: 20,
   minHeight: 10
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function(s) {
-    const { builtinSelection: l, builtinDragging: a } = s, d = pe(e.Value, ""), c = (g) => {
+    const { builtinSelection: l, builtinDragging: o } = s, c = ae(e.Value, ""), u = (g) => {
       if (g.key === "Tab") {
         g.stopPropagation(), g.preventDefault();
-        const f = g.target, { value: S, selectionStart: b, selectionEnd: m } = f;
-        return f.value = S.slice(0, b) + "	" + S.slice(m), f.selectionStart = f.selectionEnd = b + 1, !1;
+        const p = g.target, { value: S, selectionStart: m, selectionEnd: k } = p;
+        return p.value = S.slice(0, m) + "	" + S.slice(k), p.selectionStart = p.selectionEnd = m + 1, !1;
       }
     }, h = (g) => {
       e.Value = g.target.value;
     };
-    return t`<div class="SNS NoteSticker" style=${cr(r)}
+    return t`<div class="SNS NoteSticker" style=${Qt(i)}
         onPointerDown=${l}
       >
         <div class="Header builtinDraggable"
-          onPointerDown=${a} onPointerMove=${a}
-          onPointerUp=${a} onPointerCancel=${a}
+          onPointerDown=${o} onPointerMove=${o}
+          onPointerUp=${o} onPointerCancel=${o}
         />
-        <textarea class="Editor" value=${d} tabindex=-1
-          onKeyDown=${c} onInput=${h}
+        <textarea class="Editor" value=${c} tabindex=-1
+          onKeyDown=${u} onInput=${h}
         ></textarea>
       </div>`;
   };
@@ -1422,17 +901,17 @@ p("basic Views", "sticky Note", "stickyNote", {
     tab-size:10px; resize:none;
   }
   `);
-p("basic Views", "Placeholder", "Placeholder", {
+f("basic Views", "Placeholder", "Placeholder", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function(s) {
-    const { builtinDragging: l } = s, { Width: a, Height: d } = e.Geometry;
+    const { builtinDragging: l } = s, { Width: o, Height: c } = e.Geometry;
     return t`<div class="SNS Placeholder builtinDraggable" style="
-        line-height:${d}px;
+        line-height:${c}px;
       "
         onPointerDown=${l} onPointerMove=${l}
         onPointerUp=${l} onPointerCancel=${l}
-      >${a}x${d}</div>`;
+      >${o}x${c}</div>`;
   };
 }, `
 /**** simple Placeholders ****/
@@ -1442,12 +921,12 @@ p("basic Views", "Placeholder", "Placeholder", {
     text-align:center;
   }
   `);
-p("basic Views", "Title", "Title", {
+f("basic Views", "Title", "Title", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "Title"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => {
-    const s = N(e.Value, "");
+    const s = V(e.Value, "");
     return t`<div class="SNS Title">${s}</div>`;
   });
 }, `
@@ -1457,12 +936,12 @@ p("basic Views", "Title", "Title", {
     font-size:22px; font-weight:bold; line-height:32px;
   }
   `);
-p("basic Views", "Subtitle", "Subtitle", {
+f("basic Views", "Subtitle", "Subtitle", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "Subtitle"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => {
-    const s = N(e.Value, "");
+    const s = V(e.Value, "");
     return t`<div class="SNS Subtitle">${s}</div>`;
   });
 }, `
@@ -1472,12 +951,12 @@ p("basic Views", "Subtitle", "Subtitle", {
     font-size:18px; font-weight:bold; line-height:27px;
   }
   `);
-p("basic Views", "Label", "Label", {
+f("basic Views", "Label", "Label", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "Label"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => {
-    const s = N(e.Value, "");
+    const s = V(e.Value, "");
     return t`<div class="SNS Label">${s}</div>`;
   });
 }, `
@@ -1487,12 +966,12 @@ p("basic Views", "Label", "Label", {
     font-size:14px; font-weight:bold; line-height:21px;
   }
   `);
-p("basic Views", "Text", "Text", {
+f("basic Views", "Text", "Text", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "Text"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => {
-    const s = pe(e.Value, "");
+    const s = ae(e.Value, "");
     return t`<div class="SNS Text">${s}</div>`;
   });
 }, `
@@ -1502,12 +981,12 @@ p("basic Views", "Text", "Text", {
     font-size:14px; font-weight:normal; line-height:21px;
   }
   `);
-p("basic Views", "FinePrint", "FinePrint", {
+f("basic Views", "FinePrint", "FinePrint", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "FinePrint"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => {
-    const s = pe(e.Value, "");
+    const s = ae(e.Value, "");
     return t`<div class="SNS FinePrint">${s}</div>`;
   });
 }, `
@@ -1517,27 +996,27 @@ p("basic Views", "FinePrint", "FinePrint", {
     font-size:12px; font-weight:normal; line-height:18px;
   }
   `);
-p("basic Views", "HTML View", "HTMLView", {
+f("basic Views", "HTML View", "HTMLView", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 },
   Value: "<b><u>HTML View</u></b>",
   activeScript: `
   useBehavior('HTMLView')
 //my.Value = 'HTML Markup'
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => t`<div class="SNS HTMLView"
-      dangerouslySetInnerHTML=${{ __html: pe(e.Value, "") }}
+      dangerouslySetInnerHTML=${{ __html: ae(e.Value, "") }}
     />`;
 });
-p("basic Views", "Image View", "ImageView", {
+f("basic Views", "Image View", "ImageView", {
   Geometry: { x: 20, y: 20, Width: 90, Height: 90 },
   Value: "https://www.rozek.de/Bangle.js/Mandelbrot_240x240.png",
   activeScript: `
   useBehavior('ImageView')
 //my.Value = 'Image URL'
 `
-}, (r, e, t, i, n, o, u) => {
-  e.Renderer = () => t`<img class="SNS ImageView" src=${ie(e.Value, "")}/>`;
+}, (i, e, t, r, n, a, d) => {
+  e.Renderer = () => t`<img class="SNS ImageView" src=${Q(e.Value, "")}/>`;
 }, `
 /**** Image View ****/
 
@@ -1545,15 +1024,15 @@ p("basic Views", "Image View", "ImageView", {
     object-fit:contain; object-position:center;
   }
   `);
-p("basic Views", "SVG View", "SVGView", {
+f("basic Views", "SVG View", "SVGView", {
   Geometry: { x: 20, y: 20, Width: 90, Height: 90 },
   activeScript: `
   useBehavior('SVGView')
 //my.Value = 'SVG Document'
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => {
-    const s = "data:image/svg+xml;base64," + btoa(pe(e.Value, ""));
+    const s = "data:image/svg+xml;base64," + btoa(ae(e.Value, ""));
     return t`<div class="SNS SVGView" src=${s}/>`;
   };
 }, `
@@ -1563,8 +1042,8 @@ p("basic Views", "SVG View", "SVGView", {
     object-fit:contain; object-position:center;
   }
   `);
-p("basic Views", "2D Canvas View", "Canvas2DView");
-p("basic Views", "Web View", "WebView", {
+f("basic Views", "2D Canvas View", "Canvas2DView");
+f("basic Views", "Web View", "WebView", {
   Geometry: { x: 20, y: 20, Width: 640, Height: 480 },
   minWidth: 120,
   minHeight: 80,
@@ -1573,23 +1052,23 @@ p("basic Views", "Web View", "WebView", {
   useBehavior('WebView')
 //my.Value = 'Document URL'
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => t`<iframe class="SNS WebView"
-      src=${ie(e.Value, "")}
+      src=${Q(e.Value, "")}
     />`;
 });
-p("basic Views", "Badge", "Badge", {
+f("basic Views", "Badge", "Badge", {
   Geometry: { x: 20, y: 20, Width: 30, Height: 30 },
   Value: 1,
   ForegroundColor: "red",
   BackgroundColor: "white"
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => {
-    const s = te(e.Value) ? "" + e.Value : N(e.Value, ""), l = Math.round(Math.min(e.Width, e.Height / 2));
+    const s = ne(e.Value) ? "" + e.Value : V(e.Value, ""), l = Math.round(Math.min(e.Width, e.Height / 2));
     return t`<div class="SNS Badge" style="
         border-color:${e.ForegroundColor}; border-radius:${l}px;
         line-height:${e.Height - 4}px;
-      ">${N(s, "")}</>`;
+      ">${V(s, "")}</>`;
   };
 }, `
 /**** Badge ****/
@@ -1599,7 +1078,7 @@ p("basic Views", "Badge", "Badge", {
     border:solid 2px black;
   }
   `);
-p("basic Views", "Icon", "Icon", {
+f("basic Views", "Icon", "Icon", {
   Geometry: { x: 20, y: 20, Width: 24, Height: 24 },
   Value: null,
   activeScript: `
@@ -1607,15 +1086,15 @@ p("basic Views", "Icon", "Icon", {
 //my.Value = 'icon image url'
 //onClick(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   function s(l) {
     e.Enabling != !1 && (e.Value = l.target.value, typeof e._onClick == "function" && e._onClick(l));
   }
   e.Renderer = () => {
-    const l = ie(e.Value, "/img/pencil.png"), a = dt(e.Color, "black");
+    const l = Q(e.Value, "/img/pencil.png"), o = nt(e.Color, "black");
     return t`<div class="SNS Icon" style="
         -webkit-mask-image:url(${l}); mask-image:url(${l});
-        background-color:${a};
+        background-color:${o};
       " disabled=${e.Enabling == !1} onClick=${s}
       />`;
   };
@@ -1627,10 +1106,10 @@ p("basic Views", "Icon", "Icon", {
     -webkit-mask-position:center center; mask-position:center center;
   }
   `);
-p("basic Views", "horizontal Separator", "horizontalSeparator", {
+f("basic Views", "horizontal Separator", "horizontalSeparator", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 10 },
   minWidth: 10
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => t`<div class="SNS horizontalSeparator"></div>`);
 }, `
 /**** horizontal Separator ****/
@@ -1639,10 +1118,10 @@ p("basic Views", "horizontal Separator", "horizontalSeparator", {
     border:none; border-top:solid 1px black;
   }
   `);
-p("basic Views", "vertical Separator", "verticalSeparator", {
+f("basic Views", "vertical Separator", "verticalSeparator", {
   Geometry: { x: 20, y: 20, Width: 10, Height: 40 },
   minHeight: 10
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   n(() => t`<div class="SNS verticalSeparator"></div>`);
 }, `
 /**** vertical Separator ****/
@@ -1651,9 +1130,9 @@ p("basic Views", "vertical Separator", "verticalSeparator", {
     border:none; border-left:solid 1px black;
   }
   `);
-p("basic Views", "Tab", "Tab");
-p("basic Views", "Icon Tab", "IconTab");
-p("native Controls", "Button", "Button", {
+f("basic Views", "Tab", "Tab");
+f("basic Views", "Icon Tab", "IconTab");
+f("native Controls", "Button", "Button", {
   Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: "Button",
   activeScript: `
@@ -1661,14 +1140,14 @@ p("native Controls", "Button", "Button", {
 //my.Value = 'Label'
 //onClick(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   function s(l) {
     if (e.Enabling == !1)
       return w(l);
     typeof e._onClick == "function" && e._onClick(l);
   }
   e.Renderer = () => {
-    const l = N(e.Label || e.Value, "");
+    const l = V(e.Label || e.Value, "");
     return t`<button class="SNS Button" style="
         line-height:${e.LineHeight || e.Height}px;
       " disabled=${e.Enabling == !1} onClick=${s}
@@ -1684,7 +1163,7 @@ p("native Controls", "Button", "Button", {
     text-align.center;
   }
   `);
-p("native Controls", "Checkbox", "Checkbox", {
+f("native Controls", "Checkbox", "Checkbox", {
   Geometry: { x: 20, y: 20, Width: 20, Height: 20 },
   Value: null,
   activeScript: `
@@ -1692,21 +1171,21 @@ p("native Controls", "Checkbox", "Checkbox", {
 //my.Value = null/true/false
 //onClick(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   function s(l) {
     if (e.Enabling == !1)
       return w(l);
     e.Value = l.target.checked, typeof e._onClick == "function" && e._onClick(l);
   }
   e.Renderer = () => {
-    const l = y(e.Value), a = l == !0, d = l == null;
+    const l = $(e.Value), o = l == !0, c = l == null;
     return t`<input type="checkbox" class="SNS Checkbox"
-        checked=${a} indeterminate=${d}
+        checked=${o} indeterminate=${c}
         disabled=${e.Enabling == !1} onClick=${s}
       />`;
   };
 });
-p("native Controls", "Radiobutton", "Radiobutton", {
+f("native Controls", "Radiobutton", "Radiobutton", {
   Geometry: { x: 20, y: 20, Width: 20, Height: 20 },
   Value: null,
   activeScript: `
@@ -1714,21 +1193,21 @@ p("native Controls", "Radiobutton", "Radiobutton", {
 //my.Value = true/false
 //onClick(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   function s(l) {
     if (e.Enabling == !1)
       return w(l);
     e.Value = l.target.checked, typeof e._onClick == "function" && e._onClick(l);
   }
   e.Renderer = () => {
-    const l = $i(e.Value, !1);
+    const l = Oi(e.Value, !1);
     return t`<input type="radio" class="SNS Radiobutton"
         checked=${l == !0}
         disabled=${e.Enabling == !1} onClick=${s}
       />`;
   };
 });
-p("native Controls", "Gauge", "Gauge", {
+f("native Controls", "Gauge", "Gauge", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 20 },
   Value: 0,
   activeScript: `
@@ -1740,19 +1219,19 @@ p("native Controls", "Gauge", "Gauge", {
 //my.upperBound = 1
 //my.Maximum    = 1
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => {
-    const s = Ze(
-      z(e.Value) ? parseFloat(e.Value) : e.Value,
+    const s = He(
+      O(e.Value) ? parseFloat(e.Value) : e.Value,
       0
-    ), l = P(e.Minimum), a = P(e.lowerBound), d = P(e.Optimum), c = P(e.upperBound), h = P(e.Maximum);
+    ), l = H(e.Minimum), o = H(e.lowerBound), c = H(e.Optimum), u = H(e.upperBound), h = H(e.Maximum);
     return t`<meter class="SNS Gauge" value=${s}
-        min=${l} low=${a} opt=${d}
-        high=${c} max=${h}
+        min=${l} low=${o} opt=${c}
+        high=${u} max=${h}
       />`;
   };
 });
-p("native Controls", "Progressbar", "Progressbar", {
+f("native Controls", "Progressbar", "Progressbar", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 10 },
   Value: 0,
   activeScript: `
@@ -1760,17 +1239,17 @@ p("native Controls", "Progressbar", "Progressbar", {
 //my.Value   = 0
 //my.Maximum = 1
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = () => {
-    const s = Ze(
-      z(e.Value) ? parseFloat(e.Value) : e.Value,
+    const s = He(
+      O(e.Value) ? parseFloat(e.Value) : e.Value,
       0
-    ), l = P(e.Maximum);
+    ), l = H(e.Maximum);
     return t`<progress class="SNS Progressbar" value=${s} max=${l}/>`;
   };
 });
-const Di = /^\s*([+-]?(\d+([.]\d+)?|[.]\d+)([eE][+-]?\d+)?|\d*[.](?:\d*))(?:\s*:\s*([^\x00-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]+))?$/;
-p("native Controls", "Slider", "Slider", {
+const er = /^\s*([+-]?(\d+([.]\d+)?|[.]\d+)([eE][+-]?\d+)?|\d*[.](?:\d*))(?:\s*:\s*([^\x00-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]+))?$/;
+f("native Controls", "Slider", "Slider", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 20 },
   Value: null,
   activeScript: `
@@ -1782,45 +1261,45 @@ p("native Controls", "Slider", "Slider", {
 //my.Hashmarks = [0:'zero',1,2]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = 0;
-  function s(d) {
-    return M(d, Di) || te(d);
+  function s(c) {
+    return P(c, er) || ne(c);
   }
-  function l(d) {
+  function l(c) {
     if (e.Enabling == !1)
-      return w(d);
-    e.Value = parseFloat(d.target.value), typeof e._onInput == "function" && e._onInput(d);
+      return w(c);
+    e.Value = parseFloat(c.target.value), typeof e._onInput == "function" && e._onInput(c);
   }
-  function a() {
-    r.rerender();
+  function o() {
+    i.rerender();
   }
   e.Renderer = () => {
-    let d = Ze(
-      z(e.Value) ? parseFloat(e.Value) : e.Value,
+    let c = He(
+      O(e.Value) ? parseFloat(e.Value) : e.Value,
       0
     );
-    const c = P(e.Minimum), h = J(e.Stepping, void 0, 0), g = P(e.Maximum), f = R(
+    const u = H(e.Minimum), h = Z(e.Stepping, void 0, 0), g = H(e.Maximum), p = M(
       e.Hashmarks,
       void 0,
       s
     );
-    document.activeElement === e.View ? d = e.ValueToShow : e.ValueToShow = d;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Hashmarks", S = t`\n<datalist id=${b}>
-          ${f.map((m) => {
-      m = "" + m;
-      const x = m.replace(/:.*$/, "").trim(), E = m.replace(/^[^:]+:/, "").trim();
-      return t`<option value=${x}>${E}</option>`;
+    document.activeElement === e.View ? c = e.ValueToShow : e.ValueToShow = c;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Hashmarks", S = t`\n<datalist id=${m}>
+          ${p.map((k) => {
+      k = "" + k;
+      const x = k.replace(/:.*$/, "").trim(), A = k.replace(/^[^:]+:/, "").trim();
+      return t`<option value=${x}>${A}</option>`;
     })}
         </datalist>`), t`<input type="range" class="SNS Slider"
-        value=${d} min=${c} max=${g} step=${h}
-        disabled=${e.Enabling == !1} onInput=${l} onBlur=${a}
-        list=${b}
+        value=${c} min=${u} max=${g} step=${h}
+        disabled=${e.Enabling == !1} onInput=${l} onBlur=${o}
+        list=${m}
       />${S}`;
   };
 });
-p("native Controls", "Textline Input", "TextlineInput", {
+f("native Controls", "Textline Input", "TextlineInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -1835,34 +1314,34 @@ p("native Controls", "Textline Input", "TextlineInput", {
 //my.Suggestions   = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern), S = y(e.SpellChecking), b = R(
+    let o = V(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern), S = $(e.SpellChecking), m = M(
       e.Suggestions,
       void 0,
       G
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let m = "", x;
-    return b != null && b.length > 0 && (x = e.Id + "-Suggestions", m = t`<datalist id=${x}>
-          ${b.map((E) => t`<option value=${E}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let k = "", x;
+    return m != null && m.length > 0 && (x = e.Id + "-Suggestions", k = t`<datalist id=${x}>
+          ${m.map((A) => t`<option value=${A}></option>`)}
         </datalist>`), t`<input type="text" class="SNS TextlineInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f} spellcheck=${S}
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p} spellcheck=${S}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
         list=${x}
-      />${m}`;
+      />${k}`;
   };
 }, `
 /**** TextlineInput ****/
@@ -1878,7 +1357,7 @@ p("native Controls", "Textline Input", "TextlineInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "Password Input", "PasswordInput", {
+f("native Controls", "Password Input", "PasswordInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -1891,23 +1370,23 @@ p("native Controls", "Password Input", "PasswordInput", {
 //my.Pattern     = '.*'
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern);
-    return document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a, t`<input type="password" class="SNS PasswordInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f}
+    let o = V(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern);
+    return document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o, t`<input type="password" class="SNS PasswordInput"
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
       />`;
   };
@@ -1925,7 +1404,7 @@ p("native Controls", "Password Input", "PasswordInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "Number Input", "NumberInput", {
+f("native Controls", "Number Input", "NumberInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -1939,36 +1418,36 @@ p("native Controls", "Number Input", "NumberInput", {
 //my.Suggestions = [0,...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = 0;
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = parseFloat(a.target.value), typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = parseFloat(o.target.value), typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = Ze(
-      z(e.Value) ? parseFloat(e.Value) : e.Value,
+    let o = He(
+      O(e.Value) ? parseFloat(e.Value) : e.Value,
       0
     );
-    const d = F(e.Placeholder), c = y(e.readonly), h = P(e.Minimum), g = J(e.Stepping, void 0, 0), f = P(e.Maximum), S = R(
+    const c = y(e.Placeholder), u = $(e.readonly), h = H(e.Minimum), g = Z(e.Stepping, void 0, 0), p = H(e.Maximum), S = M(
       e.Suggestions,
       void 0,
-      te
+      ne
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let b = "", m;
-    return S != null && S.length > 0 && (m = e.Id + "-Suggestions", b = t`<datalist id=${m}>
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let m = "", k;
+    return S != null && S.length > 0 && (k = e.Id + "-Suggestions", m = t`<datalist id=${k}>
           ${S.map((x) => t`<option value=${x}></option>`)}
         </datalist>`), t`<input type="number" class="SNS NumberInput"
-        value=${a} min=${h} max=${f} step=${g}
-        readonly=${c} placeholder=${d}
+        value=${o} min=${h} max=${p} step=${g}
+        readonly=${u} placeholder=${c}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${m}
-      />${b}`;
+        list=${k}
+      />${m}`;
   };
 }, `
 /**** NumberInput ****/
@@ -1984,7 +1463,7 @@ p("native Controls", "Number Input", "NumberInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "Phone Number Input", "PhoneNumberInput", {
+f("native Controls", "Phone Number Input", "PhoneNumberInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -1998,34 +1477,34 @@ p("native Controls", "Phone Number Input", "PhoneNumberInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = Ii(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern), S = R(
+    let o = Yi(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern), S = M(
       e.Suggestions,
       void 0,
-      Et
+      Lt
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let b = "", m;
-    return S != null && S.length > 0 && (m = e.Id + "-Suggestions", b = t`<datalist id=${m}>
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let m = "", k;
+    return S != null && S.length > 0 && (k = e.Id + "-Suggestions", m = t`<datalist id=${k}>
           ${S.map((x) => t`<option value=${x}></option>`)}
         </datalist>`), t`<input type="tel" class="SNS PhoneNumberInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f}
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${m}
-      />${b}`;
+        list=${k}
+      />${m}`;
   };
 }, `
 /**** PhoneNumberInput ****/
@@ -2041,7 +1520,7 @@ p("native Controls", "Phone Number Input", "PhoneNumberInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "EMail Address Input", "EMailAddressInput", {
+f("native Controls", "EMail Address Input", "EMailAddressInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2055,34 +1534,34 @@ p("native Controls", "EMail Address Input", "EMailAddressInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = Bi(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern), S = R(
+    let o = Xi(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern), S = M(
       e.Suggestions,
       void 0,
-      Dt
+      yt
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let b = "", m;
-    return S != null && S.length > 0 && (m = e.Id + "-Suggestions", b = t`<datalist id=${m}>
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let m = "", k;
+    return S != null && S.length > 0 && (k = e.Id + "-Suggestions", m = t`<datalist id=${k}>
           ${S.map((x) => t`<option value=${x}></option>`)}
         </datalist>`), t`<input type="email" class="SNS EMailAddressInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f}
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${m}
-      />${b}`;
+        list=${k}
+      />${m}`;
   };
 }, `
 /**** EMailAddressInput ****/
@@ -2098,7 +1577,7 @@ p("native Controls", "EMail Address Input", "EMailAddressInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "URL Input", "URLInput", {
+f("native Controls", "URL Input", "URLInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2112,34 +1591,34 @@ p("native Controls", "URL Input", "URLInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = ie(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern), S = R(
+    let o = Q(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern), S = M(
       e.Suggestions,
       void 0,
-      st
+      It
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let b = "", m;
-    return S != null && S.length > 0 && (m = e.Id + "-Suggestions", b = t`<datalist id=${m}>
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let m = "", k;
+    return S != null && S.length > 0 && (k = e.Id + "-Suggestions", m = t`<datalist id=${k}>
           ${S.map((x) => t`<option value=${x}></option>`)}
         </datalist>`), t`<input type="url" class="SNS URLInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f}
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${m}
-      />${b}`;
+        list=${k}
+      />${m}`;
   };
 }, `
 /**** URLInput ****/
@@ -2155,11 +1634,11 @@ p("native Controls", "URL Input", "URLInput", {
     background:#F0F0F0;
   }
   `);
-const Mi = "\\d{2}:\\d{2}", _e = /\d{2}:\d{2}/;
-function Wi(r) {
-  return M(r, _e);
+const tr = "\\d{2}:\\d{2}", he = /\d{2}:\d{2}/;
+function ir(i) {
+  return P(i, he);
 }
-p("native Controls", "Time Input", "TimeInput", {
+f("native Controls", "Time Input", "TimeInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2172,36 +1651,36 @@ p("native Controls", "Time Input", "TimeInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = L(
+    let o = I(
       e.Value,
       void 0,
-      _e
+      he
     );
-    const d = y(e.readonly), c = L(e.Minimum, void 0, _e), h = J(e.Stepping, void 0, 0), g = L(e.Maximum, void 0, _e), f = R(
+    const c = $(e.readonly), u = I(e.Minimum, void 0, he), h = Z(e.Stepping, void 0, 0), g = I(e.Maximum, void 0, he), p = M(
       e.Suggestions,
       void 0,
-      Wi
+      ir
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Suggestions", S = t`<datalist id=${b}>
-          ${f.map((m) => t`<option value=${m}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Suggestions", S = t`<datalist id=${m}>
+          ${p.map((k) => t`<option value=${k}></option>`)}
         </datalist>`), t`<input type="time" class="SNS TimeInput"
-        value=${a} min=${c} max=${g} step=${h}
-        readonly=${d} pattern=${Mi}
+        value=${o} min=${u} max=${g} step=${h}
+        readonly=${c} pattern=${tr}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${b}
+        list=${m}
       />${S}`;
   };
 }, `
@@ -2218,11 +1697,11 @@ p("native Controls", "Time Input", "TimeInput", {
     background:#F0F0F0;
   }
   `);
-const Ri = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}", xe = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
-function Hi(r) {
-  return M(r, xe);
+const rr = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}", ge = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
+function nr(i) {
+  return P(i, ge);
 }
-p("native Controls", "Date and Time Input", "DateTimeInput", {
+f("native Controls", "Date and Time Input", "DateTimeInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2235,36 +1714,36 @@ p("native Controls", "Date and Time Input", "DateTimeInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = L(
+    let o = I(
       e.Value,
       void 0,
-      xe
+      ge
     );
-    const d = y(e.readonly), c = L(e.Minimum, void 0, xe), h = J(e.Stepping, void 0, 0), g = L(e.Maximum, void 0, xe), f = R(
+    const c = $(e.readonly), u = I(e.Minimum, void 0, ge), h = Z(e.Stepping, void 0, 0), g = I(e.Maximum, void 0, ge), p = M(
       e.Suggestions,
       void 0,
-      Hi
+      nr
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Suggestions", S = t`<datalist id=${b}>
-          ${f.map((m) => t`<option value=${m}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Suggestions", S = t`<datalist id=${m}>
+          ${p.map((k) => t`<option value=${k}></option>`)}
         </datalist>`), t`<input type="datetime-local" class="SNS DateTimeInput"
-        value=${a} min=${c} max=${g} step=${h}
-        readonly=${d} pattern=${Ri}
+        value=${o} min=${u} max=${g} step=${h}
+        readonly=${c} pattern=${rr}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${b}
+        list=${m}
       />${S}`;
   };
 }, `
@@ -2281,11 +1760,11 @@ p("native Controls", "Date and Time Input", "DateTimeInput", {
     background:#F0F0F0;
   }
   `);
-const Ai = "\\d{4}-\\d{2}-\\d{2}", we = /\d{4}-\d{2}-\d{2}/;
-function Ti(r) {
-  return M(r, we);
+const or = "\\d{4}-\\d{2}-\\d{2}", pe = /\d{4}-\d{2}-\d{2}/;
+function ar(i) {
+  return P(i, pe);
 }
-p("native Controls", "Date Input", "DateInput", {
+f("native Controls", "Date Input", "DateInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2298,36 +1777,36 @@ p("native Controls", "Date Input", "DateInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = L(
+    let o = I(
       e.Value,
       void 0,
-      we
+      pe
     );
-    const d = y(e.readonly), c = L(e.Minimum, void 0, we), h = J(e.Stepping, void 0, 0), g = L(e.Maximum, void 0, we), f = R(
+    const c = $(e.readonly), u = I(e.Minimum, void 0, pe), h = Z(e.Stepping, void 0, 0), g = I(e.Maximum, void 0, pe), p = M(
       e.Suggestions,
       void 0,
-      Ti
+      ar
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Suggestions", S = t`<datalist id=${b}>
-          ${f.map((m) => t`<option value=${m}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Suggestions", S = t`<datalist id=${m}>
+          ${p.map((k) => t`<option value=${k}></option>`)}
         </datalist>`), t`<input type="date" class="SNS DateInput"
-        value=${a} min=${c} max=${g} step=${h}
-        readonly=${d} pattern=${Ai}
+        value=${o} min=${u} max=${g} step=${h}
+        readonly=${c} pattern=${or}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${b}
+        list=${m}
       />${S}`;
   };
 }, `
@@ -2344,11 +1823,11 @@ p("native Controls", "Date Input", "DateInput", {
     background:#F0F0F0;
   }
   `);
-const Gi = "\\d{4}-W\\d{2}", $e = /\d{4}-W\d{2}/;
-function Pi(r) {
-  return M(r, $e);
+const sr = "\\d{4}-W\\d{2}", fe = /\d{4}-W\d{2}/;
+function lr(i) {
+  return P(i, fe);
 }
-p("native Controls", "Week Input", "WeekInput", {
+f("native Controls", "Week Input", "WeekInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2361,36 +1840,36 @@ p("native Controls", "Week Input", "WeekInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = L(
+    let o = I(
       e.Value,
       void 0,
-      $e
+      fe
     );
-    const d = y(e.readonly), c = L(e.Minimum, void 0, $e), h = J(e.Stepping, void 0, 0), g = L(e.Maximum, void 0, $e), f = R(
+    const c = $(e.readonly), u = I(e.Minimum, void 0, fe), h = Z(e.Stepping, void 0, 0), g = I(e.Maximum, void 0, fe), p = M(
       e.Suggestions,
       void 0,
-      Pi
+      lr
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Suggestions", S = t`<datalist id=${b}>
-          ${f.map((m) => t`<option value=${m}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Suggestions", S = t`<datalist id=${m}>
+          ${p.map((k) => t`<option value=${k}></option>`)}
         </datalist>`), t`<input type="week" class="SNS WeekInput"
-        value=${a} min=${c} max=${g} step=${h}
-        readonly=${d} pattern=${Gi}
+        value=${o} min=${u} max=${g} step=${h}
+        readonly=${c} pattern=${sr}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${b}
+        list=${m}
       />${S}`;
   };
 }, `
@@ -2407,11 +1886,11 @@ p("native Controls", "Week Input", "WeekInput", {
     background:#F0F0F0;
   }
   `);
-const Ei = "\\d{4}-\\d{2}", ye = /\d{4}-\d{2}/;
-function Ui(r) {
-  return M(r, ye);
+const ur = "\\d{4}-\\d{2}", Se = /\d{4}-\d{2}/;
+function dr(i) {
+  return P(i, Se);
 }
-p("native Controls", "Month Input", "MonthInput", {
+f("native Controls", "Month Input", "MonthInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2424,36 +1903,36 @@ p("native Controls", "Month Input", "MonthInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = L(
+    let o = I(
       e.Value,
       void 0,
-      ye
+      Se
     );
-    const d = y(e.readonly), c = L(e.Minimum, void 0, ye), h = J(e.Stepping, void 0, 0), g = L(e.Maximum, void 0, ye), f = R(
+    const c = $(e.readonly), u = I(e.Minimum, void 0, Se), h = Z(e.Stepping, void 0, 0), g = I(e.Maximum, void 0, Se), p = M(
       e.Suggestions,
       void 0,
-      Ui
+      dr
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let S = "", b;
-    return f != null && f.length > 0 && (b = e.Id + "-Suggestions", S = t`<datalist id=${b}>
-          ${f.map((m) => t`<option value=${m}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let S = "", m;
+    return p != null && p.length > 0 && (m = e.Id + "-Suggestions", S = t`<datalist id=${m}>
+          ${p.map((k) => t`<option value=${k}></option>`)}
         </datalist>`), t`<input type="month" class="SNS MonthInput"
-        value=${a} min=${c} max=${g} step=${h}
-        readonly=${d} pattern=${Ei}
+        value=${o} min=${u} max=${g} step=${h}
+        readonly=${c} pattern=${ur}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        list=${b}
+        list=${m}
       />${S}`;
   };
 }, `
@@ -2470,7 +1949,7 @@ p("native Controls", "Month Input", "MonthInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "File Input", "FileInput", {
+f("native Controls", "File Input", "FileInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2482,33 +1961,33 @@ p("native Controls", "File Input", "FileInput", {
 //onInput(() => ...)
 //onDrop(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
-  function s(c) {
+}, (i, e, t, r, n, a, d) => {
+  function s(u) {
     if (e.Enabling == !1)
-      return w(c);
-    e.Value = c.target.value, typeof e._onInput == "function" && e._onInput(c, c.files);
+      return w(u);
+    e.Value = u.target.value, typeof e._onInput == "function" && e._onInput(u, u.files);
   }
-  function l(c) {
-    return w(c);
+  function l(u) {
+    return w(u);
   }
-  function a(c) {
-    return w(c);
+  function o(u) {
+    return w(u);
   }
-  function d(c) {
-    gt(c), e.Enabling != !1 && (e.Value = c.target.value, typeof e._onDrop == "function" && e._onDrop(c, c.dataTransfer.files));
+  function c(u) {
+    at(u), e.Enabling != !1 && (e.Value = u.target.value, typeof e._onDrop == "function" && e._onDrop(u, u.dataTransfer.files));
   }
   e.Renderer = () => {
-    let c = N(e.Value, "").trim();
-    c = c.replace("C:\\fakepath\\", "");
-    const h = N(e.Placeholder, "").trim(), g = F(e.acceptableTypes), f = y(e.multiple);
+    let u = V(e.Value, "").trim();
+    u = u.replace("C:\\fakepath\\", "");
+    const h = V(e.Placeholder, "").trim(), g = y(e.acceptableTypes), p = $(e.multiple);
     return t`<label class="SNS FileInput"
-        onDragEnter=${l} onDragOver=${a} onDrop=${d}
+        onDragEnter=${l} onDragOver=${o} onDrop=${c}
       >
         <input type="file" style="display:none"
-          multiple=${f} accept=${g}
+          multiple=${p} accept=${g}
           onInput=${s}
         />
-        ${c === "" ? h === "" ? "" : t`<span style="line-height:${e.Height}px">${h}</span>` : t`<span style="line-height:${e.Height}px">${c}</span>`}
+        ${u === "" ? h === "" ? "" : t`<span style="line-height:${e.Height}px">${h}</span>` : t`<span style="line-height:${e.Height}px">${u}</span>`}
       </label>`;
   };
 }, `
@@ -2525,7 +2004,7 @@ p("native Controls", "File Input", "FileInput", {
     padding:0px 2px 0px 2px; white-space:pre; text-overflow:ellipsis;
   }
   `);
-p("native Controls", "Pseudo File Input", "PseudoFileInput", {
+f("native Controls", "Pseudo File Input", "PseudoFileInput", {
   Geometry: { x: 20, y: 20, Width: 24, Height: 24 },
   Value: null,
   activeScript: `
@@ -2536,21 +2015,21 @@ p("native Controls", "Pseudo File Input", "PseudoFileInput", {
 //my.multiple        = false
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   function s(l) {
     if (e.Enabling == !1)
       return w(l);
     e.Value = l.target.value, typeof e._onInput == "function" && e._onInput(l, l.files);
   }
   e.Renderer = () => {
-    const l = ie(e.Icon, "/img/arrow-up-from-bracket.png"), a = dt(e.Color, "black"), d = F(e.acceptableTypes), c = y(e.multiple);
+    const l = Q(e.Icon, "/img/arrow-up-from-bracket.png"), o = nt(e.Color, "black"), c = y(e.acceptableTypes), u = $(e.multiple);
     return t`<label class="SNS PseudoFileInput">
         <div style="
           -webkit-mask-image:url(${l}); mask-image:url(${l});
-          background-color:${a};
+          background-color:${o};
         "></div>
         <input type="file" style="display:none"
-          multiple=${c} accept=${d}
+          multiple=${u} accept=${c}
           onInput=${s}
         />
       </label>`;
@@ -2565,7 +2044,7 @@ p("native Controls", "Pseudo File Input", "PseudoFileInput", {
     -webkit-mask-position:center center; mask-position:center center;
   }
   `);
-p("native Controls", "File Drop Area", "FileDropArea", {
+f("native Controls", "File Drop Area", "FileDropArea", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 },
   Value: null,
   activeScript: `
@@ -2577,30 +2056,30 @@ p("native Controls", "File Drop Area", "FileDropArea", {
 //onInput(() => ...)
 //onDrop(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
-  function s(c) {
+}, (i, e, t, r, n, a, d) => {
+  function s(u) {
     if (e.Enabling == !1)
-      return w(c);
-    e.Value = c.target.value, typeof e._onInput == "function" && e._onInput(c, c.files);
+      return w(u);
+    e.Value = u.target.value, typeof e._onInput == "function" && e._onInput(u, u.files);
   }
-  function l(c) {
-    return w(c);
+  function l(u) {
+    return w(u);
   }
-  function a(c) {
-    return w(c);
+  function o(u) {
+    return w(u);
   }
-  function d(c) {
-    gt(c), e.Enabling != !1 && (e.Value = c.target.value, typeof e._onDrop == "function" && e._onDrop(c, c.dataTransfer.files));
+  function c(u) {
+    at(u), e.Enabling != !1 && (e.Value = u.target.value, typeof e._onDrop == "function" && e._onDrop(u, u.dataTransfer.files));
   }
   e.Renderer = () => {
-    const c = N(e.Placeholder, "").trim(), h = F(e.acceptableTypes), g = y(e.multiple);
+    const u = V(e.Placeholder, "").trim(), h = y(e.acceptableTypes), g = $(e.multiple);
     return t`<label class="SNS FileDropArea"
-        onDragEnter=${l} onDragOver=${a} onDrop=${d}>
+        onDragEnter=${l} onDragOver=${o} onDrop=${c}>
         <input type="file"
           multiple=${g} accept=${h}
           onInput=${s}
         />
-        <span>${c}</span>
+        <span>${u}</span>
       </label>`;
   };
 }, `
@@ -2621,7 +2100,7 @@ p("native Controls", "File Drop Area", "FileDropArea", {
     opacity:0.01;
   }
   `);
-p("native Controls", "Search Input", "SearchInput", {
+f("native Controls", "Search Input", "SearchInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2636,34 +2115,34 @@ p("native Controls", "Search Input", "SearchInput", {
 //my.Suggestions   = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = F(e.Pattern), S = y(e.SpellChecking), b = R(
+    let o = V(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = y(e.Pattern), S = $(e.SpellChecking), m = M(
       e.Suggestions,
       void 0,
       G
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let m = "", x;
-    return b != null && b.length > 0 && (x = e.Id + "-Suggestions", m = t`<datalist id=${x}>
-          ${b.map((E) => t`<option value=${E}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let k = "", x;
+    return m != null && m.length > 0 && (x = e.Id + "-Suggestions", k = t`<datalist id=${x}>
+          ${m.map((A) => t`<option value=${A}></option>`)}
         </datalist>`), t`<input type="search" class="SNS SearchInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        pattern=${f} spellcheck=${S}
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        pattern=${p} spellcheck=${S}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
         list=${x}
-      />${m}`;
+      />${k}`;
   };
 }, `
 /**** SearchInput ****/
@@ -2679,7 +2158,7 @@ p("native Controls", "Search Input", "SearchInput", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "Color Input", "ColorInput", {
+f("native Controls", "Color Input", "ColorInput", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 30 },
   Value: null,
   activeScript: `
@@ -2688,32 +2167,32 @@ p("native Controls", "Color Input", "ColorInput", {
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = yi(e.Value);
-    const d = R(
+    let o = Zi(e.Value);
+    const c = M(
       e.Suggestions,
       void 0,
-      Ge
+      et
     );
-    document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a;
-    let c = "", h;
-    return d != null && d.length > 0 && (h = e.Id + "-Suggestions", c = t`<datalist id=${h}>
-          ${d.map((g) => t`<option value=${g}></option>`)}
+    document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o;
+    let u = "", h;
+    return c != null && c.length > 0 && (h = e.Id + "-Suggestions", u = t`<datalist id=${h}>
+          ${c.map((g) => t`<option value=${g}></option>`)}
         </datalist>`), t`<input type="color" class="SNS ColorInput"
-        value=${a}
+        value=${o}
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
         list=${h}
-      />${c}`;
+      />${u}`;
   };
 }, `
 /**** ColorInput ****/
@@ -2724,7 +2203,7 @@ p("native Controls", "Color Input", "ColorInput", {
     padding:0px 2px 0px 2px;
   }
   `);
-p("native Controls", "DropDown", "DropDown", {
+f("native Controls", "DropDown", "DropDown", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2733,29 +2212,29 @@ p("native Controls", "DropDown", "DropDown", {
 //my.Options = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = nr(
+    let o = V(e.Value, "");
+    const c = Zt(
       e.Options,
       [],
       G
     );
-    return document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a, t`<select class="SNS DropDown"
+    return document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o, t`<select class="SNS DropDown"
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-      >${d.map(
-      (c) => {
-        const h = c.replace(/:.*$/, "").trim(), g = c.replace(/^[^:]+:/, "").trim();
-        return t`<option value=${h} selected=${h === a}>
+      >${c.map(
+      (u) => {
+        const h = u.replace(/:.*$/, "").trim(), g = u.replace(/^[^:]+:/, "").trim();
+        return t`<option value=${h} selected=${h === o}>
             ${g}
           </option>`;
       }
@@ -2775,7 +2254,7 @@ p("native Controls", "DropDown", "DropDown", {
     background:#F0F0F0;
   }
   `);
-p("native Controls", "Pseudo DropDown", "PseudoDropDown", {
+f("native Controls", "Pseudo DropDown", "PseudoDropDown", {
   Geometry: { x: 20, y: 20, Width: 24, Height: 24 },
   Value: null,
   activeScript: `
@@ -2785,32 +2264,32 @@ p("native Controls", "Pseudo DropDown", "PseudoDropDown", {
 //my.Options = ['...',...]
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = ie(e.Icon, "/img/menu.png"), c = dt(e.Color, "black"), h = nr(
+    let o = V(e.Value, "");
+    const c = Q(e.Icon, "/img/menu.png"), u = nt(e.Color, "black"), h = Zt(
       e.Options,
       [],
       G
     );
-    return document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a, t`<div class="SNS PseudoDropDown">
+    return document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o, t`<div class="SNS PseudoDropDown">
         <div style="
-          -webkit-mask-image:url(${d}); mask-image:url(${d});
-          background-color:${c};
+          -webkit-mask-image:url(${c}); mask-image:url(${c});
+          background-color:${u};
         "></div>
         <select disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}>
           ${h.map((g) => {
-      const f = g.replace(/:.*\$/, "").trim(), S = g.replace(/^[^:]+:/, "").trim();
-      return t`<option value=${f} selected=${f === a}>
+      const p = g.replace(/:.*\$/, "").trim(), S = g.replace(/^[^:]+:/, "").trim();
+      return t`<option value=${p} selected=${p === o}>
               ${S}
             </option>`;
     })}
@@ -2833,7 +2312,7 @@ p("native Controls", "Pseudo DropDown", "PseudoDropDown", {
     opacity:0.01;
   }
   `);
-p("native Controls", "Text Input", "TextInput", {
+f("native Controls", "Text Input", "TextInput", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
   Value: null,
   activeScript: `
@@ -2847,25 +2326,25 @@ p("native Controls", "Text Input", "TextInput", {
 //my.SpellChecking = undefined
 //onInput(() => ...)
 `
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.ValueToShow = "";
-  function s(a) {
+  function s(o) {
     if (e.Enabling == !1)
-      return w(a);
-    e.Value = a.target.value, typeof e._onInput == "function" && e._onInput(a);
+      return w(o);
+    e.Value = o.target.value, typeof e._onInput == "function" && e._onInput(o);
   }
   function l() {
-    r.rerender();
+    i.rerender();
   }
   e.Renderer = () => {
-    let a = N(e.Value, "");
-    const d = F(e.Placeholder), c = y(e.readonly), h = V(e.minLength), g = V(e.maxLength), f = y(e.LineWrapping), S = y(e.SpellChecking);
-    return document.activeElement === e.View ? a = e.ValueToShow : e.ValueToShow = a, t`<textarea class="SNS TextInput"
-        value=${a} minlength=${h} maxlength=${g}
-        readonly=${c} placeholder=${d}
-        spellcheck=${S} style="resize:none; ${f == !0 ? "white-space:pre; overflow-wrap:break-word; hyphens:auto" : void 0}"
+    let o = V(e.Value, "");
+    const c = y(e.Placeholder), u = $(e.readonly), h = D(e.minLength), g = D(e.maxLength), p = $(e.LineWrapping), S = $(e.SpellChecking);
+    return document.activeElement === e.View ? o = e.ValueToShow : e.ValueToShow = o, t`<textarea class="SNS TextInput"
+        value=${o} minlength=${h} maxlength=${g}
+        readonly=${u} placeholder=${c}
+        spellcheck=${S} style="resize:none; ${p == !0 ? "white-space:pre; overflow-wrap:break-word; hyphens:auto" : void 0}"
         disabled=${e.Enabling == !1} onInput=${s} onBlur=${l}
-        value=${a}
+        value=${o}
       />`;
   };
 }, `
@@ -2882,23 +2361,23 @@ p("native Controls", "Text Input", "TextInput", {
     background:#F0F0F0;
   }
   `);
-p("basic Shapes", "Line", "Line");
-p("basic Shapes", "Polyline", "Polyline");
-p("basic Shapes", "Arc", "Arc");
-p("basic Shapes", "quadratic Bezier", "quadraticBezier");
-p("basic Shapes", "cubic Bezier", "cubicBezier");
-p("basic Shapes", "Box", "Box");
-p("basic Shapes", "rounded Box", "roundedBox");
-p("basic Shapes", "Oval", "Oval");
-p("basic Shapes", "Chord", "Chord");
-p("basic Shapes", "Pie", "Pie");
-p("basic Shapes", "Polygon", "Polygon");
-p("basic Shapes", "regular Polygon", "regularPolygon");
-p("straight Arrows", "nw", "straightArrow_nw", {
+f("basic Shapes", "Line", "Line");
+f("basic Shapes", "Polyline", "Polyline");
+f("basic Shapes", "Arc", "Arc");
+f("basic Shapes", "quadratic Bezier", "quadraticBezier");
+f("basic Shapes", "cubic Bezier", "cubicBezier");
+f("basic Shapes", "Box", "Box");
+f("basic Shapes", "rounded Box", "roundedBox");
+f("basic Shapes", "Oval", "Oval");
+f("basic Shapes", "Chord", "Chord");
+f("basic Shapes", "Pie", "Pie");
+f("basic Shapes", "Polygon", "Polygon");
+f("basic Shapes", "regular Polygon", "regularPolygon");
+f("straight Arrows", "nw", "straightArrow_nw", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -2907,16 +2386,16 @@ p("straight Arrows", "nw", "straightArrow_nw", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M ${s},${l}, L 0,0"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -2925,11 +2404,11 @@ p("straight Arrows", "nw", "straightArrow_nw", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "n", "straightArrow_n", {
+f("straight Arrows", "n", "straightArrow_n", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -2938,16 +2417,16 @@ p("straight Arrows", "n", "straightArrow_n", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M ${s / 2},${l}, L ${s / 2},0"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -2956,11 +2435,11 @@ p("straight Arrows", "n", "straightArrow_n", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "ne", "straightArrow_ne", {
+f("straight Arrows", "ne", "straightArrow_ne", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -2969,16 +2448,16 @@ p("straight Arrows", "ne", "straightArrow_ne", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M 0,${l}, L ${s},0"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -2987,11 +2466,11 @@ p("straight Arrows", "ne", "straightArrow_ne", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "e", "straightArrow_e", {
+f("straight Arrows", "e", "straightArrow_e", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3000,16 +2479,16 @@ p("straight Arrows", "e", "straightArrow_e", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M 0,${l / 2}, L ${s},${l / 2}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -3018,11 +2497,11 @@ p("straight Arrows", "e", "straightArrow_e", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "se", "straightArrow_se", {
+f("straight Arrows", "se", "straightArrow_se", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3031,16 +2510,16 @@ p("straight Arrows", "se", "straightArrow_se", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M 0,0, L ${s},${l}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -3049,11 +2528,11 @@ p("straight Arrows", "se", "straightArrow_se", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "s", "straightArrow_s", {
+f("straight Arrows", "s", "straightArrow_s", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3062,16 +2541,16 @@ p("straight Arrows", "s", "straightArrow_s", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M ${s / 2},0, L ${s / 2},${l}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -3080,11 +2559,11 @@ p("straight Arrows", "s", "straightArrow_s", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "sw", "straightArrow_sw", {
+f("straight Arrows", "sw", "straightArrow_sw", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3093,16 +2572,16 @@ p("straight Arrows", "sw", "straightArrow_sw", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M ${s},0, L 0,${l}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -3111,11 +2590,11 @@ p("straight Arrows", "sw", "straightArrow_sw", {
     overflow:visible;
   }
   `);
-p("straight Arrows", "w", "straightArrow_w", {
+f("straight Arrows", "w", "straightArrow_w", {
   Geometry: { x: 20, y: 20, Width: 40, Height: 40 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3124,16 +2603,16 @@ p("straight Arrows", "w", "straightArrow_w", {
               markerWidth="5" markerHeight="4"
               refX="4" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}"
             d="M ${s},${l / 2}, L 0,${l / 2}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** straight Arrows ****/
@@ -3142,11 +2621,11 @@ p("straight Arrows", "w", "straightArrow_w", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "cw n", "curvedArrow_cw_n", {
+f("curved Arrows", "cw n", "curvedArrow_cw_n", {
   Geometry: { x: 20, y: 20, Width: 50, Height: 60 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3155,16 +2634,16 @@ p("curved Arrows", "cw n", "curvedArrow_cw_n", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M ${s},${l - 6}, A ${s - 6} ${l - 18} 0 0 1 6 12"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3173,11 +2652,11 @@ p("curved Arrows", "cw n", "curvedArrow_cw_n", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "cw e", "curvedArrow_cw_e", {
+f("curved Arrows", "cw e", "curvedArrow_cw_e", {
   Geometry: { x: 20, y: 20, Width: 60, Height: 50 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3186,16 +2665,16 @@ p("curved Arrows", "cw e", "curvedArrow_cw_e", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M 6,${l}, A ${s - 18} ${l - 6} 0 0 1 ${s - 12} 6"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3204,11 +2683,11 @@ p("curved Arrows", "cw e", "curvedArrow_cw_e", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "cw s", "curvedArrow_cw_s", {
+f("curved Arrows", "cw s", "curvedArrow_cw_s", {
   Geometry: { x: 20, y: 20, Width: 50, Height: 60 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3217,16 +2696,16 @@ p("curved Arrows", "cw s", "curvedArrow_cw_s", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M 0,6, A ${s - 6} ${l - 18} 0 0 1 ${s - 6} ${l - 12}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3235,11 +2714,11 @@ p("curved Arrows", "cw s", "curvedArrow_cw_s", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "cw w", "curvedArrow_cw_w", {
+f("curved Arrows", "cw w", "curvedArrow_cw_w", {
   Geometry: { x: 20, y: 20, Width: 60, Height: 50 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3248,16 +2727,16 @@ p("curved Arrows", "cw w", "curvedArrow_cw_w", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M ${s - 6},0, A ${s - 18} ${l - 6} 0 0 1 12 ${l - 6}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3266,11 +2745,11 @@ p("curved Arrows", "cw w", "curvedArrow_cw_w", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "ccw n", "curvedArrow_ccw_n", {
+f("curved Arrows", "ccw n", "curvedArrow_ccw_n", {
   Geometry: { x: 20, y: 20, Width: 50, Height: 60 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3279,16 +2758,16 @@ p("curved Arrows", "ccw n", "curvedArrow_ccw_n", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M 0,${l - 6}, A ${s - 6} ${l - 18} 0 0 0 ${s - 6} 12"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3297,11 +2776,11 @@ p("curved Arrows", "ccw n", "curvedArrow_ccw_n", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "ccw e", "curvedArrow_ccw_e", {
+f("curved Arrows", "ccw e", "curvedArrow_ccw_e", {
   Geometry: { x: 20, y: 20, Width: 60, Height: 50 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3310,16 +2789,16 @@ p("curved Arrows", "ccw e", "curvedArrow_ccw_e", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M 6,0, A ${s - 18} ${l - 6} 0 0 0 ${s - 12} ${l - 6}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3328,11 +2807,11 @@ p("curved Arrows", "ccw e", "curvedArrow_ccw_e", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "ccw s", "curvedArrow_ccw_s", {
+f("curved Arrows", "ccw s", "curvedArrow_ccw_s", {
   Geometry: { x: 20, y: 20, Width: 50, Height: 60 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3341,16 +2820,16 @@ p("curved Arrows", "ccw s", "curvedArrow_ccw_s", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M ${s},6, A ${s - 6} ${l - 18} 0 0 0 6 ${l - 12}"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3359,11 +2838,11 @@ p("curved Arrows", "ccw s", "curvedArrow_ccw_s", {
     overflow:visible;
   }
   `);
-p("curved Arrows", "ccw w", "curvedArrow_ccw_w", {
+f("curved Arrows", "ccw w", "curvedArrow_ccw_w", {
   Geometry: { x: 20, y: 20, Width: 60, Height: 50 }
-}, (r, e, t, i, n, o, u) => {
+}, (i, e, t, r, n, a, d) => {
   e.Renderer = function() {
-    const { Width: s, Height: l } = e.Geometry, a = e.ForegroundColor || "black", d = `
+    const { Width: s, Height: l } = e.Geometry, o = e.ForegroundColor || "black", c = `
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
           width="${s}" height="${l}"
         >
@@ -3372,16 +2851,16 @@ p("curved Arrows", "ccw w", "curvedArrow_ccw_w", {
               markerWidth="5" markerHeight="4"
               refX="0" refY="2"
             >
-              <path d="M0,0 V4 L5,2 Z" fill="${a}"/>
+              <path d="M0,0 V4 L5,2 Z" fill="${o}"/>
             </marker>
           </defs>
 
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${a}" fill="none"
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${o}" fill="none"
             d="M ${s - 6},${l}, A ${s - 18} ${l - 8} 0 0 0 12 6"
           />
         </svg>
-      `, c = "data:image/svg+xml;base64," + btoa(d);
-    return t`<img class="SNS straightArrow" src=${c}/>`;
+      `, u = "data:image/svg+xml;base64," + btoa(c);
+    return t`<img class="SNS straightArrow" src=${u}/>`;
   };
 }, `
 /**** curved Arrows ****/
@@ -3390,161 +2869,161 @@ p("curved Arrows", "ccw w", "curvedArrow_ccw_w", {
     overflow:visible;
   }
   `);
-p("complex Controls", "flat List View", "FlatListView");
-p("complex Controls", "nested List View", "NestedListView");
-p("complex Controls", "QR-Code View", "QRCodeView");
-function cr(r) {
-  Ot("visual", r);
+f("complex Controls", "flat List View", "FlatListView");
+f("complex Controls", "nested List View", "NestedListView");
+f("complex Controls", "QR-Code View", "QRCodeView");
+function Qt(i) {
+  Ct("visual", i);
   let e = [];
   const {
     BackgroundColor: t,
-    BackgroundTexture: i,
+    BackgroundTexture: r,
     ForegroundColor: n,
-    FontFamily: o,
-    FontSize: u,
+    FontFamily: a,
+    FontSize: d,
     FontWeight: s,
     FontStyle: l,
-    LineHeight: a
-  } = r;
-  return t != null && e.push(`background-color:${t}`), i != null && e.push(
-    `background-image:${i}; background-repeat:repeat`
-  ), n != null && e.push(`color:${n}`), o != null && e.push(`font-family:${o}`), u != null && e.push(`font-size:${u}px`), s != null && e.push(`font-weight:${s}`), l != null && e.push(`font-style:${l}`), a != null && e.push(`line-height:${a}px`), e.join(";");
+    LineHeight: o
+  } = i;
+  return t != null && e.push(`background-color:${t}`), r != null && e.push(
+    `background-image:${r}; background-repeat:repeat`
+  ), n != null && e.push(`color:${n}`), a != null && e.push(`font-family:${a}`), d != null && e.push(`font-size:${d}px`), s != null && e.push(`font-weight:${s}`), l != null && e.push(`font-style:${l}`), o != null && e.push(`line-height:${o}px`), e.join(";");
 }
-function gt(r) {
-  r.stopPropagation(), r.preventDefault();
+function at(i) {
+  i.stopPropagation(), i.preventDefault();
 }
-const w = gt;
-class ft {
+const w = at;
+class st {
   constructor(e, t) {
     // IMPORTANT: SNS_Project constructor will pass "undefined" as "Project"
     /**** Id - for internal use only ****/
-    k(this, "_Id");
+    _(this, "_Id");
     /**** Name ****/
-    k(this, "_Name");
+    _(this, "_Name");
     /**** Project ****/
-    k(this, "_Project");
+    _(this, "_Project");
     /**** Folder ****/
-    k(this, "_Folder");
+    _(this, "_Folder");
     /**** BackgroundColor ****/
-    k(this, "_BackgroundColor");
+    _(this, "_BackgroundColor");
     /**** BackgroundTexture ****/
-    k(this, "_BackgroundTexture");
+    _(this, "_BackgroundTexture");
     /**** FontFamily ****/
-    k(this, "_FontFamily");
+    _(this, "_FontFamily");
     /**** FontSize ****/
-    k(this, "_FontSize");
+    _(this, "_FontSize");
     /**** FontWeight ****/
-    k(this, "_FontWeight");
+    _(this, "_FontWeight");
     /**** FontStyle ****/
-    k(this, "_FontStyle");
+    _(this, "_FontStyle");
     /**** LineHeight ****/
-    k(this, "_LineHeight");
+    _(this, "_LineHeight");
     /**** ForegroundColor ****/
-    k(this, "_ForegroundColor");
+    _(this, "_ForegroundColor");
     /**** Value ****/
-    k(this, "_Value", null);
+    _(this, "_Value", null);
     /**** observed ****/
     // @ts-ignore TS2564 allow "_observed" to be assigned upon first use
-    k(this, "_observed");
+    _(this, "_observed");
     /**** unobserved ****/
     // @ts-ignore TS2564 allow "_unobserved" to be assigned upon first use
-    k(this, "_unobserved");
+    _(this, "_unobserved");
     /**** activeScript ****/
-    k(this, "_activeScript");
+    _(this, "_activeScript");
     /**** pendingScript ****/
-    k(this, "_pendingScript");
+    _(this, "_pendingScript");
     /**** ScriptError - for internal use only ****/
-    k(this, "_ScriptError");
+    _(this, "_ScriptError");
     /**** Renderer ****/
-    k(this, "_Renderer");
+    _(this, "_Renderer");
     /**** View ****/
-    k(this, "_View");
+    _(this, "_View");
     /**** onMount ****/
-    k(this, "_onMount");
+    _(this, "_onMount");
     /**** onUnmount ****/
-    k(this, "_onUnmount");
+    _(this, "_onUnmount");
     /**** Error - for internal use only ****/
-    k(this, "_Error");
-    this._Project = e, this._Id = t || Fi();
+    _(this, "_Error");
+    this._Project = e, this._Id = t || qi();
   }
   get Id() {
     return this._Id;
   }
   set Id(e) {
-    _("Id");
+    b("Id");
   }
   get Name() {
     return this._Name;
   }
   set Name(e) {
-    Yt("visual name", e), e != null && (e = e.trim(), e === "" && (e = void 0)), this._Name !== e && (this._Name = e, this._reportChange("configure", this, "Name", e), this.rerender());
+    Ht("visual name", e), e != null && (e = e.trim(), e === "" && (e = void 0)), this._Name !== e && (this._Name = e, this._reportChange("configure", this, "Name", e), this.rerender());
   }
   get Project() {
     return this._Project;
   }
   set Project(e) {
-    _("Project");
+    b("Project");
   }
   get Folder() {
     return this._Folder;
   }
   set Folder(e) {
-    _("Folder");
+    b("Folder");
   }
   /**** isAttached ****/
   get isAttached() {
-    return this._Folder == null ? fe(this) : this._Folder.isAttached;
+    return this._Folder == null ? oe(this) : this._Folder.isAttached;
   }
   set isAttached(e) {
-    _("isAttached");
+    b("isAttached");
   }
   get BackgroundColor() {
     return this._BackgroundColor == null ? this._Folder == null ? void 0 : this._Folder.BackgroundColor : this._BackgroundColor;
   }
   set BackgroundColor(e) {
-    _t("visual background color", e), this._BackgroundColor !== e && (this._BackgroundColor = e, this._reportChange("configure", this, "BackgroundColor", e), this.rerender());
+    ht("visual background color", e), this._BackgroundColor !== e && (this._BackgroundColor = e, this._reportChange("configure", this, "BackgroundColor", e), this.rerender());
   }
   get BackgroundTexture() {
     return this._BackgroundTexture == null ? this._Folder == null ? void 0 : this._Folder.BackgroundTexture : this._BackgroundTexture;
   }
   set BackgroundTexture(e) {
-    Wt("visual background texture", e), this._BackgroundTexture !== e && (this._BackgroundTexture = e, this._reportChange("configure", this, "BackgroundTexture", e), this.rerender());
+    Vt("visual background texture", e), this._BackgroundTexture !== e && (this._BackgroundTexture = e, this._reportChange("configure", this, "BackgroundTexture", e), this.rerender());
   }
   get FontFamily() {
     return this._FontFamily == null ? this._Folder == null ? void 0 : this._Folder.FontFamily : this._FontFamily;
   }
   set FontFamily(e) {
-    yr("visual font family", e), this._FontFamily !== e && (this._FontFamily = e, this._reportChange("configure", this, "FontFamily", e), this.rerender());
+    oi("visual font family", e), this._FontFamily !== e && (this._FontFamily = e, this._reportChange("configure", this, "FontFamily", e), this.rerender());
   }
   get FontSize() {
     return this._FontSize == null ? this._Folder == null ? void 0 : this._Folder.FontSize : this._FontSize;
   }
   set FontSize(e) {
-    Ie("visual font size", e), this._FontSize !== e && (this._FontSize = e, this._reportChange("configure", this, "FontSize", e), this.rerender());
+    me("visual font size", e), this._FontSize !== e && (this._FontSize = e, this._reportChange("configure", this, "FontSize", e), this.rerender());
   }
   get FontWeight() {
     return this._FontWeight == null ? this._Folder == null ? void 0 : this._Folder.FontWeight : this._FontWeight;
   }
   set FontWeight(e) {
-    wr("visual font weight", e, 1, 1e3), this._FontWeight !== e && (this._FontWeight = e, this._reportChange("configure", this, "FontWeight", e), this.rerender());
+    ai("visual font weight", e, 1, 1e3), this._FontWeight !== e && (this._FontWeight = e, this._reportChange("configure", this, "FontWeight", e), this.rerender());
   }
   get FontStyle() {
     return this._FontStyle == null ? this._Folder == null ? void 0 : this._Folder.FontStyle : this._FontStyle;
   }
   set FontStyle(e) {
-    Fr("visual font style", e, ri), this._FontStyle !== e && (this._FontStyle = e, this._reportChange("configure", this, "FontStyle", e), this.rerender());
+    si("visual font style", e, wi), this._FontStyle !== e && (this._FontStyle = e, this._reportChange("configure", this, "FontStyle", e), this.rerender());
   }
   get LineHeight() {
     return this._LineHeight == null ? this._Folder == null ? void 0 : this._Folder.LineHeight : this._LineHeight;
   }
   set LineHeight(e) {
-    Ie("visual line height", e), this._LineHeight !== e && (this._LineHeight = e, this._reportChange("configure", this, "LineHeight", e), this.rerender());
+    me("visual line height", e), this._LineHeight !== e && (this._LineHeight = e, this._reportChange("configure", this, "LineHeight", e), this.rerender());
   }
   get ForegroundColor() {
     return this._ForegroundColor == null ? this._Folder == null ? void 0 : this._Folder.ForegroundColor : this._ForegroundColor;
   }
   set ForegroundColor(e) {
-    _t("visual foreground color", e), this._ForegroundColor !== e && (this._ForegroundColor = e, this._reportChange("configure", this, "ForegroundColor", e), this.rerender());
+    ht("visual foreground color", e), this._ForegroundColor !== e && (this._ForegroundColor = e, this._reportChange("configure", this, "ForegroundColor", e), this.rerender());
   }
   /**** Color ****/
   get Color() {
@@ -3557,7 +3036,7 @@ class ft {
     return this._Value;
   }
   set Value(e) {
-    ae(this._Value, e) && (this._Value = e, this._reportChange("configure", this, "Value", e), this.rerender());
+    Te(this._Value, e) && (this._Value = e, this._reportChange("configure", this, "Value", e), this.rerender());
   }
   /**** editableValue (may be overwritten) ****/
   get editableValue() {
@@ -3568,40 +3047,40 @@ class ft {
     this.Value = e;
   }
   get observed() {
-    return this._observed == null && (this._observed = ei({})), this._observed;
+    return this._observed == null && (this._observed = vi({})), this._observed;
   }
   set observed(e) {
-    _("observed");
+    b("observed");
   }
   get unobserved() {
     return this._unobserved == null && (this._unobserved = {}), this._unobserved;
   }
   set unobserved(e) {
-    _("unobserved");
+    b("unobserved");
   }
   /**** Script ****/
   get Script() {
     return this._pendingScript == null ? this._activeScript : this._pendingScript;
   }
   set Script(e) {
-    _("Script");
+    b("Script");
   }
   get activeScript() {
     return this._activeScript;
   }
   set activeScript(e) {
-    kt("visual script", e), e === "" && (e = void 0), this._activeScript !== e && (this._activeScript = e, this._reportChange("configure", this, "activeScript", e), this.rerender());
+    gt("visual script", e), e === "" && (e = void 0), this._activeScript !== e && (this._activeScript = e, this._reportChange("configure", this, "activeScript", e), this.rerender());
   }
   get pendingScript() {
     return this._pendingScript;
   }
   set pendingScript(e) {
-    kt("visual script", e), this._pendingScript !== e && (this._pendingScript = e, this._reportChange("configure", this, "pendingScript", e), this.rerender());
+    gt("visual script", e), this._pendingScript !== e && (this._pendingScript = e, this._reportChange("configure", this, "pendingScript", e), this.rerender());
   }
   /**** activateScript ****/
   activateScript() {
     let e = (this._activeScript || "").trim();
-    if (this.Error = void 0, this._Renderer = void 0, ht(this), e != null) {
+    if (this.Error = void 0, this._Renderer = void 0, ot(this), e != null) {
       let t;
       try {
         t = new Function(
@@ -3616,20 +3095,20 @@ class ft {
         };
         return;
       }
-      const i = (s) => {
-        oe("reactive function", s), lr(this, Ut(s));
-      }, n = this.onRender.bind(this), o = this.onMount.bind(this), u = this.onUnmount.bind(this);
+      const r = (s) => {
+        ee("reactive function", s), jt(this, Nt(s));
+      }, n = this.onRender.bind(this), a = this.onMount.bind(this), d = this.onUnmount.bind(this);
       try {
         t.call(
           this,
           this,
           this,
-          Ee,
-          i,
+          Ce,
+          r,
           n,
-          o,
-          u,
-          Vi.bind(this)
+          a,
+          d,
+          Ji.bind(this)
         );
       } catch (s) {
         console.error("visual script execution failure", s), this.Error = {
@@ -3646,13 +3125,13 @@ class ft {
     return this._ScriptError == null ? void 0 : { ...this._ScriptError };
   }
   set ScriptError(e) {
-    nt("script error setting", e), ae(this._ScriptError, e) && (this._ScriptError = e, this._reportChange("configure", this, "ScriptError", e), this.rerender());
+    qe("script error setting", e), Te(this._ScriptError, e) && (this._ScriptError = e, this._reportChange("configure", this, "ScriptError", e), this.rerender());
   }
   get Renderer() {
     return this._Renderer;
   }
   set Renderer(e) {
-    ve("visual renderer", e), this._Renderer !== e && (this._Renderer = e, this.rerender());
+    ue("visual renderer", e), this._Renderer !== e && (this._Renderer = e, this.rerender());
   }
   /**** onRender ****/
   onRender(e) {
@@ -3671,17 +3150,17 @@ class ft {
     return this._View;
   }
   set View(e) {
-    _("View");
+    b("View");
   }
   /**** isMounted ****/
   get isMounted() {
     return this._View != null;
   }
   set isMounted(e) {
-    _("isMounted");
+    b("isMounted");
   }
   onMount(e) {
-    ve('"onMount" callback', e), e == null ? this._onMount = void 0 : this._onMount = () => {
+    ue('"onMount" callback', e), e == null ? this._onMount = void 0 : this._onMount = () => {
       try {
         e.call(this);
       } catch (t) {
@@ -3694,7 +3173,7 @@ class ft {
     };
   }
   onUnmount(e) {
-    ve('"onUnmount" callback', e), e == null ? this._onUnmount = void 0 : this._onUnmount = () => {
+    ue('"onUnmount" callback', e), e == null ? this._onUnmount = void 0 : this._onUnmount = () => {
       try {
         e.call(this);
       } catch (t) {
@@ -3710,14 +3189,14 @@ class ft {
     return this._Error == null ? void 0 : { ...this._Error };
   }
   set Error(e) {
-    nt("error setting", e), ae(this._Error, e) && (this._Error = e, this._reportChange("configure", this, "Error", e), this.rerender());
+    qe("error setting", e), Te(this._Error, e) && (this._Error = e, this._reportChange("configure", this, "Error", e), this.rerender());
   }
   /**** hasError ****/
   get hasError() {
     return this._Error != null;
   }
   set hasError(e) {
-    _("hasError");
+    b("hasError");
   }
   /**** _reportChange ****/
   /* protected */
@@ -3727,8 +3206,8 @@ class ft {
   /**** _serializeConfigurationInto ****/
   _serializeConfigurationInto(e) {
     e.Id = this.Id;
-    const t = (i) => {
-      this["_" + i] != null && (e[i] = this[i]);
+    const t = (r) => {
+      this["_" + r] != null && (e[r] = this[r]);
     };
     [
       "Name",
@@ -3743,17 +3222,17 @@ class ft {
       "Value",
       "activeScript",
       "pendingScript"
-    ].forEach((i) => t(i));
+    ].forEach((r) => t(r));
   }
   /**** _deserializeConfigurationFrom ****/
   _deserializeConfigurationFrom(e) {
-    const t = (i) => {
-      if (e[i] != null)
+    const t = (r) => {
+      if (e[r] != null)
         try {
-          this[i] = e[i];
+          this[r] = e[r];
         } catch {
           console.warn(
-            "DeserializationError:invalid value for property " + X(i)
+            "DeserializationError:invalid value for property " + z(r)
           );
         }
     };
@@ -3769,21 +3248,21 @@ class ft {
       "ForegroundColor",
       "Value",
       "pendingScript"
-    ].forEach((i) => t(i));
+    ].forEach((r) => t(r));
   }
   // deserializing "activeScript" also automatically activates that script
 }
-class pt extends ft {
-  constructor(t, i) {
-    super(t, i);
+class lt extends st {
+  constructor(t, r) {
+    super(t, r);
     /**** SnapToGrid - inherited from outer folders ****/
-    k(this, "_SnapToGrid");
+    _(this, "_SnapToGrid");
     /**** GridWidth ****/
-    k(this, "_GridWidth");
+    _(this, "_GridWidth");
     /**** GridHeight ****/
-    k(this, "_GridHeight");
+    _(this, "_GridHeight");
     /**** BoardList ****/
-    k(this, "_BoardList", []);
+    _(this, "_BoardList", []);
   }
   // IMPORTANT: SNS_Project constructor will pass "undefined" as "Project"
   /**** Path ****/
@@ -3792,29 +3271,29 @@ class pt extends ft {
     if (t == null)
       return "|";
     {
-      const i = this.Name || "#" + this.Index, n = t.Path;
-      return (n === "|" ? "" : n) + "|" + i;
+      const r = this.Name || "#" + this.Index, n = t.Path;
+      return (n === "|" ? "" : n) + "|" + r;
     }
   }
   set Path(t) {
-    _("Path");
+    b("Path");
   }
   /**** BoardAtPath ****/
   BoardAtPath(t) {
-    if (Ke("board path", t), t = t.trim(), t === "")
+    if (ze("board path", t), t = t.trim(), t === "")
       return this._Folder == null ? void 0 : this;
     if (t.startsWith("|"))
       return this._Project.BoardAtPath(t.replace(/^(\s*\|)*/, ""));
     t = t.replace(/\|+/g, "|");
-    const i = t.split("|").map(
-      (o) => o.trim()
+    const r = t.split("|").map(
+      (a) => a.trim()
       // eliminate leading/trailing ws
     ).map(
-      (o) => /^#\d+$/.test(o) ? parseInt(o.slice(1), 10) : o
+      (a) => /^#\d+$/.test(a) ? parseInt(a.slice(1), 10) : a
     );
     let n;
-    for (let o = 0, u = i.length; o < u; o++) {
-      const s = i[o];
+    for (let a = 0, d = r.length; a < d; a++) {
+      const s = r[a];
       if (typeof s == "number" ? n = (n || this).BoardAt(s) : n = (n || this).BoardNamed(s), n == null)
         return;
     }
@@ -3826,64 +3305,64 @@ class pt extends ft {
     return t == null ? [] : t.IndexPath.concat(this.Index);
   }
   set IndexPath(t) {
-    _("IndexPath");
+    b("IndexPath");
   }
   get SnapToGrid() {
     return this._SnapToGrid ? this._SnapToGrid == !0 : this._Folder == null ? !1 : this._Folder.SnapToGrid;
   }
   set SnapToGrid(t) {
-    xr("snap-to-grid setting", t), this._SnapToGrid !== t && (this._SnapToGrid = t, this._reportChange("configure", this, "SnapToGrid", t), this.rerender());
+    li("snap-to-grid setting", t), this._SnapToGrid !== t && (this._SnapToGrid = t, this._reportChange("configure", this, "SnapToGrid", t), this.rerender());
   }
   get GridWidth() {
-    return this._GridWidth == null ? this._Folder == null ? xi : this._Folder.GridWidth : this._GridWidth;
+    return this._GridWidth == null ? this._Folder == null ? Ui : this._Folder.GridWidth : this._GridWidth;
   }
   set GridWidth(t) {
-    vt("snap-to-grid width", t), this._GridWidth !== t && (this._GridWidth = t, this._reportChange("configure", this, "GridWidth", t), this.rerender());
+    pt("snap-to-grid width", t), this._GridWidth !== t && (this._GridWidth = t, this._reportChange("configure", this, "GridWidth", t), this.rerender());
   }
   get GridHeight() {
-    return this._GridHeight == null ? this._Folder == null ? wi : this._Folder.GridHeight : this._GridHeight;
+    return this._GridHeight == null ? this._Folder == null ? zi : this._Folder.GridHeight : this._GridHeight;
   }
   set GridHeight(t) {
-    vt("snap-to-grid height", t), this._GridHeight !== t && (this._GridHeight = t, this._reportChange("configure", this, "GridHeight", t), this.rerender());
+    pt("snap-to-grid height", t), this._GridHeight !== t && (this._GridHeight = t, this._reportChange("configure", this, "GridHeight", t), this.rerender());
   }
   /**** Index ****/
   get Index() {
     return this._Folder == null ? -1 : this._Folder.IndexOfBoard(this);
   }
   set Index(t) {
-    _("Index");
+    b("Index");
   }
   /**** mayBeShiftedUp ****/
   get mayBeShiftedUp() {
     return this._Folder == null ? !1 : this._Folder.mayShiftBoardUp(this);
   }
   set mayBeShiftedUp(t) {
-    _("mayBeShiftedUp");
+    b("mayBeShiftedUp");
   }
   /**** mayBeShiftedDown ****/
   get mayBeShiftedDown() {
     return this._Folder == null ? !1 : this._Folder.mayShiftBoardDown(this);
   }
   set mayBeShiftedDown(t) {
-    _("mayBeShiftedDown");
+    b("mayBeShiftedDown");
   }
   /**** mayBeShiftedIn ****/
   get mayBeShiftedIn() {
     return this._Folder == null ? !1 : this._Folder.mayShiftBoardIn(this);
   }
   set mayBeShiftedIn(t) {
-    _("mayBeShiftedIn");
+    b("mayBeShiftedIn");
   }
   /**** mayBeShiftedOut ****/
   get mayBeShiftedOut() {
     return this._Folder == null ? !1 : this._Folder.mayShiftBoardOut(this);
   }
   set mayBeShiftedOut(t) {
-    _("mayBeShiftedOut");
+    b("mayBeShiftedOut");
   }
   /**** containsFolder ****/
   containsFolder(t) {
-    for (ut("folder", t), t = t.Folder; t != null; ) {
+    for (it("folder", t), t = t.Folder; t != null; ) {
       if (t === this)
         return !0;
       t = t.Folder;
@@ -3894,239 +3373,239 @@ class pt extends ft {
     return this._BoardList.slice();
   }
   set BoardList(t) {
-    _("BoardList");
+    b("BoardList");
   }
   /**** BoardCount ****/
   get BoardCount() {
     return this._BoardList.length;
   }
   set BoardCount(t) {
-    _("BoardCount");
+    b("BoardCount");
   }
   /**** IndexOfBoard ****/
   IndexOfBoard(t) {
-    const i = this.Board(t);
-    return i == null ? -1 : this._BoardList.indexOf(i);
+    const r = this.Board(t);
+    return r == null ? -1 : this._BoardList.indexOf(r);
   }
   /**** Board ****/
   Board(t) {
-    switch (Mt("board, name or index", t), !0) {
+    switch (Ft("board, name or index", t), !0) {
+      case xe(t):
+        const r = t;
+        return r._Folder === this ? r : void 0;
       case Ne(t):
-        const i = t;
-        return i._Folder === this ? i : void 0;
-      case j(t):
         let n = t;
         return n < 0 && (n += this._BoardList.length), this._BoardList[n];
-      case ze(t):
+      case We(t):
         return this.BoardNamed(t);
     }
-    C(
+    N(
       "InvalidArgument: no valid board, board name or board index given"
     );
   }
   /**** existingBoard ****/
   existingBoard(t) {
-    let i = this.Board(t);
-    return i == null && C(
+    let r = this.Board(t);
+    return r == null && N(
       "BoardNotFound: the desired board could not be found"
-    ), i;
+    ), r;
   }
   /**** BoardNamed ****/
   BoardNamed(t) {
-    ue("SNS board name", t), t = t.trim().toLowerCase();
-    let i;
+    ie("SNS board name", t), t = t.trim().toLowerCase();
+    let r;
     return this._BoardList.forEach((n) => {
-      i == null && n.Name != null && n.Name.toLowerCase() === t && (i = n);
-    }), i;
+      r == null && n.Name != null && n.Name.toLowerCase() === t && (r = n);
+    }), r;
   }
   /**** BoardAt ****/
   BoardAt(t) {
-    return Y("SNS board index", t), t < 0 && (t += this._BoardList.length), this._BoardList[t];
+    return q("SNS board index", t), t < 0 && (t += this._BoardList.length), this._BoardList[t];
   }
   /**** hasBoard ****/
   hasBoard(t) {
     return this.Board(t) != null;
   }
   /**** newBoardAt ****/
-  newBoardAt(t, i) {
-    return i == null ? this.BoardDeserializedAt({}, t) : this.BoardDeserializedAt({ Id: i }, t);
+  newBoardAt(t, r) {
+    return r == null ? this.BoardDeserializedAt({}, t) : this.BoardDeserializedAt({ Id: r }, t);
   }
   /**** BoardDeserializedAt - nota bene: needs explicit script activation! ****/
-  BoardDeserializedAt(t, i) {
-    Oe("board serialization", t), me("board insertionindex", i), i == null ? i = this._BoardList.length : (i < 0 && (i += this._BoardList.length), i = Math.max(0, Math.min(i, this._BoardList.length)));
-    const n = qt("board id", t.Id);
-    let o = new bt(this._Project, n);
-    return this._attachBoardAt(o, i), o._deserializeConfigurationFrom(t), o._deserializeStickersFrom(t), o._deserializeBoardsFrom(t), this.rerender(), o;
+  BoardDeserializedAt(t, r) {
+    Re("board serialization", t), de("board insertionindex", r), r == null ? r = this._BoardList.length : (r < 0 && (r += this._BoardList.length), r = Math.max(0, Math.min(r, this._BoardList.length)));
+    const n = Wt("board id", t.Id);
+    let a = new dt(this._Project, n);
+    return this._attachBoardAt(a, r), a._deserializeConfigurationFrom(t), a._deserializeStickersFrom(t), a._deserializeBoardsFrom(t), this.rerender(), a;
   }
   /**** DuplicateOfBoardAt ****/
   DuplicateOfBoardAt(t) {
-    Y("board index", t);
+    q("board index", t);
     const n = this.existingBoard(t).Serialization;
-    return We(n), this.BoardDeserializedAt(n, t + 1);
+    return Ie(n), this.BoardDeserializedAt(n, t + 1);
   }
   /**** mayShiftBoardUp/Down ****/
   mayShiftBoardUp(t) {
-    const i = this.existingBoard(t);
-    return this._BoardList.indexOf(i) > 0;
+    const r = this.existingBoard(t);
+    return this._BoardList.indexOf(r) > 0;
   }
   mayShiftBoardDown(t) {
-    const i = this.existingBoard(t), n = this._BoardList, o = n.indexOf(i);
-    return o >= 0 && o < n.length - 1;
+    const r = this.existingBoard(t), n = this._BoardList, a = n.indexOf(r);
+    return a >= 0 && a < n.length - 1;
   }
   /**** shiftBoardToTop ****/
   shiftBoardToTop(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardUp(i)) {
-      const n = this._BoardList.indexOf(i);
-      this._detachBoardAt(n), this._attachBoardAt(i, 0), this.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardUp(r)) {
+      const n = this._BoardList.indexOf(r);
+      this._detachBoardAt(n), this._attachBoardAt(r, 0), this.rerender();
     }
   }
   /**** shiftBoardUp ****/
   shiftBoardUp(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardUp(i)) {
-      const n = this._BoardList.indexOf(i);
-      this._detachBoardAt(n), this._attachBoardAt(i, n - 1), this.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardUp(r)) {
+      const n = this._BoardList.indexOf(r);
+      this._detachBoardAt(n), this._attachBoardAt(r, n - 1), this.rerender();
     }
   }
   /**** shiftBoardDown ****/
   shiftBoardDown(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardDown(i)) {
-      const n = this._BoardList.indexOf(i);
-      this._detachBoardAt(n), this._attachBoardAt(i, n + 1), this.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardDown(r)) {
+      const n = this._BoardList.indexOf(r);
+      this._detachBoardAt(n), this._attachBoardAt(r, n + 1), this.rerender();
     }
   }
   /**** shiftBoardToBottom ****/
   shiftBoardToBottom(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardDown(i)) {
-      const n = this._BoardList.indexOf(i);
-      this._detachBoardAt(n), this._attachBoardAt(i, this._BoardList.length), this.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardDown(r)) {
+      const n = this._BoardList.indexOf(r);
+      this._detachBoardAt(n), this._attachBoardAt(r, this._BoardList.length), this.rerender();
     }
   }
   /**** shiftBoardTo ****/
-  shiftBoardTo(t, i) {
+  shiftBoardTo(t, r) {
     const n = this.existingBoard(t);
-    Y("SNS board index", i), i < 0 && (i += this._BoardList.length), i = Math.max(0, Math.min(i, this._BoardList.length));
-    const o = this._BoardList.indexOf(n);
-    o !== i && (this._detachBoardAt(o), this._attachBoardAt(n, i), this.rerender());
+    q("SNS board index", r), r < 0 && (r += this._BoardList.length), r = Math.max(0, Math.min(r, this._BoardList.length));
+    const a = this._BoardList.indexOf(n);
+    a !== r && (this._detachBoardAt(a), this._attachBoardAt(n, r), this.rerender());
   }
   /**** shiftBoardsByIndex ****/
-  shiftBoardsByIndex(t, i, n) {
-    const o = this._BoardList.length;
-    se("old index", t, 0, o), se("new index", i, 0, o);
-    const u = this._BoardList.slice(t, t + n);
-    u.forEach((s) => this._detachBoardAt(t)), i > t && (i -= n), u.forEach(
-      (s, l) => this._attachBoardAt(s, i + l)
+  shiftBoardsByIndex(t, r, n) {
+    const a = this._BoardList.length;
+    _e("old index", t, 0, a), _e("new index", r, 0, a);
+    const d = this._BoardList.slice(t, t + n);
+    d.forEach((s) => this._detachBoardAt(t)), r > t && (r -= n), d.forEach(
+      (s, l) => this._attachBoardAt(s, r + l)
     ), this.rerender();
   }
   /**** mayShiftBoardIn/Out ****/
   mayShiftBoardIn(t) {
-    const i = this.existingBoard(t);
-    return this.mayShiftBoardDown(i);
+    const r = this.existingBoard(t);
+    return this.mayShiftBoardDown(r);
   }
   mayShiftBoardOut(t) {
     return this._Folder != null;
   }
   /**** shiftBoardIn ****/
   shiftBoardIn(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardIn(i)) {
-      const n = this._BoardList.indexOf(i), o = this._BoardList[n + 1];
-      this._detachBoardAt(n), o._attachBoardAt(i, 0), this.rerender(), o.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardIn(r)) {
+      const n = this._BoardList.indexOf(r), a = this._BoardList[n + 1];
+      this._detachBoardAt(n), a._attachBoardAt(r, 0), this.rerender(), a.rerender();
     }
   }
   /**** shiftBoardOut ****/
   shiftBoardOut(t) {
-    const i = this.existingBoard(t);
-    if (this.mayShiftBoardOut(i)) {
-      const n = this._BoardList.indexOf(i), o = this._Folder;
-      this._detachBoardAt(n), o._attachBoardAt(i, o.Index), this.rerender(), o.rerender();
+    const r = this.existingBoard(t);
+    if (this.mayShiftBoardOut(r)) {
+      const n = this._BoardList.indexOf(r), a = this._Folder;
+      this._detachBoardAt(n), a._attachBoardAt(r, a.Index), this.rerender(), a.rerender();
     }
   }
   /**** mayMoveBoardTo ****/
-  mayMoveBoardTo(t, i, n) {
-    const o = this.existingBoard(t), u = le(i) ? i : this.existingBoard(i);
-    return me("insertion index", n), u.isAttached && u !== o && !o.containsFolder(u);
+  mayMoveBoardTo(t, r, n) {
+    const a = this.existingBoard(t), d = te(r) ? r : this.existingBoard(r);
+    return de("insertion index", n), d.isAttached && d !== a && !a.containsFolder(d);
   }
   /**** moveBoardTo ****/
-  moveBoardTo(t, i, n) {
-    const o = this.existingBoard(t), u = le(i) ? i : this.existingBoard(i);
-    if (me("insertion index", n), u.isAttached && u !== o && !o.containsFolder(u)) {
-      const s = this._BoardList.indexOf(o);
-      let l = n ?? u.BoardCount;
-      l < 0 && (l += u.BoardCount), l = Math.max(0, Math.min(l, u.BoardCount)), this._detachBoardAt(s), u._attachBoardAt(o, l), this.rerender(), u.rerender();
+  moveBoardTo(t, r, n) {
+    const a = this.existingBoard(t), d = te(r) ? r : this.existingBoard(r);
+    if (de("insertion index", n), d.isAttached && d !== a && !a.containsFolder(d)) {
+      const s = this._BoardList.indexOf(a);
+      let l = n ?? d.BoardCount;
+      l < 0 && (l += d.BoardCount), l = Math.max(0, Math.min(l, d.BoardCount)), this._detachBoardAt(s), d._attachBoardAt(a, l), this.rerender(), d.rerender();
     }
   }
   /**** destroyBoard ****/
   destroyBoard(t) {
-    const i = this.Board(t);
-    if (i == null) {
-      Ne(t) && C(
+    const r = this.Board(t);
+    if (r == null) {
+      xe(t) && N(
         "NoSuchBoard: the given board could not be found"
       );
       return;
     }
-    i.clear(), ht(i);
-    const n = this._BoardList.indexOf(i);
-    this._detachBoardAt(n), ar(i), i._Project = void 0, this._reportChange("destroyBoard", i), this.rerender();
+    r.clear(), ot(r);
+    const n = this._BoardList.indexOf(r);
+    this._detachBoardAt(n), Yt(r), r._Project = void 0, this._reportChange("destroyBoard", r), this.rerender();
   }
   /**** clear ****/
   clear() {
-    for (let t = 0, i = this._BoardList.length; t < i; t++)
+    for (let t = 0, r = this._BoardList.length; t < r; t++)
       this.destroyBoard(this._BoardList[0]);
   }
   /**** Rendering ****/
   Rendering(t) {
     if (this.hasError)
-      return Ve.call(this);
-    let i = this._Renderer;
-    if (i == null)
+      return $e.call(this);
+    let r = this._Renderer;
+    if (r == null)
       return "";
     try {
-      return i.call(this, t);
+      return r.call(this, t);
     } catch (n) {
       return this.Error = {
         Type: "Rendering Failure",
         Message: "" + n,
         Cause: n
-      }, Ve.call(this);
+      }, $e.call(this);
     }
   }
   /**** _attachBoardAt ****/
   /* protected */
-  _attachBoardAt(t, i) {
-    t._Folder = this, this._BoardList.splice(i, 0, t), this._reportChange("attachBoard", t, this, i);
+  _attachBoardAt(t, r) {
+    t._Folder = this, this._BoardList.splice(r, 0, t), this._reportChange("attachBoard", t, this, r);
   }
   /**** _detachBoardAt ****/
   /* protected */
   _detachBoardAt(t) {
-    const i = this._BoardList.splice(t, 1)[0];
-    i._Folder = void 0, this._reportChange("detachBoard", i, this, t);
+    const r = this._BoardList.splice(t, 1)[0];
+    r._Folder = void 0, this._reportChange("detachBoard", r, this, t);
   }
   /**** _serializeConfigurationInto ****/
   _serializeConfigurationInto(t) {
     super._serializeConfigurationInto(t);
-    const i = (n) => {
+    const r = (n) => {
       this["_" + n] != null && (t[n] = this[n]);
     };
     [
       "SnapToGrid",
       "GridWidth",
       "GridHeight"
-    ].forEach((n) => i(n));
+    ].forEach((n) => r(n));
   }
   /**** _deserializeConfigurationFrom ****/
   _deserializeConfigurationFrom(t) {
     super._deserializeConfigurationFrom(t);
-    const i = (n) => {
+    const r = (n) => {
       if (t[n] != null)
         try {
           this[n] = t[n];
         } catch {
           console.warn(
-            "DeserializationError:invalid value for property " + X(n)
+            "DeserializationError:invalid value for property " + z(n)
           );
         }
     };
@@ -4134,25 +3613,25 @@ class pt extends ft {
       "SnapToGrid",
       "GridWidth",
       "GridHeight"
-    ].forEach((n) => i(n));
+    ].forEach((n) => r(n));
   }
   /**** _serializeBoardsInto ****/
   _serializeBoardsInto(t) {
-    const i = this._BoardList.slice();
-    i.length > 0 && (t.BoardList = i.map(
+    const r = this._BoardList.slice();
+    r.length > 0 && (t.BoardList = r.map(
       (n) => n.Serialization
     ));
   }
   /**** _deserializeBoardsFrom ****/
   _deserializeBoardsFrom(t) {
-    this._BoardList.length > 0 && this.clear(), ge(t.BoardList, he) && t.BoardList.length > 0 && t.BoardList.forEach(
-      (n, o) => {
-        this.BoardDeserializedAt(n, o);
+    this._BoardList.length > 0 && this.clear(), De(t.BoardList, Fe) && t.BoardList.length > 0 && t.BoardList.forEach(
+      (n, a) => {
+        this.BoardDeserializedAt(n, a);
       }
     );
   }
 }
-const dr = /* @__PURE__ */ Object.create(null);
+const Jt = /* @__PURE__ */ Object.create(null);
 [
   "Name",
   "BackgroundColor",
@@ -4169,56 +3648,56 @@ const dr = /* @__PURE__ */ Object.create(null);
   "SnapToGrid",
   "GridWidth",
   "GridHeight"
-].forEach((r) => dr[r] = !0);
-class qe extends pt {
+].forEach((i) => Jt[i] = !0);
+class Ae extends lt {
   constructor(t) {
     super(void 0, void 0);
     /**** onChange ****/
-    k(this, "_onChange", []);
+    _(this, "_onChange", []);
     /**** onRender ****/
-    k(this, "_onRender", []);
+    _(this, "_onRender", []);
     /**** onError ****/
-    k(this, "_onError", []);
-    this._Project = this, ue("project name", t), this._Name = t;
+    _(this, "_onError", []);
+    this._Project = this, ie("project name", t), this._Name = t;
   }
   /**** Name ****/
   get Name() {
     return this._Name;
   }
   set Name(t) {
-    _("Name");
+    b("Name");
   }
   /**** IndexPath ****/
   get IndexPath() {
     return [];
   }
   set IndexPath(t) {
-    _("IndexPath");
+    b("IndexPath");
   }
   /**** BoardAtIndexPath ****/
   BoardAtIndexPath(t) {
-    if (Ir("board index path", t, de), t.length !== 0) {
-      let i;
-      for (let n = 0, o = t.length; n < o; n++)
-        if (i = (i || this).BoardAt(t[n]), i == null)
+    if (ui("board index path", t, Je), t.length !== 0) {
+      let r;
+      for (let n = 0, a = t.length; n < a; n++)
+        if (r = (r || this).BoardAt(t[n]), r == null)
           return;
-      return i;
+      return r;
     }
   }
   /**** FolderWithId ****/
   FolderWithId(t) {
-    return I("folder id", t), Ft(this, t);
+    return B("folder id", t), bt(this, t);
   }
   /**** BoardWithId ****/
   BoardWithId(t) {
-    const i = Ft(this, t);
-    return fe(i) && C(
+    const r = bt(this, t);
+    return oe(r) && N(
       "NotABoard: the folder with the given id is not a board, but the project"
-    ), i;
+    ), r;
   }
   /**** StickerWithId ****/
   StickerWithId(t) {
-    return I("sticker id", t), Ci(this, t);
+    return B("sticker id", t), Qi(this, t);
   }
   /**** recursivelyActivateAllScripts ****/
   recursivelyActivateAllScripts() {
@@ -4227,32 +3706,32 @@ class qe extends pt {
     );
   }
   onChange(t) {
-    oe('"onChange" callback', t), this._onChange.push(t);
+    ee('"onChange" callback', t), this._onChange.push(t);
   }
   /**** _reportChange ****/
   /* protected */
-  _reportChange(t, i, ...n) {
-    t === "configure" && (t = le(i) ? "configureFolder" : "configureSticker"), n.unshift(this, t, i), this._onChange.forEach(
+  _reportChange(t, r, ...n) {
+    t === "configure" && (t = te(r) ? "configureFolder" : "configureSticker"), n.unshift(this, t, r), this._onChange.forEach(
       // @ts-ignore TS2345 skip checking of individual "ArgList" elements
-      (o) => o.apply(this, n)
+      (a) => a.apply(this, n)
     );
   }
   onRender(t) {
-    oe('"onRender" callback', t), this._onRender.push(t);
+    ee('"onRender" callback', t), this._onRender.push(t);
   }
   /**** rerender ****/
-  rerender(t, i) {
+  rerender(t, r) {
     this._onRender.forEach(
-      (n) => n(this, t, i)
+      (n) => n(this, t, r)
     );
   }
   onError(t) {
-    oe('"onError" callback', t), this._onError.push(t);
+    ee('"onError" callback', t), this._onError.push(t);
   }
   /**** showError ****/
-  showError(t, i) {
+  showError(t, r) {
     this._onError.forEach(
-      (n) => n(this, t, i)
+      (n) => n(this, t, r)
     );
   }
   /**** Serialization ****/
@@ -4261,16 +3740,16 @@ class qe extends pt {
     return this._serializeConfigurationInto(t), this._serializeBoardsInto(t), delete t.Id, t;
   }
   set Serialization(t) {
-    _("Serialization");
+    b("Serialization");
   }
   /**** deserializedFrom - nota bene: needs explicit script activation! ****/
-  static deserializedFrom(t, i) {
-    ue("project name", t);
-    const n = new qe(t);
-    return delete i.Name, n._Name = t, n._deserializeConfigurationFrom(i), n._deserializeBoardsFrom(i), n;
+  static deserializedFrom(t, r) {
+    ie("project name", t);
+    const n = new Ae(t);
+    return delete r.Name, n._Name = t, n._deserializeConfigurationFrom(r), n._deserializeBoardsFrom(r), n;
   }
 }
-const St = /* @__PURE__ */ Object.create(null);
+const ut = /* @__PURE__ */ Object.create(null);
 [
   "Name",
   "BackgroundColor",
@@ -4287,162 +3766,162 @@ const St = /* @__PURE__ */ Object.create(null);
   "SnapToGrid",
   "GridWidth",
   "GridHeight"
-].forEach((r) => St[r] = !0);
-class bt extends pt {
+].forEach((i) => ut[i] = !0);
+class dt extends lt {
   /* protected */
-  constructor(t, i) {
-    super(t, i);
+  constructor(t, r) {
+    super(t, r);
     /**** StickerList ****/
-    k(this, "_StickerList", []);
-    Li(t, this), t._reportChange("createBoard", this);
+    _(this, "_StickerList", []);
+    ji(t, this), t._reportChange("createBoard", this);
   }
   get StickerList() {
     return this._StickerList.slice();
   }
   set StickerList(t) {
-    _("StickerList");
+    b("StickerList");
   }
   /**** StickerCount ****/
   get StickerCount() {
     return this._StickerList.length;
   }
   set StickerCount(t) {
-    _("StickerCount");
+    b("StickerCount");
   }
   /**** IndexOfSticker ****/
   IndexOfSticker(t) {
-    return Ue("SNS sticker to search for", t), this._StickerList.indexOf(t);
+    return Me("SNS sticker to search for", t), this._StickerList.indexOf(t);
   }
   /**** Sticker ****/
   Sticker(t) {
-    switch (Mt("sticker, name or index", t), !0) {
-      case Ce(t):
-        const i = t;
-        return i.Board === this ? i : void 0;
-      case j(t):
+    switch (Ft("sticker, name or index", t), !0) {
+      case we(t):
+        const r = t;
+        return r.Board === this ? r : void 0;
+      case Ne(t):
         const n = t;
         return this._StickerList[n];
-      case ze(t):
+      case We(t):
         return this.StickerNamed(t);
     }
-    C(
+    N(
       "InvalidArgument: no valid sticker, sticker name or sticker index given"
     );
   }
   /**** existingSticker ****/
   existingSticker(t) {
-    let i = this.Sticker(t);
-    return i == null && C(
+    let r = this.Sticker(t);
+    return r == null && N(
       "StickerNotFound: the desired sticker could not be found"
-    ), i;
+    ), r;
   }
   /**** StickerNamed ****/
   StickerNamed(t) {
-    ue("SNS sticker name", t), t = t.trim().toLowerCase();
-    let i;
+    ie("SNS sticker name", t), t = t.trim().toLowerCase();
+    let r;
     return this._StickerList.forEach((n) => {
-      i == null && n.Name != null && n.Name.toLowerCase() === t && (i = n);
-    }), i;
+      r == null && n.Name != null && n.Name.toLowerCase() === t && (r = n);
+    }), r;
   }
   /**** StickerAt ****/
   StickerAt(t) {
-    return Y("SNS sticker index", t), t < 0 && (t += this._StickerList.length), this._StickerList[t];
+    return q("SNS sticker index", t), t < 0 && (t += this._StickerList.length), this._StickerList[t];
   }
   /**** hasSticker ****/
   hasSticker(t) {
     return this.Sticker(t) != null;
   }
   /**** newStickerAt ****/
-  newStickerAt(t, i) {
-    return i == null ? this.StickerDeserializedAt({}, t) : this.StickerDeserializedAt({ Id: i }, t);
+  newStickerAt(t, r) {
+    return r == null ? this.StickerDeserializedAt({}, t) : this.StickerDeserializedAt({ Id: r }, t);
   }
   /**** StickerDeserializedAt - nota bene: needs explicit script activation! ****/
-  StickerDeserializedAt(t, i) {
-    Oe("sticker serialization", t), me("SNS sticker index", i), i == null ? i = this._StickerList.length : (i < 0 && (i += this._StickerList.length), i = Math.max(0, Math.min(i, this._StickerList.length)));
-    const n = qt("sticker id", t.Id);
-    let o = new mt(this.Project, n);
-    return this._attachStickerAt(o, i), o._deserializeConfigurationFrom(t), this.rerender(), o;
+  StickerDeserializedAt(t, r) {
+    Re("sticker serialization", t), de("SNS sticker index", r), r == null ? r = this._StickerList.length : (r < 0 && (r += this._StickerList.length), r = Math.max(0, Math.min(r, this._StickerList.length)));
+    const n = Wt("sticker id", t.Id);
+    let a = new ct(this.Project, n);
+    return this._attachStickerAt(a, r), a._deserializeConfigurationFrom(t), this.rerender(), a;
   }
   /**** DuplicateOfStickerAt ****/
   DuplicateOfStickerAt(t) {
-    Y("SNS sticker index", t);
+    q("SNS sticker index", t);
     const n = this.existingSticker(t).Serialization;
-    return We(n), this.StickerDeserializedAt(n, t + 1);
+    return Ie(n), this.StickerDeserializedAt(n, t + 1);
   }
   /**** mayShiftStickerUp/Down ****/
   mayShiftStickerUp(t) {
-    const i = this.existingSticker(t);
-    return this._StickerList.indexOf(i) > 0;
+    const r = this.existingSticker(t);
+    return this._StickerList.indexOf(r) > 0;
   }
   mayShiftStickerDown(t) {
-    const i = this.existingSticker(t), n = this._StickerList, o = n.indexOf(i);
-    return o >= 0 && o < n.length - 1;
+    const r = this.existingSticker(t), n = this._StickerList, a = n.indexOf(r);
+    return a >= 0 && a < n.length - 1;
   }
   /**** shiftStickerToTop ****/
   shiftStickerToTop(t) {
-    const i = this.existingSticker(t);
-    if (this.mayShiftStickerUp(i)) {
-      const n = this._StickerList.indexOf(i);
-      this._detachStickerAt(n), this._attachStickerAt(i, 0), this.rerender();
+    const r = this.existingSticker(t);
+    if (this.mayShiftStickerUp(r)) {
+      const n = this._StickerList.indexOf(r);
+      this._detachStickerAt(n), this._attachStickerAt(r, 0), this.rerender();
     }
   }
   /**** shiftStickerUp ****/
   shiftStickerUp(t) {
-    const i = this.existingSticker(t);
-    if (this.mayShiftStickerUp(i)) {
-      const n = this._StickerList.indexOf(i);
-      this._detachStickerAt(n), this._attachStickerAt(i, n - 1), this.rerender();
+    const r = this.existingSticker(t);
+    if (this.mayShiftStickerUp(r)) {
+      const n = this._StickerList.indexOf(r);
+      this._detachStickerAt(n), this._attachStickerAt(r, n - 1), this.rerender();
     }
   }
   /**** shiftStickerDown ****/
   shiftStickerDown(t) {
-    const i = this.existingSticker(t);
-    if (this.mayShiftStickerDown(i)) {
-      const n = this._StickerList.indexOf(i);
-      this._detachStickerAt(n), this._attachStickerAt(i, n + 1), this.rerender();
+    const r = this.existingSticker(t);
+    if (this.mayShiftStickerDown(r)) {
+      const n = this._StickerList.indexOf(r);
+      this._detachStickerAt(n), this._attachStickerAt(r, n + 1), this.rerender();
     }
   }
   /**** shiftStickerToBottom ****/
   shiftStickerToBottom(t) {
-    const i = this.existingSticker(t);
-    if (this.mayShiftStickerDown(i)) {
-      const n = this._StickerList.indexOf(i);
-      this._detachStickerAt(n), this._attachStickerAt(i, this._StickerList.length), this.rerender();
+    const r = this.existingSticker(t);
+    if (this.mayShiftStickerDown(r)) {
+      const n = this._StickerList.indexOf(r);
+      this._detachStickerAt(n), this._attachStickerAt(r, this._StickerList.length), this.rerender();
     }
   }
   /**** shiftStickerTo ****/
-  shiftStickerTo(t, i) {
+  shiftStickerTo(t, r) {
     const n = this.existingSticker(t);
-    Y("SNS sticker index", i), i < 0 && (i += this._StickerList.length), i = Math.max(0, Math.min(i, this._StickerList.length - 1));
-    const o = this._StickerList.indexOf(n);
-    o !== i && (this._detachStickerAt(o), this._attachStickerAt(n, i), this.rerender());
+    q("SNS sticker index", r), r < 0 && (r += this._StickerList.length), r = Math.max(0, Math.min(r, this._StickerList.length - 1));
+    const a = this._StickerList.indexOf(n);
+    a !== r && (this._detachStickerAt(a), this._attachStickerAt(n, r), this.rerender());
   }
   /**** shiftStickersByIndex ****/
-  shiftStickersByIndex(t, i, n) {
-    const o = this._StickerList.length;
-    se("old index", t, 0, o), se("new index", i, 0, o);
-    const u = this._StickerList.slice(t, t + n);
-    u.forEach((s) => this._detachStickerAt(t)), i > t && (i -= n), u.forEach(
-      (s, l) => this._attachStickerAt(s, i + l)
+  shiftStickersByIndex(t, r, n) {
+    const a = this._StickerList.length;
+    _e("old index", t, 0, a), _e("new index", r, 0, a);
+    const d = this._StickerList.slice(t, t + n);
+    d.forEach((s) => this._detachStickerAt(t)), r > t && (r -= n), d.forEach(
+      (s, l) => this._attachStickerAt(s, r + l)
     ), this.rerender();
   }
   /**** destroySticker ****/
   destroySticker(t) {
-    const i = this.Sticker(t);
-    if (i == null) {
-      Ce(t) && C(
+    const r = this.Sticker(t);
+    if (r == null) {
+      we(t) && N(
         "NoSuchSticker: the given sticker could not be found"
       );
       return;
     }
-    ht(i);
-    const n = this._StickerList.indexOf(i);
-    this._detachStickerAt(n), sr(i), i._Project = void 0, this._reportChange("destroySticker", i), this.rerender();
+    ot(r);
+    const n = this._StickerList.indexOf(r);
+    this._detachStickerAt(n), qt(r), r._Project = void 0, this._reportChange("destroySticker", r), this.rerender();
   }
   /**** clear ****/
   clear() {
     super.clear();
-    for (let t = 0, i = this._StickerList.length; t < i; t++)
+    for (let t = 0, r = this._StickerList.length; t < r; t++)
       this.destroySticker(this._StickerList[0]);
   }
   /**** recursivelyActivateAllScripts ****/
@@ -4459,14 +3938,14 @@ class bt extends pt {
   }
   /**** _attachStickerAt ****/
   /* protected */
-  _attachStickerAt(t, i) {
-    t._Folder = this, this._StickerList.splice(i, 0, t), this._reportChange("attachSticker", t, this, i);
+  _attachStickerAt(t, r) {
+    t._Folder = this, this._StickerList.splice(r, 0, t), this._reportChange("attachSticker", t, this, r);
   }
   /**** _detachStickerAt ****/
   /* protected */
   _detachStickerAt(t) {
-    const i = this._StickerList.splice(t, 1)[0];
-    i._Folder = void 0, this._reportChange("detachSticker", i, this, t);
+    const r = this._StickerList.splice(t, 1)[0];
+    r._Folder = void 0, this._reportChange("detachSticker", r, this, t);
   }
   /**** Serialization ****/
   get Serialization() {
@@ -4474,25 +3953,25 @@ class bt extends pt {
     return this._serializeConfigurationInto(t), this._serializeBoardsInto(t), this._serializeStickersInto(t), t;
   }
   set Serialization(t) {
-    _("Serialization");
+    b("Serialization");
   }
   /**** _serializeStickersInto ****/
   _serializeStickersInto(t) {
-    const i = this._StickerList.slice();
-    i.length > 0 && (t.StickerList = i.map(
+    const r = this._StickerList.slice();
+    r.length > 0 && (t.StickerList = r.map(
       (n) => n.Serialization
     ));
   }
   /**** _deserializeStickersFrom ****/
   _deserializeStickersFrom(t) {
-    this._StickerList.length > 0 && this.clear(), ge(t.StickerList, he) && t.StickerList.length > 0 && t.StickerList.forEach(
-      (n, o) => {
-        this.StickerDeserializedAt(n, o);
+    this._StickerList.length > 0 && this.clear(), De(t.StickerList, Fe) && t.StickerList.length > 0 && t.StickerList.forEach(
+      (n, a) => {
+        this.StickerDeserializedAt(n, a);
       }
     );
   }
 }
-const zi = /* @__PURE__ */ Object.create(null);
+const cr = /* @__PURE__ */ Object.create(null);
 [
   "Name",
   "BackgroundColor",
@@ -4509,144 +3988,144 @@ const zi = /* @__PURE__ */ Object.create(null);
   "SnapToGrid",
   "GridWidth",
   "GridHeight"
-].forEach((r) => St[r] = !0);
-class mt extends ft {
+].forEach((i) => ut[i] = !0);
+class ct extends st {
   /* protected */
-  constructor(t, i) {
-    super(t, i);
+  constructor(t, r) {
+    super(t, r);
     /**** minWidth ****/
-    k(this, "_minWidth");
+    _(this, "_minWidth");
     /**** maxWidth ****/
-    k(this, "_maxWidth", vi);
+    _(this, "_maxWidth", Gi);
     /**** minHeight ****/
-    k(this, "_minHeight");
+    _(this, "_minHeight");
     /**** maxHeight ****/
-    k(this, "_maxHeight", _i);
+    _(this, "_maxHeight", Ei);
     /**** Geometry ****/
-    k(this, "_Geometry", { ...Q });
+    _(this, "_Geometry", { ...Y });
     /**** Lock ****/
-    k(this, "_Lock", !1);
+    _(this, "_Lock", !1);
     /**** Visibility ****/
-    k(this, "_Visibility", !0);
+    _(this, "_Visibility", !0);
     /**** Enabling ****/
-    k(this, "_Enabling", !0);
-    Ni(t, this), t._reportChange("createSticker", this);
+    _(this, "_Enabling", !0);
+    Ki(t, this), t._reportChange("createSticker", this);
   }
   /**** Board ****/
   get Board() {
     return this._Folder;
   }
   set Board(t) {
-    _("Board");
+    b("Board");
   }
   /**** BackgroundTexture ****/
   get BackgroundTexture() {
     return this._BackgroundTexture;
   }
   set BackgroundTexture(t) {
-    Wt("visual background texture", t), this._BackgroundTexture !== t && (this._BackgroundTexture = t, this._reportChange("configure", this, "BackgroundTexture", t), this.rerender());
+    Vt("visual background texture", t), this._BackgroundTexture !== t && (this._BackgroundTexture = t, this._reportChange("configure", this, "BackgroundTexture", t), this.rerender());
   }
   /**** Index ****/
   get Index() {
     return this._Folder.IndexOfSticker(this);
   }
   set Index(t) {
-    _("Index");
+    b("Index");
   }
   /**** mayBeShiftedUp ****/
   get mayBeShiftedUp() {
     return this._Folder.mayShiftStickerUp(this);
   }
   set mayBeShiftedUp(t) {
-    _("mayBeShiftedUp");
+    b("mayBeShiftedUp");
   }
   /**** mayBeShiftedDown ****/
   get mayBeShiftedDown() {
     return this._Folder.mayShiftStickerDown(this);
   }
   set mayBeShiftedDown(t) {
-    _("mayBeShiftedDown");
+    b("mayBeShiftedDown");
   }
   get minWidth() {
-    return this._minWidth == null ? mi : this._minWidth;
+    return this._minWidth == null ? Ti : this._minWidth;
   }
   set minWidth(t) {
-    ne("minimal sticker width", t), this._minWidth !== t && (this._minWidth = t, this._reportChange("configure", this, "minWidth", t), this._minWidth != null && this._maxWidth != null && this._maxWidth < this._minWidth && (this._maxWidth = t, this._reportChange("configure", this, "maxWidth", this._minWidth)), this._minWidth != null && this._Geometry.Width < this._minWidth && (this.Width = this._minWidth), this.rerender());
+    J("minimal sticker width", t), this._minWidth !== t && (this._minWidth = t, this._reportChange("configure", this, "minWidth", t), this._minWidth != null && this._maxWidth != null && this._maxWidth < this._minWidth && (this._maxWidth = t, this._reportChange("configure", this, "maxWidth", this._minWidth)), this._minWidth != null && this._Geometry.Width < this._minWidth && (this.Width = this._minWidth), this.rerender());
   }
   get maxWidth() {
     return this._maxWidth;
   }
   set maxWidth(t) {
-    ne("maximal sticker width", t), t != null && this._minWidth != null && (t = Math.max(this._minWidth, t)), this._maxWidth !== t && (this._maxWidth = t, this._reportChange("configure", this, "maxWidth", this._maxWidth), this._maxWidth != null && this._Geometry.Width > this._maxWidth && (this.Width = this._maxWidth), this.rerender());
+    J("maximal sticker width", t), t != null && this._minWidth != null && (t = Math.max(this._minWidth, t)), this._maxWidth !== t && (this._maxWidth = t, this._reportChange("configure", this, "maxWidth", this._maxWidth), this._maxWidth != null && this._Geometry.Width > this._maxWidth && (this.Width = this._maxWidth), this.rerender());
   }
   get minHeight() {
-    return this._minHeight == null ? ki : this._minHeight;
+    return this._minHeight == null ? Pi : this._minHeight;
   }
   set minHeight(t) {
-    ne("minimal sticker height", t), this._minHeight !== t && (this._minHeight = t, this._reportChange("configure", this, "minHeight", t), this._minHeight != null && this._maxHeight != null && this._maxHeight < this._minHeight && (this._maxHeight = t, this._reportChange("configure", this, "maxHeight", this._minHeight)), this._minHeight != null && this._Geometry.Height < this._minHeight && (this.Height = this._minHeight), this.rerender());
+    J("minimal sticker height", t), this._minHeight !== t && (this._minHeight = t, this._reportChange("configure", this, "minHeight", t), this._minHeight != null && this._maxHeight != null && this._maxHeight < this._minHeight && (this._maxHeight = t, this._reportChange("configure", this, "maxHeight", this._minHeight)), this._minHeight != null && this._Geometry.Height < this._minHeight && (this.Height = this._minHeight), this.rerender());
   }
   get maxHeight() {
     return this._maxHeight;
   }
   set maxHeight(t) {
-    ne("maximal sticker height", t), t != null && this._minHeight != null && (t = Math.max(this._minHeight, t)), this._maxHeight !== t && (this._maxHeight = t, this._reportChange("configure", this, "maxHeight", this._maxHeight), this._maxHeight != null && this._Geometry.Height > this._maxHeight && (this.Height = this._maxHeight), this.rerender());
+    J("maximal sticker height", t), t != null && this._minHeight != null && (t = Math.max(this._minHeight, t)), this._maxHeight !== t && (this._maxHeight = t, this._reportChange("configure", this, "maxHeight", this._maxHeight), this._maxHeight != null && this._Geometry.Height > this._maxHeight && (this.Height = this._maxHeight), this.rerender());
   }
   /**** x ****/
   get x() {
     return this._Geometry.x;
   }
   set x(t) {
-    rt("sticker x coordinate", t), this.Geometry = { ...this.Geometry, x: t };
+    Xe("sticker x coordinate", t), this.Geometry = { ...this.Geometry, x: t };
   }
   /**** y ****/
   get y() {
     return this._Geometry.y;
   }
   set y(t) {
-    rt("sticker y coordinate", t), this.Geometry = { ...this.Geometry, y: t };
+    Xe("sticker y coordinate", t), this.Geometry = { ...this.Geometry, y: t };
   }
   /**** Width ****/
   get Width() {
     return this._Geometry.Width;
   }
   set Width(t) {
-    it("sticker width", t), this.Geometry = { ...this.Geometry, Width: t };
+    Ye("sticker width", t), this.Geometry = { ...this.Geometry, Width: t };
   }
   /**** Height ****/
   get Height() {
     return this._Geometry.Height;
   }
   set Height(t) {
-    it("sticker height", t), this.Geometry = { ...this.Geometry, Height: t };
+    Ye("sticker height", t), this.Geometry = { ...this.Geometry, Height: t };
   }
   /**** Position ****/
   get Position() {
     return { x: this._Geometry.x, y: this._Geometry.y };
   }
   set Position(t) {
-    Jt("visual position", t), this.Geometry = { ...this.Geometry, x: t.x, y: t.y };
+    Tt("visual position", t), this.Geometry = { ...this.Geometry, x: t.x, y: t.y };
   }
   /**** Size ****/
   get Size() {
     return { Width: this._Geometry.Width, Height: this._Geometry.Height };
   }
   set Size(t) {
-    Qt("visual size", t), this.Geometry = { ...this.Geometry, Width: t.Width, Height: t.Height };
+    Pt("visual size", t), this.Geometry = { ...this.Geometry, Width: t.Width, Height: t.Height };
   }
   get Geometry() {
-    let { x: t, y: i, Width: n, Height: o } = this._Geometry;
-    return this._minWidth != null && (n = Math.max(this._minWidth, n)), this._maxWidth != null && (n = Math.min(n, this._maxWidth)), this._minHeight != null && (o = Math.max(this._minHeight, o)), this._maxHeight != null && (o = Math.min(o, this._maxHeight)), { x: t, y: i, Width: n, Height: o };
+    let { x: t, y: r, Width: n, Height: a } = this._Geometry;
+    return this._minWidth != null && (n = Math.max(this._minWidth, n)), this._maxWidth != null && (n = Math.min(n, this._maxWidth)), this._minHeight != null && (a = Math.max(this._minHeight, a)), this._maxHeight != null && (a = Math.min(a, this._maxHeight)), { x: t, y: r, Width: n, Height: a };
   }
   set Geometry(t) {
-    tr("visual geometry", t);
-    let { x: i, y: n, Width: o, Height: u } = this._Geometry;
-    (i !== t.x || o !== t.Width || n !== t.y || u !== t.Height) && (this._Geometry = { ...t }, this._reportChange("configure", this, "Geometry", { ...t }), this.rerender());
+    Ut("visual geometry", t);
+    let { x: r, y: n, Width: a, Height: d } = this._Geometry;
+    (r !== t.x || a !== t.Width || n !== t.y || d !== t.Height) && (this._Geometry = { ...t }, this._reportChange("configure", this, "Geometry", { ...t }), this.rerender());
   }
   get Lock() {
     return this._Lock;
   }
   set Lock(t) {
-    Xe("sticker lock", t), this._Lock !== t && (this._Lock = t, this._reportChange("configure", this, "Lock", t), this.rerender());
+    Ge("sticker lock", t), this._Lock !== t && (this._Lock = t, this._reportChange("configure", this, "Lock", t), this.rerender());
   }
   /**** lock/unlock ****/
   lock() {
@@ -4666,7 +4145,7 @@ class mt extends ft {
     return this._Visibility;
   }
   set Visibility(t) {
-    Xe("sticker visibility", t), this._Visibility !== t && (this._Visibility = t, this._reportChange("configure", this, "Visibility", t), this.rerender());
+    Ge("sticker visibility", t), this._Visibility !== t && (this._Visibility = t, this._reportChange("configure", this, "Visibility", t), this.rerender());
   }
   /**** show/hide ****/
   show() {
@@ -4686,7 +4165,7 @@ class mt extends ft {
     return this._Enabling;
   }
   set Enabling(t) {
-    Xe("sticker enabling", t), this._Enabling !== t && (this._Enabling = t, this._reportChange("configure", this, "Enabling", t), this.rerender());
+    Ge("sticker enabling", t), this._Enabling !== t && (this._Enabling = t, this._reportChange("configure", this, "Enabling", t), this.rerender());
   }
   /**** enable/disable ****/
   enable() {
@@ -4705,16 +4184,16 @@ class mt extends ft {
   /**** Rendering ****/
   Rendering(t) {
     if (this.hasError)
-      return Ve.call(this);
-    let i = this._Renderer || or;
+      return $e.call(this);
+    let r = this._Renderer || Xt;
     try {
-      return i.call(this, t);
+      return r.call(this, t);
     } catch (n) {
       return this.Error = {
         Type: "Rendering Failure",
         Message: "" + n,
         Cause: n
-      }, Ve.call(this);
+      }, $e.call(this);
     }
   }
   /**** rerender ****/
@@ -4727,7 +4206,7 @@ class mt extends ft {
     return this._serializeConfigurationInto(t), t;
   }
   set Serialization(t) {
-    _("Serialization");
+    b("Serialization");
   }
   /**** _serializeConfigurationInto ****/
   _serializeConfigurationInto(t) {
@@ -4736,17 +4215,17 @@ class mt extends ft {
   /**** _deserializeConfigurationFrom ****/
   _deserializeConfigurationFrom(t) {
     super._deserializeConfigurationFrom(t);
-    let { x: i, y: n, Width: o, Height: u } = t.Geometry || Q;
-    Z(i) || (i = Q.x), Z(n) || (n = Q.y), q(o) || (o = Q.Width), q(u) || (u = Q.Height), this.Geometry = { x: i, y: n, Width: o, Height: u }, t.Lock != null && (this.Lock = t.Lock), t.Visibility != null && (this.Visibility = t.Visibility), t.Enabling != null && (this.Enabling = t.Enabling);
+    let { x: r, y: n, Width: a, Height: d } = t.Geometry || Y;
+    E(r) || (r = Y.x), E(n) || (n = Y.y), U(a) || (a = Y.Width), U(d) || (d = Y.Height), this.Geometry = { x: r, y: n, Width: a, Height: d }, t.Lock != null && (this.Lock = t.Lock), t.Visibility != null && (this.Visibility = t.Visibility), t.Enabling != null && (this.Enabling = t.Enabling);
   }
 }
-const Jn = ["not-ready", "disconnected", "connecting", "connected"];
-class Kn {
+const wn = ["not-ready", "disconnected", "connecting", "connected"];
+class $n {
 }
 window.SNS = {
-  throwError: C,
-  throwReadOnlyError: _,
-  SNS_Project: qe
+  throwError: N,
+  throwReadOnlyError: b,
+  SNS_Project: Ae
 };
 console.log("SNS is globally available now");
 document.dispatchEvent(
@@ -4754,142 +4233,142 @@ document.dispatchEvent(
   new CustomEvent("SNS", { detail: window.SNS })
 );
 export {
-  cr as CSSStyleOfVisual,
-  Kn as SNS_Adapter,
-  bt as SNS_Board,
-  xn as SNS_Changes,
-  Jn as SNS_ConnectionStates,
-  ii as SNS_ErrorTypes,
-  pt as SNS_Folder,
-  ri as SNS_FontStyles,
-  qe as SNS_Project,
-  mt as SNS_Sticker,
-  ft as SNS_Visual,
-  jn as TemplateOfBehavior,
-  Ne as ValueIsBoard,
-  q as ValueIsDimension,
-  rr as ValueIsError,
-  le as ValueIsFolder,
-  er as ValueIsGeometry,
-  Zt as ValueIsId,
-  Xt as ValueIsIdentifier,
-  Z as ValueIsLocation,
-  ze as ValueIsName,
-  jt as ValueIsPosition,
-  fe as ValueIsProject,
-  ir as ValueIsSerializable,
-  Kt as ValueIsSize,
-  Ce as ValueIsSticker,
-  zt as ValueIsVisual,
-  $i as acceptableBoolean,
-  dt as acceptableColor,
-  Bi as acceptableEMailAddress,
-  On as acceptableFunction,
-  Mn as acceptableInteger,
-  Rn as acceptableIntegerInRange,
-  qn as acceptableList,
-  nr as acceptableListSatisfying,
-  Pn as acceptableNonEmptyString,
-  Ze as acceptableNumber,
-  Dn as acceptableNumberInRange,
-  y as acceptableOptionalBoolean,
-  yi as acceptableOptionalColor,
-  Zn as acceptableOptionalFunction,
-  Wn as acceptableOptionalInteger,
-  Hn as acceptableOptionalIntegerInRange,
-  Xn as acceptableOptionalList,
-  R as acceptableOptionalListSatisfying,
-  En as acceptableOptionalNonEmptyString,
-  P as acceptableOptionalNumber,
-  J as acceptableOptionalNumberInRange,
-  V as acceptableOptionalOrdinal,
-  Gn as acceptableOptionalString,
-  L as acceptableOptionalStringMatching,
-  zn as acceptableOptionalText,
-  F as acceptableOptionalTextline,
-  An as acceptableOrdinal,
-  Ii as acceptablePhoneNumber,
-  Tn as acceptableString,
-  Un as acceptableStringMatching,
-  pe as acceptableText,
-  N as acceptableTextline,
-  ie as acceptableURL,
-  si as allowBoard,
-  ne as allowDimension,
-  nt as allowError,
-  oi as allowFolder,
-  pi as allowGeometry,
-  ui as allowId,
-  di as allowIdentifier,
-  hi as allowLocation,
-  Yt as allowName,
-  gi as allowPosition,
-  ai as allowProject,
-  bi as allowSerializable,
-  fi as allowSize,
-  li as allowSticker,
-  ni as allowVisual,
-  Ki as allowedBoard,
-  cn as allowedDimension,
-  mn as allowedError,
-  Xi as allowedFolder,
-  Sn as allowedGeometry,
-  qt as allowedId,
-  nn as allowedIdentifier,
-  ln as allowedLocation,
-  an as allowedName,
-  hn as allowedPosition,
-  ji as allowedProject,
-  kn as allowedSerializable,
-  fn as allowedSize,
-  en as allowedSticker,
-  Zi as allowedVisual,
-  yn as attachBoard,
-  Nn as attachSticker,
-  $n as configureFolder,
-  Ln as configureSticker,
-  wn as createBoard,
-  Fn as createSticker,
-  In as destroyBoard,
-  Vn as destroySticker,
-  Bn as detachBoard,
-  Cn as detachSticker,
-  ct as expectBoard,
-  it as expectDimension,
-  Si as expectError,
-  ut as expectFolder,
-  tr as expectGeometry,
-  I as expectId,
-  re as expectIdentifier,
-  rt as expectLocation,
-  ue as expectName,
-  Jt as expectPosition,
-  W as expectProject,
-  Oe as expectSerializable,
-  Qt as expectSize,
-  Ue as expectSticker,
-  Ot as expectVisual,
-  Qi as expectedBoard,
-  dn as expectedDimension,
-  vn as expectedError,
-  Yi as expectedFolder,
-  bn as expectedGeometry,
-  rn as expectedId,
-  on as expectedIdentifier,
-  un as expectedLocation,
-  sn as expectedName,
-  gn as expectedPosition,
-  Ji as expectedProject,
-  _n as expectedSerializable,
-  pn as expectedSize,
-  tn as expectedSticker,
-  qi as expectedVisual,
-  Yn as groupedBehaviorEntryList,
-  Fi as newId,
-  We as removeIdsFrom,
-  Bt as sanitizeBoardList,
-  It as sanitizeStickerList,
-  C as throwError,
-  _ as throwReadOnlyError
+  Qt as CSSStyleOfVisual,
+  $n as SNS_Adapter,
+  dt as SNS_Board,
+  Xr as SNS_Changes,
+  wn as SNS_ConnectionStates,
+  $i as SNS_ErrorTypes,
+  lt as SNS_Folder,
+  wi as SNS_FontStyles,
+  Ae as SNS_Project,
+  ct as SNS_Sticker,
+  st as SNS_Visual,
+  xn as TemplateOfBehavior,
+  xe as ValueIsBoard,
+  U as ValueIsDimension,
+  zt as ValueIsError,
+  te as ValueIsFolder,
+  Et as ValueIsGeometry,
+  Mt as ValueIsId,
+  Rt as ValueIsIdentifier,
+  E as ValueIsLocation,
+  We as ValueIsName,
+  At as ValueIsPosition,
+  oe as ValueIsProject,
+  Ot as ValueIsSerializable,
+  Gt as ValueIsSize,
+  we as ValueIsSticker,
+  Dt as ValueIsVisual,
+  Oi as acceptableBoolean,
+  nt as acceptableColor,
+  Xi as acceptableEMailAddress,
+  mn as acceptableFunction,
+  an as acceptableInteger,
+  ln as acceptableIntegerInRange,
+  _n as acceptableList,
+  Zt as acceptableListSatisfying,
+  gn as acceptableNonEmptyString,
+  He as acceptableNumber,
+  on as acceptableNumberInRange,
+  $ as acceptableOptionalBoolean,
+  Zi as acceptableOptionalColor,
+  kn as acceptableOptionalFunction,
+  sn as acceptableOptionalInteger,
+  un as acceptableOptionalIntegerInRange,
+  bn as acceptableOptionalList,
+  M as acceptableOptionalListSatisfying,
+  pn as acceptableOptionalNonEmptyString,
+  H as acceptableOptionalNumber,
+  Z as acceptableOptionalNumberInRange,
+  D as acceptableOptionalOrdinal,
+  hn as acceptableOptionalString,
+  I as acceptableOptionalStringMatching,
+  Sn as acceptableOptionalText,
+  y as acceptableOptionalTextline,
+  dn as acceptableOrdinal,
+  Yi as acceptablePhoneNumber,
+  cn as acceptableString,
+  fn as acceptableStringMatching,
+  ae as acceptableText,
+  V as acceptableTextline,
+  Q as acceptableURL,
+  Vi as allowBoard,
+  J as allowDimension,
+  qe as allowError,
+  yi as allowFolder,
+  Ri as allowGeometry,
+  Li as allowId,
+  Di as allowIdentifier,
+  Ci as allowLocation,
+  Ht as allowName,
+  Mi as allowPosition,
+  Ii as allowProject,
+  Ai as allowSerializable,
+  Wi as allowSize,
+  Fi as allowSticker,
+  Bi as allowVisual,
+  $r as allowedBoard,
+  Wr as allowedDimension,
+  Ur as allowedError,
+  br as allowedFolder,
+  Pr as allowedGeometry,
+  Wt as allowedId,
+  Fr as allowedIdentifier,
+  Cr as allowedLocation,
+  Nr as allowedName,
+  Hr as allowedPosition,
+  xr as allowedProject,
+  Or as allowedSerializable,
+  Tr as allowedSize,
+  yr as allowedSticker,
+  kr as allowedVisual,
+  jr as attachBoard,
+  tn as attachSticker,
+  qr as configureFolder,
+  en as configureSticker,
+  Yr as createBoard,
+  Jr as createSticker,
+  Qr as destroyBoard,
+  nn as destroySticker,
+  Kr as detachBoard,
+  rn as detachSticker,
+  rt as expectBoard,
+  Ye as expectDimension,
+  Hi as expectError,
+  it as expectFolder,
+  Ut as expectGeometry,
+  B as expectId,
+  K as expectIdentifier,
+  Xe as expectLocation,
+  ie as expectName,
+  Tt as expectPosition,
+  C as expectProject,
+  Re as expectSerializable,
+  Pt as expectSize,
+  Me as expectSticker,
+  Ct as expectVisual,
+  Br as expectedBoard,
+  Rr as expectedDimension,
+  zr as expectedError,
+  vr as expectedFolder,
+  Er as expectedGeometry,
+  Vr as expectedId,
+  Lr as expectedIdentifier,
+  Mr as expectedLocation,
+  Dr as expectedName,
+  Ar as expectedPosition,
+  wr as expectedProject,
+  Zr as expectedSerializable,
+  Gr as expectedSize,
+  Ir as expectedSticker,
+  _r as expectedVisual,
+  vn as groupedBehaviorEntryList,
+  qi as newId,
+  Ie as removeIdsFrom,
+  kt as sanitizeBoardList,
+  _t as sanitizeStickerList,
+  N as throwError,
+  b as throwReadOnlyError
 };
 //# sourceMappingURL=shareableNoteStickers.js.map
