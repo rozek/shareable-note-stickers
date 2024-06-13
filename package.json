@@ -39,7 +39,6 @@
     "hyperactiv": "github:rozek/hyperactiv",
     "javascript-interface-library": "^1.0.6",
     "nanoid": "^5.0.7",
-    "nanoid-dictionary": "^4.3.0",
-    "preact": "^10.22.0"
+    "nanoid-dictionary": "^4.3.0"
   }
 }
