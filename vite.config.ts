@@ -5,7 +5,7 @@ import path from 'path'
 export default defineConfig({
   build: {  	
   	lib: {
-  		entry:   path.resolve(__dirname, 'src/shareableNoteStickers.ts'),
+  		entry:   path.resolve(__dirname, 'src/shareable-note-stickers.ts'),
   		name:    'shareable-note-stickers',
   		formats: ['es']
   	},
