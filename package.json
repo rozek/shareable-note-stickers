@@ -5,12 +5,12 @@
   "type": "module",
   "source": "src/shareableNoteStickers.ts",
   "exports": {
-    "types": "./dist/shareableNoteStickers.d.ts",
-    "default": "./dist/shareableNoteStickers.js"
+    "types": "./dist/shareable-note-stickers.d.ts",
+    "default": "./dist/shareable-note-stickers.js"
   },
-  "module": "./dist/shareableNoteStickers.js",
-  "svelte": "./dist/shareableNoteStickers.js",
-  "types": "./dist/shareableNoteStickers.d.ts",
+  "module": "./dist/shareable-note-stickers.js",
+  "svelte": "./dist/shareable-note-stickers.js",
+  "types": "./dist/shareable-note-stickers.d.ts",
   "keywords": [
     "crdt"
   ],
