@@ -5558,4 +5558,4 @@ export {
   throwError,
   throwReadOnlyError
 };
-//# sourceMappingURL=shareableNoteStickers.js.map
+//# sourceMappingURL=shareable-note-stickers.js.map
