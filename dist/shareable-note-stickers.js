@@ -1,10 +1,7 @@
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-import { ValidatorForClassifier, acceptNil, rejectNil, quoted, ValueIsTextline, ValueIsStringMatching, ValueIsFiniteNumber, ValueIsObject, ValueIsPlainObject, ValueIsOneOf, ValueIsText, expectOrdinal, allowOrdinal, ValueIsBoolean, ValueIsNumber, ValueIsNumberInRange, ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal, ValueIsString, ValueIsFunction, ValueIsList, ValueIsListSatisfying, ValueIsColor, ValueIsEMailAddress, ValueIsURL, expectTextline, allowPlainObject, allowFunction, allowColor, allowURL, allowTextline, allowIntegerInRange, allowOneOf, ValuesDiffer as ValuesDiffer$1, allowText, allowBoolean, allowCardinal, expectValue, expectInteger, allowInteger, expectIntegerInRange, expectListSatisfying, expectFunction, expectBoolean } from "javascript-interface-library";
+var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+import { ValidatorForClassifier, acceptNil, rejectNil, quoted, ValueIsTextline, ValueIsStringMatching, ValueIsFiniteNumber, ValueIsObject, ValueIsPlainObject, ValueIsOneOf, ValueIsText, expectOrdinal, allowOrdinal, ValueIsBoolean, ValueIsNumber, ValueIsNumberInRange, ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal, ValueIsString, ValueIsFunction, ValueIsList, ValueIsListSatisfying, ValueIsColor, ValueIsEMailAddress, ValueIsURL, expectTextline, allowPlainObject, allowFunction, allowColor, allowURL, allowTextline, allowIntegerInRange, allowOneOf, ValuesDiffer as ValuesDiffer$1, allowText, expectFunction, allowBoolean, allowCardinal, expectValue, expectInteger, allowInteger, expectIntegerInRange, expectListSatisfying, expectBoolean } from "javascript-interface-library";
 import { h } from "preact";
 import e from "htm";
 import { customAlphabet } from "nanoid";
@@ -203,10 +200,9 @@ function observe$1(obj, options = {}) {
       return false;
     },
     deleteProperty(_, prop) {
-      if (prop === modifiedProperty)
-        throw new Error(
-          'internal property Symbol("modifiedProperty") must not be deleted'
-        );
+      if (prop === modifiedProperty) throw new Error(
+        'internal property Symbol("modifiedProperty") must not be deleted'
+      );
       if (prop in obj) {
         setObjectPropertyTo(obj, prop, void 0);
       }
@@ -958,10 +954,9 @@ function registerFolder(Project, Folder) {
     FolderRegistryForProject.set(Project, FolderRegistry = /* @__PURE__ */ Object.create(null));
   }
   const Id = Folder.Id;
-  if (Id in FolderRegistry)
-    throwError(
-      "NonUniqueId: the id of the given folder (" + quoted(Id) + ") has already been registered"
-    );
+  if (Id in FolderRegistry) throwError(
+    "NonUniqueId: the id of the given folder (" + quoted(Id) + ") has already been registered"
+  );
   FolderRegistry[Id] = Folder;
 }
 function unregisterFolder(Folder) {
@@ -986,10 +981,9 @@ function registerSticker(Project, Sticker) {
     StickerRegistryForProject.set(Project, StickerRegistry = /* @__PURE__ */ Object.create(null));
   }
   const Id = Sticker.Id;
-  if (Id in StickerRegistry)
-    throwError(
-      "NonUniqueId: the id of the given sticker (" + quoted(Id) + ") has already been registered"
-    );
+  if (Id in StickerRegistry) throwError(
+    "NonUniqueId: the id of the given sticker (" + quoted(Id) + ") has already been registered"
+  );
   StickerRegistry[Id] = Sticker;
 }
 function unregisterSticker(Sticker) {
@@ -1056,10 +1050,9 @@ function registerBehavior(GroupLabel, BehaviorLabel, BehaviorName, Template, Beh
   } else {
     normalizedTemplate.activeScript = normalizedTemplate.activeScript.replace(/^\s*\n/, "").replace(/\n\s*$/, "\n");
   }
-  if (normalizedBehaviorName in BehaviorRegistry)
-    throwError(
-      "BehaviorExists: behavior " + quoted(BehaviorName) + " was already registered"
-    );
+  if (normalizedBehaviorName in BehaviorRegistry) throwError(
+    "BehaviorExists: behavior " + quoted(BehaviorName) + " was already registered"
+  );
   let BehaviorSetGroup = groupedBehaviorRegistry[normalizedGroupName];
   if (BehaviorSetGroup == null) {
     groupedBehaviorRegistry[normalizedGroupName] = BehaviorSetGroup = {
@@ -1105,10 +1098,9 @@ function useBehavior(BehaviorName) {
   expectSticker("visual", this);
   expectIdentifier("behavior name", BehaviorName);
   const BehaviorFunction = BehaviorRegistry[BehaviorName.toLowerCase()];
-  if (BehaviorFunction == null)
-    throwError(
-      "NoSuchBehavior: no behavior called " + quoted(BehaviorName) + " found"
-    );
+  if (BehaviorFunction == null) throwError(
+    "NoSuchBehavior: no behavior called " + quoted(BehaviorName) + " found"
+  );
   const reactively = (reactiveFunction) => {
     expectFunction("reactive function", reactiveFunction);
     registerReactiveFunctionIn(this, computed(reactiveFunction));
@@ -1116,21 +1108,29 @@ function useBehavior(BehaviorName) {
   const onRender = this.onRender.bind(this);
   const onMount = this.onMount.bind(this);
   const onUnmount = this.onUnmount.bind(this);
-  BehaviorFunction.call(this, this, this, m, reactively, onRender, onMount, onUnmount);
+  BehaviorFunction.call(
+    this,
+    this,
+    this,
+    m,
+    reactively,
+    onRender,
+    onMount,
+    onUnmount
+  );
 }
 function TemplateOfBehavior(BehaviorName) {
   expectIdentifier("behavior name", BehaviorName);
   const normalizedBehaviorName = BehaviorName.toLowerCase();
   const BehaviorFunction = BehaviorRegistry[normalizedBehaviorName];
-  if (BehaviorFunction == null)
-    throwError(
-      "NoSuchBehavior: no behavior called " + quoted(BehaviorName) + " found"
-    );
+  if (BehaviorFunction == null) throwError(
+    "NoSuchBehavior: no behavior called " + quoted(BehaviorName) + " found"
+  );
   return TemplateRegistry[normalizedBehaviorName];
 }
 registerBehavior("basic Views", "plain Sticker", "plainSticker", {
   Geometry: { x: 20, y: 20, Width: 100, Height: 80 },
-  activeScript: 'onRender(() => html`<div class="SNS Placeholder"></div>`)'
+  activeScript: 'onRender(() => html`<div class="SNS Placeholder">Script me!</div>`)'
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => html2`<div class="SNS plainSticker"></div>`);
 }, `
@@ -3597,6 +3597,8 @@ function consumeEvent(Event) {
   Event.preventDefault();
 }
 const consumingEvent = consumeEvent;
+function propagateEvent(Event) {
+}
 class SNS_Visual {
   constructor(Project, Id) {
     // IMPORTANT: SNS_Project constructor will pass "undefined" as "Project"
@@ -3808,7 +3810,7 @@ class SNS_Visual {
   }
   get observed() {
     if (this._observed == null) {
-      this._observed = observe({});
+      this._observed = observe({}, { deep: false });
     }
     return this._observed;
   }
@@ -3866,7 +3868,7 @@ class SNS_Visual {
       let compiledScript;
       try {
         compiledScript = new Function(
-          "me,my, html,reactively, onRender,onMount,onUnmount, useBehavior",
+          "me,my, html,reactively, onRender,onMount,onUnmount, useBehavior, onClick,onInput,onDrop",
           activeScript
         );
       } catch (Signal) {
@@ -3885,6 +3887,9 @@ class SNS_Visual {
       const onRender = this.onRender.bind(this);
       const onMount = this.onMount.bind(this);
       const onUnmount = this.onUnmount.bind(this);
+      const onClick = (this["onClick"] || propagateEvent).bind(this);
+      const onInput = (this["onInput"] || propagateEvent).bind(this);
+      const onDrop = (this["onDrop"] || propagateEvent).bind(this);
       try {
         compiledScript.call(
           this,
@@ -3895,7 +3900,10 @@ class SNS_Visual {
           onRender,
           onMount,
           onUnmount,
-          useBehavior.bind(this)
+          useBehavior.bind(this),
+          onClick,
+          onInput,
+          onDrop
         );
       } catch (Signal) {
         console.error("visual script execution failure", Signal);
@@ -3932,6 +3940,7 @@ class SNS_Visual {
   }
   /**** onRender ****/
   onRender(newRenderer) {
+    expectFunction("renderer callback", newRenderer);
     this.Renderer = newRenderer;
   }
   /**** Rendering (to be overwritten) ****/
@@ -4263,10 +4272,9 @@ class SNS_Folder extends SNS_Visual {
   /**** existingBoard ****/
   existingBoard(BoardOrNameOrIndex) {
     let Board = this.Board(BoardOrNameOrIndex);
-    if (Board == null)
-      throwError(
-        "BoardNotFound: the desired board could not be found"
-      );
+    if (Board == null) throwError(
+      "BoardNotFound: the desired board could not be found"
+    );
     return Board;
   }
   /**** BoardNamed ****/
@@ -4469,10 +4477,9 @@ class SNS_Folder extends SNS_Visual {
   destroyBoard(BoardOrNameOrIndex) {
     const Board = this.Board(BoardOrNameOrIndex);
     if (Board == null) {
-      if (ValueIsBoard(BoardOrNameOrIndex))
-        throwError(
-          "NoSuchBoard: the given board could not be found"
-        );
+      if (ValueIsBoard(BoardOrNameOrIndex)) throwError(
+        "NoSuchBoard: the given board could not be found"
+      );
       return;
     }
     Board.clear();
@@ -4651,10 +4658,9 @@ class SNS_Project extends SNS_Folder {
   /**** BoardWithId ****/
   BoardWithId(Id) {
     const Folder = FolderWithId(this, Id);
-    if (ValueIsProject(Folder))
-      throwError(
-        "NotABoard: the folder with the given id is not a board, but the project"
-      );
+    if (ValueIsProject(Folder)) throwError(
+      "NotABoard: the folder with the given id is not a board, but the project"
+    );
     return Folder;
   }
   /**** StickerWithId ****/
@@ -4751,6 +4757,10 @@ class SNS_Board extends SNS_Folder {
     super(Project, Id);
     /**** StickerList ****/
     __publicField(this, "_StickerList", []);
+    /**** onClick ****/
+    __publicField(this, "_onClick");
+    /**** onDrop ****/
+    __publicField(this, "_onDrop");
     registerFolder(Project, this);
     Project._reportChange("createBoard", this);
   }
@@ -4792,10 +4802,9 @@ class SNS_Board extends SNS_Folder {
   /**** existingSticker ****/
   existingSticker(StickerOrNameOrIndex) {
     let Sticker = this.Sticker(StickerOrNameOrIndex);
-    if (Sticker == null)
-      throwError(
-        "StickerNotFound: the desired sticker could not be found"
-      );
+    if (Sticker == null) throwError(
+      "StickerNotFound: the desired sticker could not be found"
+    );
     return Sticker;
   }
   /**** StickerNamed ****/
@@ -4939,10 +4948,9 @@ class SNS_Board extends SNS_Folder {
   destroySticker(StickerOrNameOrIndex) {
     const Sticker = this.Sticker(StickerOrNameOrIndex);
     if (Sticker == null) {
-      if (ValueIsSticker(StickerOrNameOrIndex))
-        throwError(
-          "NoSuchSticker: the given sticker could not be found"
-        );
+      if (ValueIsSticker(StickerOrNameOrIndex)) throwError(
+        "NoSuchSticker: the given sticker could not be found"
+      );
       return;
     }
     unregisterAllReactiveFunctionsFrom(Sticker);
@@ -4973,6 +4981,14 @@ class SNS_Board extends SNS_Folder {
   /**** rerender ****/
   rerender() {
     this.Project.rerender(this);
+  }
+  onClick(newHandler) {
+    expectFunction('"click" event handler', newHandler);
+    this._onClick = newHandler;
+  }
+  onDrop(newHandler) {
+    expectFunction('"drop" event handler', newHandler);
+    this._onDrop = newHandler;
   }
   /**** _attachStickerAt ****/
   /* protected */
@@ -5061,6 +5077,12 @@ class SNS_Sticker extends SNS_Visual {
     __publicField(this, "_Visibility", true);
     /**** Enabling ****/
     __publicField(this, "_Enabling", true);
+    /**** onClick ****/
+    __publicField(this, "_onClick");
+    /**** onInput ****/
+    __publicField(this, "_onInput");
+    /**** onDrop ****/
+    __publicField(this, "_onDrop");
     registerSticker(Project, this);
     Project._reportChange("createSticker", this);
   }
@@ -5321,6 +5343,18 @@ class SNS_Sticker extends SNS_Visual {
   }
   set isEnabled(newEnabling) {
     this.Enabling = newEnabling;
+  }
+  onClick(newHandler) {
+    expectFunction('"click" event handler', newHandler);
+    this._onClick = newHandler;
+  }
+  onInput(newHandler) {
+    expectFunction('"input" event handler', newHandler);
+    this._onInput = newHandler;
+  }
+  onDrop(newHandler) {
+    expectFunction('"drop" event handler', newHandler);
+    this._onDrop = newHandler;
   }
   /**** Rendering ****/
   Rendering(PropSet) {

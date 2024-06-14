@@ -339,7 +339,7 @@ export declare class SNS_Visual {
     get Renderer(): Function | undefined;
     set Renderer(newRenderer: Function | undefined);
     /**** onRender ****/
-    onRender(newRenderer: Function | undefined): void;
+    onRender(newRenderer: Function): void;
     /**** Rendering (to be overwritten) ****/
     Rendering(PropSet: Indexable): any;
     /**** rerender (to be overwritten) ****/
@@ -569,6 +569,12 @@ export declare class SNS_Board extends SNS_Folder {
     recursivelyActivateAllScripts(): void;
     /**** rerender ****/
     rerender(): void;
+    /**** onClick ****/
+    protected _onClick: Function | undefined;
+    onClick(newHandler: Function): void;
+    /**** onDrop ****/
+    protected _onDrop: Function | undefined;
+    onDrop(newHandler: Function): void;
     /**** _attachStickerAt ****/
     _attachStickerAt(Sticker: SNS_Sticker, Index: number): void;
     /**** _detachStickerAt ****/
@@ -666,6 +672,15 @@ export declare class SNS_Sticker extends SNS_Visual {
     /**** isEnabled ****/
     get isEnabled(): boolean;
     set isEnabled(newEnabling: boolean);
+    /**** onClick ****/
+    protected _onClick: Function | undefined;
+    onClick(newHandler: Function): void;
+    /**** onInput ****/
+    protected _onInput: Function | undefined;
+    onInput(newHandler: Function): void;
+    /**** onDrop ****/
+    protected _onDrop: Function | undefined;
+    onDrop(newHandler: Function): void;
     /**** Rendering ****/
     Rendering(PropSet: Indexable): any;
     /**** rerender ****/
