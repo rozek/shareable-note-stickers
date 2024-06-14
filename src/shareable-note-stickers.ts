@@ -1303,7 +1303,9 @@
     const onMount   = this.onMount.bind(this)
     const onUnmount = this.onUnmount.bind(this)
 
-    BehaviorFunction.call(this, this,this, html,reactively, onRender,onMount,onUnmount)
+    BehaviorFunction.call(
+      this, this,this, html,reactively, onRender,onMount,onUnmount
+    )
   }
 
 /**** TemplateOfBehavior ****/
@@ -1331,7 +1333,7 @@
 
   registerBehavior('basic Views', 'plain Sticker', 'plainSticker', {
     Geometry:{ x:20,y:20, Width:100,Height:80 },
-    activeScript:'onRender(() => html`<div class="SNS Placeholder"></div>`)',
+    activeScript:'onRender(() => html`<div class="SNS Placeholder">Script me!</div>`)',
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -4235,6 +4237,10 @@
   }
   const consumingEvent = consumeEvent
 
+/**** propagateEvent ****/
+
+  function propagateEvent (Event:Event):void { /* nop - just a dummy */ }
+
 //------------------------------------------------------------------------------
 //--                                SNS_Visual                                --
 //------------------------------------------------------------------------------
@@ -4504,7 +4510,7 @@
 
     public get observed ():Indexable {
       if (this._observed == null) {
-        this._observed = observe({})
+        this._observed = observe({},{ deep:false })
       }
       return this._observed
     }
@@ -4584,7 +4590,8 @@
         let compiledScript
         try {
           compiledScript = new Function(
-            'me,my, html,reactively, onRender,onMount,onUnmount, useBehavior', activeScript
+            'me,my, html,reactively, onRender,onMount,onUnmount, useBehavior, ' +
+            'onClick,onInput,onDrop', activeScript
           )
         } catch (Signal:any) {
           console.error('visual script compilation failure',Signal)
@@ -4605,17 +4612,24 @@
         const onMount   = this.onMount.bind(this)
         const onUnmount = this.onUnmount.bind(this)
 
+// @ts-ignore TS7053 allow indexing for a moment
+        const onClick = (this['onClick'] || propagateEvent).bind(this)
+// @ts-ignore TS7053 allow indexing for a moment
+        const onInput = (this['onInput'] || propagateEvent).bind(this)
+// @ts-ignore TS7053 allow indexing for a moment
+        const onDrop  = (this['onDrop']  || propagateEvent).bind(this)
+
         try {
           compiledScript.call(
             this, this,this, html,reactively, onRender,onMount,onUnmount,
-            useBehavior.bind(this)
+            useBehavior.bind(this), onClick,onInput,onDrop
           )
         } catch (Signal) {
           console.error('visual script execution failure',Signal)
           this.Error = {
             Type:'Script Execution Failure',
             Message:''+Signal, Cause:Signal
-          }                          // also autoamtically rerenders this visual
+          }                          // also automatically rerenders this visual
           return
         }
       }
@@ -4654,7 +4668,8 @@
 
   /**** onRender ****/
 
-    public onRender (newRenderer:Function|undefined):void {
+    public onRender (newRenderer:Function):void {
+      expectFunction('renderer callback',newRenderer)
       this.Renderer = newRenderer
     }
 
@@ -5950,6 +5965,24 @@
       this.Project.rerender(this)
     }
 
+  /**** onClick ****/
+
+    protected _onClick:Function|undefined
+
+    public onClick (newHandler:Function):void {
+      expectFunction('"click" event handler',newHandler)
+      this._onClick = newHandler
+    }
+
+  /**** onDrop ****/
+
+    protected _onDrop:Function|undefined
+
+    public onDrop (newHandler:Function):void {
+      expectFunction('"drop" event handler',newHandler)
+      this._onDrop = newHandler
+    }
+
   /**** _attachStickerAt ****/
 
     /* protected */ _attachStickerAt (Sticker:SNS_Sticker, Index:number):void {
@@ -6323,6 +6356,33 @@
 
     public get isEnabled ():boolean            { return this._Enabling }
     public set isEnabled (newEnabling:boolean) { this.Enabling = newEnabling }
+
+  /**** onClick ****/
+
+    protected _onClick:Function|undefined
+
+    public onClick (newHandler:Function):void {
+      expectFunction('"click" event handler',newHandler)
+      this._onClick = newHandler
+    }
+
+  /**** onInput ****/
+
+    protected _onInput:Function|undefined
+
+    public onInput (newHandler:Function):void {
+      expectFunction('"input" event handler',newHandler)
+      this._onInput = newHandler
+    }
+
+  /**** onDrop ****/
+
+    protected _onDrop:Function|undefined
+
+    public onDrop (newHandler:Function):void {
+      expectFunction('"drop" event handler',newHandler)
+      this._onDrop = newHandler
+    }
 
   /**** Rendering ****/
 
