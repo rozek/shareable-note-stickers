@@ -334,6 +334,9 @@ export declare class SNS_Visual {
     protected _ScriptError: SNS_Error | undefined;
     get ScriptError(): SNS_Error | undefined;
     set ScriptError(newScriptError: SNS_Error | undefined);
+    /**** CSSStyle ****/
+    get CSSStyle(): string;
+    set CSSStyle(_: string);
     /**** Renderer ****/
     protected _Renderer: Function | undefined;
     get Renderer(): Function | undefined;

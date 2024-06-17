@@ -1232,7 +1232,7 @@ registerBehavior("basic Views", "Title", "Title", {
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => {
     const Value = acceptableTextline(my.Value, "");
-    return html2`<div class="SNS Title">${Value}</div>`;
+    return html2`<div class="SNS Title" style=${my.CSSStyle}>${Value}</div>`;
   });
 }, `
 /**** Title Views ****/
@@ -1247,7 +1247,7 @@ registerBehavior("basic Views", "Subtitle", "Subtitle", {
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => {
     const Value = acceptableTextline(my.Value, "");
-    return html2`<div class="SNS Subtitle">${Value}</div>`;
+    return html2`<div class="SNS Subtitle" style=${my.CSSStyle}>${Value}</div>`;
   });
 }, `
 /**** Subtitle Views ****/
@@ -1262,7 +1262,7 @@ registerBehavior("basic Views", "Label", "Label", {
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => {
     const Value = acceptableTextline(my.Value, "");
-    return html2`<div class="SNS Label">${Value}</div>`;
+    return html2`<div class="SNS Label" style=${my.CSSStyle}>${Value}</div>`;
   });
 }, `
 /**** Label Views ****/
@@ -1277,7 +1277,7 @@ registerBehavior("basic Views", "Text", "Text", {
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => {
     const Value = acceptableText(my.Value, "");
-    return html2`<div class="SNS Text">${Value}</div>`;
+    return html2`<div class="SNS Text" style=${my.CSSStyle}>${Value}</div>`;
   });
 }, `
 /**** Text Views ****/
@@ -1292,7 +1292,7 @@ registerBehavior("basic Views", "FinePrint", "FinePrint", {
 }, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
   onRender(() => {
     const Value = acceptableText(my.Value, "");
-    return html2`<div class="SNS FinePrint">${Value}</div>`;
+    return html2`<div class="SNS FinePrint" style=${my.CSSStyle}>${Value}</div>`;
   });
 }, `
 /**** FinePrint Views ****/
@@ -1703,7 +1703,7 @@ registerBehavior("native Controls", "Textline Input", "TextlineInput", {
     }
     return html2`<input type="text" class="SNS TextlineInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern} spellcheck=${SpellChecking}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -1713,12 +1713,13 @@ registerBehavior("native Controls", "Textline Input", "TextlineInput", {
 /**** TextlineInput ****/
 
   .SNS.Sticker > .SNS.TextlineInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TextlineInput:readonly {
+  .SNS.Sticker > .SNS.TextlineInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -1764,7 +1765,7 @@ registerBehavior("native Controls", "Password Input", "PasswordInput", {
     }
     return html2`<input type="password" class="SNS PasswordInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
       />`;
@@ -1773,12 +1774,13 @@ registerBehavior("native Controls", "Password Input", "PasswordInput", {
 /**** PasswordInput ****/
 
   .SNS.Sticker > .SNS.PasswordInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.PasswordInput:readonly {
+  .SNS.Sticker > .SNS.PasswordInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -1840,7 +1842,7 @@ registerBehavior("native Controls", "Number Input", "NumberInput", {
     }
     return html2`<input type="number" class="SNS NumberInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -1849,12 +1851,13 @@ registerBehavior("native Controls", "Number Input", "NumberInput", {
 /**** NumberInput ****/
 
   .SNS.Sticker > .SNS.NumberInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.NumberInput:readonly {
+  .SNS.Sticker > .SNS.NumberInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -1913,7 +1916,7 @@ registerBehavior("native Controls", "Phone Number Input", "PhoneNumberInput", {
     }
     return html2`<input type="tel" class="SNS PhoneNumberInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -1923,12 +1926,13 @@ registerBehavior("native Controls", "Phone Number Input", "PhoneNumberInput", {
 /**** PhoneNumberInput ****/
 
   .SNS.Sticker > .SNS.PhoneNumberInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.PhoneNumberInput:readonly {
+  .SNS.Sticker > .SNS.PhoneNumberInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -1962,7 +1966,7 @@ registerBehavior("native Controls", "EMail Address Input", "EMailAddressInput", 
     me.rerender();
   }
   my.Renderer = () => {
-    let Value = acceptableEMailAddress(my.Value, "");
+    let Value = acceptableTextline(my.Value, "");
     const Placeholder = acceptableOptionalTextline(my.Placeholder);
     const readonly = acceptableOptionalBoolean(my.readonly);
     const minLength = acceptableOptionalOrdinal(my.minLength);
@@ -1987,7 +1991,7 @@ registerBehavior("native Controls", "EMail Address Input", "EMailAddressInput", 
     }
     return html2`<input type="email" class="SNS EMailAddressInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -1997,12 +2001,13 @@ registerBehavior("native Controls", "EMail Address Input", "EMailAddressInput", 
 /**** EMailAddressInput ****/
 
   .SNS.Sticker > .SNS.EMailAddressInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.EMailAddressInput:readonly {
+  .SNS.Sticker > .SNS.EMailAddressInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2061,7 +2066,7 @@ registerBehavior("native Controls", "URL Input", "URLInput", {
     }
     return html2`<input type="url" class="SNS URLInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2071,12 +2076,13 @@ registerBehavior("native Controls", "URL Input", "URLInput", {
 /**** URLInput ****/
 
   .SNS.Sticker > .SNS.URLInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.URLInput:readonly {
+  .SNS.Sticker > .SNS.URLInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2087,7 +2093,7 @@ function TimeMatcher(Value) {
   return ValueIsStringMatching(Value, TimeRegExp);
 }
 registerBehavior("native Controls", "Time Input", "TimeInput", {
-  Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
+  Geometry: { x: 20, y: 20, Width: 80, Height: 30 },
   Value: null,
   activeScript: `
   useBehavior('TimeInput')
@@ -2142,7 +2148,7 @@ registerBehavior("native Controls", "Time Input", "TimeInput", {
     }
     return html2`<input type="time" class="SNS TimeInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${TimePattern}
+        readOnly=${readonly} pattern=${TimePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -2151,12 +2157,13 @@ registerBehavior("native Controls", "Time Input", "TimeInput", {
 /**** TimeInput ****/
 
   .SNS.Sticker > .SNS.TimeInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TimeInput:readonly {
+  .SNS.Sticker > .SNS.TimeInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2167,7 +2174,7 @@ function DateTimeMatcher(Value) {
   return ValueIsStringMatching(Value, DateTimeRegExp);
 }
 registerBehavior("native Controls", "Date and Time Input", "DateTimeInput", {
-  Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
+  Geometry: { x: 20, y: 20, Width: 180, Height: 30 },
   Value: null,
   activeScript: `
   useBehavior('DateTimeInput')
@@ -2222,7 +2229,7 @@ registerBehavior("native Controls", "Date and Time Input", "DateTimeInput", {
     }
     return html2`<input type="datetime-local" class="SNS DateTimeInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${DateTimePattern}
+        readOnly=${readonly} pattern=${DateTimePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -2231,12 +2238,13 @@ registerBehavior("native Controls", "Date and Time Input", "DateTimeInput", {
 /**** DateTimeInput ****/
 
   .SNS.Sticker > .SNS.DateTimeInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.DateTimeInput:readonly {
+  .SNS.Sticker > .SNS.DateTimeInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2247,7 +2255,7 @@ function DateMatcher(Value) {
   return ValueIsStringMatching(Value, DateRegExp);
 }
 registerBehavior("native Controls", "Date Input", "DateInput", {
-  Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
+  Geometry: { x: 20, y: 20, Width: 120, Height: 30 },
   Value: null,
   activeScript: `
   useBehavior('DateInput')
@@ -2302,7 +2310,7 @@ registerBehavior("native Controls", "Date Input", "DateInput", {
     }
     return html2`<input type="date" class="SNS DateInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${DatePattern}
+        readOnly=${readonly} pattern=${DatePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -2311,12 +2319,13 @@ registerBehavior("native Controls", "Date Input", "DateInput", {
 /**** DateInput ****/
 
   .SNS.Sticker > .SNS.DateInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.DateInput:readonly {
+  .SNS.Sticker > .SNS.DateInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2327,7 +2336,7 @@ function WeekMatcher(Value) {
   return ValueIsStringMatching(Value, WeekRegExp);
 }
 registerBehavior("native Controls", "Week Input", "WeekInput", {
-  Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
+  Geometry: { x: 20, y: 20, Width: 150, Height: 30 },
   Value: null,
   activeScript: `
   useBehavior('WeekInput')
@@ -2382,7 +2391,7 @@ registerBehavior("native Controls", "Week Input", "WeekInput", {
     }
     return html2`<input type="week" class="SNS WeekInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${WeekPattern}
+        readOnly=${readonly} pattern=${WeekPattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -2391,12 +2400,13 @@ registerBehavior("native Controls", "Week Input", "WeekInput", {
 /**** WeekInput ****/
 
   .SNS.Sticker > .SNS.WeekInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.WeekInput:readonly {
+  .SNS.Sticker > .SNS.WeekInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2407,7 +2417,7 @@ function MonthMatcher(Value) {
   return ValueIsStringMatching(Value, MonthRegExp);
 }
 registerBehavior("native Controls", "Month Input", "MonthInput", {
-  Geometry: { x: 20, y: 20, Width: 100, Height: 30 },
+  Geometry: { x: 20, y: 20, Width: 150, Height: 30 },
   Value: null,
   activeScript: `
   useBehavior('MonthInput')
@@ -2462,7 +2472,7 @@ registerBehavior("native Controls", "Month Input", "MonthInput", {
     }
     return html2`<input type="month" class="SNS MonthInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${MonthPattern}
+        readOnly=${readonly} pattern=${MonthPattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`;
@@ -2471,12 +2481,13 @@ registerBehavior("native Controls", "Month Input", "MonthInput", {
 /**** MonthInput ****/
 
   .SNS.Sticker > .SNS.MonthInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.MonthInput:readonly {
+  .SNS.Sticker > .SNS.MonthInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2498,9 +2509,9 @@ registerBehavior("native Controls", "File Input", "FileInput", {
     if (my.Enabling == false) {
       return consumingEvent(Event);
     }
-    my.Value = Event.target.value;
+    my.Value = Array.from(Event.target.files).map((File) => File.name).join("\n");
     if (typeof my._onInput === "function") {
-      my._onInput(Event, Event.files);
+      my._onInput(Event, Event.target.files);
     }
   }
   function onDragEnter(Event) {
@@ -2514,31 +2525,33 @@ registerBehavior("native Controls", "File Input", "FileInput", {
     if (my.Enabling == false) {
       return;
     }
-    my.Value = Event.target.value;
+    my.Value = Array.from(Event.dataTransfer.files).map((File) => File.name).join("\n");
     if (typeof my._onDrop === "function") {
       my._onDrop(Event, Event.dataTransfer.files);
     }
   }
   my.Renderer = () => {
-    let Value = acceptableTextline(my.Value, "").trim();
-    Value = Value.replace("C:\\fakepath\\", "");
+    const Value = acceptableText(my.Value, "").trim().replace(/[\n\r]+/g, ",");
     const Placeholder = acceptableTextline(my.Placeholder, "").trim();
-    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes);
+    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes, "*");
     const multiple = acceptableOptionalBoolean(my.multiple);
     return html2`<label class="SNS FileInput"
         onDragEnter=${onDragEnter} onDragOver=${onDragOver} onDrop=${onDrop}
       >
+        ${Value === "" ? Placeholder === "" ? "" : html2`<span style="
+              font-size:${Math.round((my.FontSize || 14) * 0.95)}px; line-height:${my.Height}px
+            ">${Placeholder}</span>` : html2`<span style="line-height:${my.Height}px">${Value}</span>`}
         <input type="file" style="display:none"
           multiple=${multiple} accept=${acceptableTypes}
           onInput=${onInput}
         />
-        ${Value === "" ? Placeholder === "" ? "" : html2`<span style="line-height:${my.Height}px">${Placeholder}</span>` : html2`<span style="line-height:${my.Height}px">${Value}</span>`}
       </label>`;
   };
 }, `
 /**** FileInput ****/
 
   .SNS.Sticker > .SNS.FileInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
@@ -2546,6 +2559,7 @@ registerBehavior("native Controls", "File Input", "FileInput", {
   .SNS.Sticker > .SNS.FileInput > span {
     display:block; position:absolute; overflow:hidden;
     left:0px; top:0px; width:100%; height:100%;
+    color:gray;
     padding:0px 2px 0px 2px; white-space:pre; text-overflow:ellipsis;
   }
   `);
@@ -2565,15 +2579,15 @@ registerBehavior("native Controls", "Pseudo File Input", "PseudoFileInput", {
     if (my.Enabling == false) {
       return consumingEvent(Event);
     }
-    my.Value = Event.target.value;
+    my.Value = Array.from(Event.target.files).map((File) => File.name).join("\n");
     if (typeof my._onInput === "function") {
-      my._onInput(Event, Event.files);
+      my._onInput(Event, Event.target.files);
     }
   }
   my.Renderer = () => {
     const Icon = acceptableURL(my.Icon, "/img/arrow-up-from-bracket.png");
     const Color = acceptableColor(my.Color, "black");
-    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes);
+    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes, "*");
     const multiple = acceptableOptionalBoolean(my.multiple);
     return html2`<label class="SNS PseudoFileInput">
         <div style="
@@ -2601,7 +2615,7 @@ registerBehavior("native Controls", "File Drop Area", "FileDropArea", {
   Value: null,
   activeScript: `
   useBehavior('FileDropArea')
-//my.Value           = ''
+//my.Value           = ['']
 //my.Placeholder     = undefined
 //my.acceptableTypes = undefined
 //my.multiple        = false
@@ -2613,9 +2627,9 @@ registerBehavior("native Controls", "File Drop Area", "FileDropArea", {
     if (my.Enabling == false) {
       return consumingEvent(Event);
     }
-    my.Value = Event.target.value;
+    my.Value = Array.from(Event.target.files).map((File) => File.name).join("\n");
     if (typeof my._onInput === "function") {
-      my._onInput(Event, Event.files);
+      my._onInput(Event, Event.target.files);
     }
   }
   function onDragEnter(Event) {
@@ -2629,22 +2643,22 @@ registerBehavior("native Controls", "File Drop Area", "FileDropArea", {
     if (my.Enabling == false) {
       return;
     }
-    my.Value = Event.target.value;
+    my.Value = Array.from(Event.dataTransfer.files).map((File) => File.name).join("\n");
     if (typeof my._onDrop === "function") {
       my._onDrop(Event, Event.dataTransfer.files);
     }
   }
   my.Renderer = () => {
     const Placeholder = acceptableTextline(my.Placeholder, "").trim();
-    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes);
+    const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes, "*");
     const multiple = acceptableOptionalBoolean(my.multiple);
     return html2`<label class="SNS FileDropArea"
         onDragEnter=${onDragEnter} onDragOver=${onDragOver} onDrop=${onDrop}>
+        <span>${Placeholder}</span>
         <input type="file"
           multiple=${multiple} accept=${acceptableTypes}
           onInput=${onInput}
         />
-        <span>${Placeholder}</span>
       </label>`;
   };
 }, `
@@ -2721,7 +2735,7 @@ registerBehavior("native Controls", "Search Input", "SearchInput", {
     }
     return html2`<input type="search" class="SNS SearchInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern} spellcheck=${SpellChecking}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2731,12 +2745,13 @@ registerBehavior("native Controls", "Search Input", "SearchInput", {
 /**** SearchInput ****/
 
   .SNS.Sticker > .SNS.SearchInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.SearchInput:readonly {
+  .SNS.Sticker > .SNS.SearchInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2793,6 +2808,7 @@ registerBehavior("native Controls", "Color Input", "ColorInput", {
 /**** ColorInput ****/
 
   .SNS.Sticker > .SNS.ColorInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
@@ -2838,8 +2854,14 @@ registerBehavior("native Controls", "DropDown", "DropDown", {
       >${Options.map(
       (Option) => {
         const OptionValue = Option.replace(/:.*$/, "").trim();
-        const OptionLabel = Option.replace(/^[^:]+:/, "").trim();
-        return html2`<option value=${OptionValue} selected=${OptionValue === Value}>
+        let OptionLabel = Option.replace(/^[^:]+:/, "").trim();
+        const disabled = OptionLabel[0] === "-";
+        if (/^-[^-]+$/.test(OptionLabel)) {
+          OptionLabel = OptionLabel.slice(1);
+        }
+        return html2`<option value=${OptionValue} selected=${OptionValue === Value}
+            disabled=${disabled}
+          >
             ${OptionLabel}
           </option>`;
       }
@@ -2849,14 +2871,10 @@ registerBehavior("native Controls", "DropDown", "DropDown", {
 /**** DropDown ****/
 
   .SNS.Sticker > .SNS.DropDown {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
-  }
-
-  .SNS.Sticker > .SNS.SearchInput:readonly {
-    border:solid 1px #DDDDDD; border-radius:2px;
-    background:#F0F0F0;
   }
   `);
 registerBehavior("native Controls", "Pseudo DropDown", "PseudoDropDown", {
@@ -2905,8 +2923,14 @@ registerBehavior("native Controls", "Pseudo DropDown", "PseudoDropDown", {
         <select disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}>
           ${Options.map((Option) => {
       const OptionValue = Option.replace(/:.*\$/, "").trim();
-      const OptionLabel = Option.replace(/^[^:]+:/, "").trim();
-      return html2`<option value=${OptionValue} selected=${OptionValue === Value}>
+      let OptionLabel = Option.replace(/^[^:]+:/, "").trim();
+      const disabled = OptionLabel[0] === "-";
+      if (/^-[^-]+$/.test(OptionLabel)) {
+        OptionLabel = OptionLabel.slice(1);
+      }
+      return html2`<option value=${OptionValue} selected=${OptionValue === Value}
+              disabled=${disabled}
+            >
               ${OptionLabel}
             </option>`;
     })}
@@ -2972,7 +2996,7 @@ registerBehavior("native Controls", "Text Input", "TextInput", {
     }
     return html2`<textarea class="SNS TextInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         spellcheck=${SpellChecking} style="resize:none; ${LineWrapping == true ? "white-space:pre; overflow-wrap:break-word; hyphens:auto" : void 0}"
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         value=${Value}
@@ -2982,12 +3006,13 @@ registerBehavior("native Controls", "Text Input", "TextInput", {
 /**** TextInput ****/
 
   .SNS.Sticker > .SNS.TextInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TextInput:readonly {
+  .SNS.Sticker > .SNS.TextInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -3927,6 +3952,13 @@ class SNS_Visual {
       this._reportChange("configure", this, "ScriptError", newScriptError);
       this.rerender();
     }
+  }
+  /**** CSSStyle ****/
+  get CSSStyle() {
+    return CSSStyleOfVisual(this);
+  }
+  set CSSStyle(_) {
+    throwReadOnlyError("CSSStyle");
   }
   get Renderer() {
     return this._Renderer;
