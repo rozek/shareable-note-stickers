@@ -1462,7 +1462,7 @@
   ):void => {
     onRender(() => {
       const Value = acceptableTextline(my.Value,'')
-      return html`<div class="SNS Title">${Value}</div>`
+      return html`<div class="SNS Title" style=${my.CSSStyle}>${Value}</div>`
     })
   },`
 /**** Title Views ****/
@@ -1483,7 +1483,7 @@
   ):void => {
     onRender(() => {
       const Value = acceptableTextline(my.Value,'')
-      return html`<div class="SNS Subtitle">${Value}</div>`
+      return html`<div class="SNS Subtitle" style=${my.CSSStyle}>${Value}</div>`
     })
   },`
 /**** Subtitle Views ****/
@@ -1504,7 +1504,7 @@
   ):void => {
     onRender(() => {
       const Value = acceptableTextline(my.Value,'')
-      return html`<div class="SNS Label">${Value}</div>`
+      return html`<div class="SNS Label" style=${my.CSSStyle}>${Value}</div>`
     })
   },`
 /**** Label Views ****/
@@ -1525,7 +1525,7 @@
   ):void => {
     onRender(() => {
       const Value = acceptableText(my.Value,'')
-      return html`<div class="SNS Text">${Value}</div>`
+      return html`<div class="SNS Text" style=${my.CSSStyle}>${Value}</div>`
     })
   },`
 /**** Text Views ****/
@@ -1546,7 +1546,7 @@
   ):void => {
     onRender(() => {
       const Value = acceptableText(my.Value,'')
-      return html`<div class="SNS FinePrint">${Value}</div>`
+      return html`<div class="SNS FinePrint" style=${my.CSSStyle}>${Value}</div>`
     })
   },`
 /**** FinePrint Views ****/
@@ -2066,7 +2066,7 @@
 
       return html`<input type="text" class="SNS TextlineInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern} spellcheck=${SpellChecking}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2076,12 +2076,13 @@
 /**** TextlineInput ****/
 
   .SNS.Sticker > .SNS.TextlineInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TextlineInput:readonly {
+  .SNS.Sticker > .SNS.TextlineInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2134,7 +2135,7 @@
 
       return html`<input type="password" class="SNS PasswordInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
       />`
@@ -2143,12 +2144,13 @@
 /**** PasswordInput ****/
 
   .SNS.Sticker > .SNS.PasswordInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.PasswordInput:readonly {
+  .SNS.Sticker > .SNS.PasswordInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2217,7 +2219,7 @@
 
       return html`<input type="number" class="SNS NumberInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2226,12 +2228,13 @@
 /**** NumberInput ****/
 
   .SNS.Sticker > .SNS.NumberInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.NumberInput:readonly {
+  .SNS.Sticker > .SNS.NumberInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2298,7 +2301,7 @@
 
       return html`<input type="tel" class="SNS PhoneNumberInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2308,12 +2311,13 @@
 /**** PhoneNumberInput ****/
 
   .SNS.Sticker > .SNS.PhoneNumberInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.PhoneNumberInput:readonly {
+  .SNS.Sticker > .SNS.PhoneNumberInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2352,7 +2356,7 @@
     function onBlur () { me.rerender() }
 
     my.Renderer = () => {
-      let   Value       = acceptableEMailAddress(my.Value,'')
+      let   Value       = acceptableTextline(my.Value,'') // not(!) acceptableEMailAddress
       const Placeholder = acceptableOptionalTextline(my.Placeholder)
       const readonly    = acceptableOptionalBoolean(my.readonly)
       const minLength   = acceptableOptionalOrdinal(my.minLength)
@@ -2380,7 +2384,7 @@
 
       return html`<input type="email" class="SNS EMailAddressInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2390,12 +2394,13 @@
 /**** EMailAddressInput ****/
 
   .SNS.Sticker > .SNS.EMailAddressInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.EMailAddressInput:readonly {
+  .SNS.Sticker > .SNS.EMailAddressInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2462,7 +2467,7 @@
 
       return html`<input type="url" class="SNS URLInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -2472,12 +2477,13 @@
 /**** URLInput ****/
 
   .SNS.Sticker > .SNS.URLInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.URLInput:readonly {
+  .SNS.Sticker > .SNS.URLInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2493,7 +2499,7 @@
   }
 
   registerBehavior('native Controls', 'Time Input', 'TimeInput', {
-    Geometry:{ x:20,y:20, Width:100,Height:30 },
+    Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:null,
     activeScript:`
   useBehavior('TimeInput')
@@ -2551,7 +2557,7 @@
 
       return html`<input type="time" class="SNS TimeInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${TimePattern}
+        readOnly=${readonly} pattern=${TimePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2560,12 +2566,13 @@
 /**** TimeInput ****/
 
   .SNS.Sticker > .SNS.TimeInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TimeInput:readonly {
+  .SNS.Sticker > .SNS.TimeInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2580,7 +2587,7 @@
     return ValueIsStringMatching(Value,DateTimeRegExp)
   }
   registerBehavior('native Controls', 'Date and Time Input', 'DateTimeInput', {
-    Geometry:{ x:20,y:20, Width:100,Height:30 },
+    Geometry:{ x:20,y:20, Width:180,Height:30 },
     Value:null,
     activeScript:`
   useBehavior('DateTimeInput')
@@ -2638,7 +2645,7 @@
 
       return html`<input type="datetime-local" class="SNS DateTimeInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${DateTimePattern}
+        readOnly=${readonly} pattern=${DateTimePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2647,12 +2654,13 @@
 /**** DateTimeInput ****/
 
   .SNS.Sticker > .SNS.DateTimeInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.DateTimeInput:readonly {
+  .SNS.Sticker > .SNS.DateTimeInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2668,7 +2676,7 @@
   }
 
   registerBehavior('native Controls', 'Date Input', 'DateInput', {
-    Geometry:{ x:20,y:20, Width:100,Height:30 },
+    Geometry:{ x:20,y:20, Width:120,Height:30 },
     Value:null,
     activeScript:`
   useBehavior('DateInput')
@@ -2726,7 +2734,7 @@
 
       return html`<input type="date" class="SNS DateInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${DatePattern}
+        readOnly=${readonly} pattern=${DatePattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2735,12 +2743,13 @@
 /**** DateInput ****/
 
   .SNS.Sticker > .SNS.DateInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.DateInput:readonly {
+  .SNS.Sticker > .SNS.DateInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2756,7 +2765,7 @@
   }
 
   registerBehavior('native Controls', 'Week Input', 'WeekInput', {
-    Geometry:{ x:20,y:20, Width:100,Height:30 },
+    Geometry:{ x:20,y:20, Width:150,Height:30 },
     Value:null,
     activeScript:`
   useBehavior('WeekInput')
@@ -2814,7 +2823,7 @@
 
       return html`<input type="week" class="SNS WeekInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${WeekPattern}
+        readOnly=${readonly} pattern=${WeekPattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2823,12 +2832,13 @@
 /**** WeekInput ****/
 
   .SNS.Sticker > .SNS.WeekInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.WeekInput:readonly {
+  .SNS.Sticker > .SNS.WeekInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2844,7 +2854,7 @@
   }
 
   registerBehavior('native Controls', 'Month Input', 'MonthInput', {
-    Geometry:{ x:20,y:20, Width:100,Height:30 },
+    Geometry:{ x:20,y:20, Width:150,Height:30 },
     Value:null,
     activeScript:`
   useBehavior('MonthInput')
@@ -2902,7 +2912,7 @@
 
       return html`<input type="month" class="SNS MonthInput"
         value=${Value} min=${Minimum} max=${Maximum} step=${Stepping}
-        readonly=${readonly} pattern=${MonthPattern}
+        readOnly=${readonly} pattern=${MonthPattern}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
       />${SuggestionList}`
@@ -2911,12 +2921,13 @@
 /**** MonthInput ****/
 
   .SNS.Sticker > .SNS.MonthInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.MonthInput:readonly {
+  .SNS.Sticker > .SNS.MonthInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -2943,9 +2954,9 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = Array.from(Event.target.files).map((File:any) => File.name).join('\n')
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
-      if (typeof my._onInput === 'function') { my._onInput(Event,Event.files) }
+      if (typeof my._onInput === 'function') { my._onInput(Event,Event.target.files) }
     }
 
     function onDragEnter (Event:Event):void { return consumingEvent(Event) }
@@ -2955,35 +2966,37 @@
       consumeEvent(Event)
       if (my.Enabling == false) { return }
 
-      my.Value = Event.target.value
+      my.Value = Array.from(Event.dataTransfer.files).map((File:any) => File.name).join('\n')
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onDrop === 'function') { my._onDrop(Event,Event.dataTransfer.files) }
     }                 // nota bene: "files" is now in "Event.dataTransfer.files"
 
     my.Renderer = () => {
-      let   Value           = acceptableTextline(my.Value,'').trim()
-        Value = Value.replace('C:\\fakepath\\','')
+      const Value           = acceptableText(my.Value,'').trim().replace(/[\n\r]+/g,',')
       const Placeholder     = acceptableTextline(my.Placeholder,'').trim()
-      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes)
+      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes,'*')
       const multiple        = acceptableOptionalBoolean(my.multiple)
 
       return html`<label class="SNS FileInput"
         onDragEnter=${onDragEnter} onDragOver=${onDragOver} onDrop=${onDrop}
       >
+        ${Value === ''
+          ? Placeholder === '' ? '' : html`<span style="
+              font-size:${Math.round((my.FontSize || 14)*0.95)}px; line-height:${my.Height}px
+            ">${Placeholder}</span>`
+          : html`<span style="line-height:${my.Height}px">${Value}</span>`
+        }
         <input type="file" style="display:none"
           multiple=${multiple} accept=${acceptableTypes}
           onInput=${onInput}
         />
-        ${Value === ''
-          ? Placeholder === '' ? '' : html`<span style="line-height:${my.Height}px">${Placeholder}</span>`
-          : html`<span style="line-height:${my.Height}px">${Value}</span>`
-        }
       </label>`
     }
   },`
 /**** FileInput ****/
 
   .SNS.Sticker > .SNS.FileInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
@@ -2991,6 +3004,7 @@
   .SNS.Sticker > .SNS.FileInput > span {
     display:block; position:absolute; overflow:hidden;
     left:0px; top:0px; width:100%; height:100%;
+    color:gray;
     padding:0px 2px 0px 2px; white-space:pre; text-overflow:ellipsis;
   }
   `)
@@ -3015,15 +3029,15 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = Array.from(Event.target.files).map((File:any) => File.name).join('\n')
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
-      if (typeof my._onInput === 'function') { my._onInput(Event,Event.files) }
+      if (typeof my._onInput === 'function') { my._onInput(Event,Event.target.files) }
     }
 
     my.Renderer = () => {
       const Icon            = acceptableURL(my.Icon,'/img/arrow-up-from-bracket.png')
       const Color           = acceptableColor(my.Color,'black')
-      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes)
+      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes,'*')
       const multiple        = acceptableOptionalBoolean(my.multiple)
 
       return html`<label class="SNS PseudoFileInput">
@@ -3055,7 +3069,7 @@
     Value:null,
     activeScript:`
   useBehavior('FileDropArea')
-//my.Value           = ''
+//my.Value           = ['']
 //my.Placeholder     = undefined
 //my.acceptableTypes = undefined
 //my.multiple        = false
@@ -3069,9 +3083,9 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = Array.from(Event.target.files).map((File:any) => File.name).join('\n')
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
-      if (typeof my._onInput === 'function') { my._onInput(Event,Event.files) }
+      if (typeof my._onInput === 'function') { my._onInput(Event,Event.target.files) }
     }
 
     function onDragEnter (Event:Event):void { return consumingEvent(Event) }
@@ -3081,23 +3095,23 @@
       consumeEvent(Event)
       if (my.Enabling == false) { return }
 
-      my.Value = Event.target.value
+      my.Value = Array.from(Event.dataTransfer.files).map((File:any) => File.name).join('\n')
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onDrop === 'function') { my._onDrop(Event,Event.dataTransfer.files) }
     }                 // nota bene: "files" is now in "Event.dataTransfer.files"
 
     my.Renderer = () => {
       const Placeholder     = acceptableTextline(my.Placeholder,'').trim()
-      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes)
+      const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes,'*')
       const multiple        = acceptableOptionalBoolean(my.multiple)
 
       return html`<label class="SNS FileDropArea"
         onDragEnter=${onDragEnter} onDragOver=${onDragOver} onDrop=${onDrop}>
+        <span>${Placeholder}</span>
         <input type="file"
           multiple=${multiple} accept=${acceptableTypes}
           onInput=${onInput}
         />
-        <span>${Placeholder}</span>
       </label>`
     }
   },`
@@ -3182,7 +3196,7 @@
 
       return html`<input type="search" class="SNS SearchInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         pattern=${Pattern} spellcheck=${SpellChecking}
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
         list=${SuggestionId}
@@ -3192,12 +3206,13 @@
 /**** SearchInput ****/
 
   .SNS.Sticker > .SNS.SearchInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.SearchInput:readonly {
+  .SNS.Sticker > .SNS.SearchInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -3262,6 +3277,7 @@
 /**** ColorInput ****/
 
   .SNS.Sticker > .SNS.ColorInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
@@ -3312,9 +3328,14 @@
         disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}
       >${Options.map((Option:string) => {
           const OptionValue = Option.replace(/:.*$/,'').trim()
-          const OptionLabel = Option.replace(/^[^:]+:/,'').trim()
-
-          return html`<option value=${OptionValue} selected=${OptionValue === Value}>
+          let   OptionLabel = Option.replace(/^[^:]+:/,'').trim()
+          const disabled    = (OptionLabel[0] === '-')
+            if (/^-[^-]+$/.test(OptionLabel)) {
+              OptionLabel = OptionLabel.slice(1)
+            }
+          return html`<option value=${OptionValue} selected=${OptionValue === Value}
+            disabled=${disabled}
+          >
             ${OptionLabel}
           </option>`
         }
@@ -3324,14 +3345,10 @@
 /**** DropDown ****/
 
   .SNS.Sticker > .SNS.DropDown {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
-  }
-
-  .SNS.Sticker > .SNS.SearchInput:readonly {
-    border:solid 1px #DDDDDD; border-radius:2px;
-    background:#F0F0F0;
   }
   `)
 
@@ -3386,9 +3403,14 @@
         <select disabled=${my.Enabling == false} onInput=${onInput} onBlur=${onBlur}>
           ${Options.map((Option:string) => {
             const OptionValue = Option.replace(/:.*\$/,'').trim()
-            const OptionLabel = Option.replace(/^[^:]+:/,'').trim()
-
-            return html`<option value=${OptionValue} selected=${OptionValue === Value}>
+            let   OptionLabel = Option.replace(/^[^:]+:/,'').trim()
+            const disabled    = (OptionLabel[0] === '-')
+              if (/^-[^-]+$/.test(OptionLabel)) {
+                OptionLabel = OptionLabel.slice(1)
+              }
+            return html`<option value=${OptionValue} selected=${OptionValue === Value}
+              disabled=${disabled}
+            >
               ${OptionLabel}
             </option>`
           })}
@@ -3461,7 +3483,7 @@
 
       return html`<textarea class="SNS TextInput"
         value=${Value} minlength=${minLength} maxlength=${maxLength}
-        readonly=${readonly} placeholder=${Placeholder}
+        readOnly=${readonly} placeholder=${Placeholder}
         spellcheck=${SpellChecking} style="resize:none; ${
           LineWrapping == true
           ? 'white-space:pre; overflow-wrap:break-word; hyphens:auto'
@@ -3475,12 +3497,13 @@
 /**** TextInput ****/
 
   .SNS.Sticker > .SNS.TextInput {
+    left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
     padding:0px 2px 0px 2px;
   }
 
-  .SNS.Sticker > .SNS.TextInput:readonly {
+  .SNS.Sticker > .SNS.TextInput:read-only {
     border:solid 1px #DDDDDD; border-radius:2px;
     background:#F0F0F0;
   }
@@ -4652,6 +4675,11 @@
         this.rerender()
       }
     }
+
+  /**** CSSStyle ****/
+
+    public get CSSStyle ():string  { return CSSStyleOfVisual(this) }
+    public set CSSStyle (_:string) { throwReadOnlyError('CSSStyle') }
 
   /**** Renderer ****/
 
