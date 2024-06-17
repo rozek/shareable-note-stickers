@@ -2213,7 +2213,7 @@
         SuggestionId = my.Id + '-Suggestions'
 
         SuggestionList = html`<datalist id=${SuggestionId}>
-          ${Suggestions.map((Value:string) => html`<option value=${Value}></option>`)}
+          ${Suggestions.map((Value:number) => html`<option value=${Value}></option>`)}
         </datalist>`
       }
 
