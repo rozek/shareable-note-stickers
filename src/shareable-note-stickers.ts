@@ -4213,17 +4213,189 @@
   }
   `)
 
+/**** horizontal Ruler ****/
+
+  registerBehavior('other Controls', 'horizontal Ruler', 'horizontalRuler', {
+    Geometry:{ x:20,y:20, Width:120,Height:40 },
+    activeScript:`
+  useBehavior('horizontalRuler')
+//my.Placement = 'above'|'below'
+    `,
+  }, (
+    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    let Canvas = my.unobserved.Canvas = document.createElement('canvas')
+
+    onRender(() => {
+      const Placement = my.Placement
+
+      if (my.View == null) {
+        me.rerender()
+      } else {
+        my.View.innerHTML = ''
+        my.View.appendChild(Canvas)
+      }
+
+      const { Width,Height } = me
+
+      Canvas.width  = Width
+      Canvas.height = Height
+
+      function drawLine (x0:number,y0:number, x1:number,y1:number, Text?:any):void {
+        Context.beginPath()
+          Context.moveTo(x0,y0)
+          Context.lineTo(x1,y1)
+        Context.stroke()
+
+        if (Text != null) {
+          if (Placement === 'above') {
+            Context.fillText(Text, x0,y1-5)
+          } else {
+            Context.fillText(Text, x0,y1+5)
+          }
+        }
+      }
+
+      const Context = Canvas.getContext('2d') as CanvasRenderingContext2D
+        Context.clearRect(0,0, Width,Height)
+
+        Context.strokeStyle = my.Color || 'black'
+        Context.lineWidth   = 1
+
+        if (Placement === 'above') {
+          Context.textAlign    = 'center'
+          Context.textBaseline = 'bottom'
+
+          drawLine(0,Height, Width,Height)
+          for (let x = 0; x <= Width; x += 10) {
+            switch (true) {
+              case (x % 100 === 0): drawLine(x,Height, x,Height-15, x); break
+              case (x % 50  === 0): drawLine(x,Height, x,Height-10); break
+              default:              drawLine(x,Height, x,Height-7)
+            }
+          }
+        } else {
+          Context.textAlign    = 'center'
+          Context.textBaseline = 'top'
+
+          drawLine(0,0, Width,0)
+          for (let x = 0; x <= Width; x += 10) {
+            switch (true) {
+              case (x % 100 === 0): drawLine(x,0, x,15, x); break
+              case (x % 50  === 0): drawLine(x,0, x,10); break
+              default:              drawLine(x,0, x,7)
+            }
+          }
+        }
+      return ''
+    })
+  },`
+/**** horizontalRuler ****/
+
+  .SNS.horizontalRuler > canvas {
+    display:block; position:absolute;
+    left:0px; top:0px; right:0px; bottom:0px;
+  }
+  `)
+
+/**** vertical Ruler ****/
+
+  registerBehavior('other Controls', 'vertical Ruler', 'verticalRuler', {
+    Geometry:{ x:20,y:20, Width:40,Height:120 },
+    activeScript:`
+  useBehavior('verticalRuler')
+//my.Placement = 'left'|'right'
+    `,
+  }, (
+    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    let Canvas = my.unobserved.Canvas = document.createElement('canvas')
+
+    onRender(() => {
+      const Placement = my.Placement
+
+      if (my.View == null) {
+        me.rerender()
+      } else {
+        my.View.innerHTML = ''
+        my.View.appendChild(Canvas)
+      }
+
+      const { Width,Height } = me
+
+      Canvas.width  = Width
+      Canvas.height = Height
+
+      function drawLine (x0:number,y0:number, x1:number,y1:number, Text?:any):void {
+        Context.beginPath()
+          Context.moveTo(x0,y0)
+          Context.lineTo(x1,y1)
+        Context.stroke()
+
+        if (Text != null) {
+          if (Placement === 'left') {
+            Context.fillText(Text, x1-5,y1)
+          } else {
+            Context.fillText(Text, x1+5,y1)
+          }
+        }
+      }
+
+      const Context = Canvas.getContext('2d') as CanvasRenderingContext2D
+        Context.clearRect(0,0, Width,Height)
+
+        Context.strokeStyle = my.Color || 'black'
+        Context.lineWidth   = 1
+
+        if (Placement === 'left') {
+          Context.textAlign    = 'right'
+          Context.textBaseline = 'middle'
+
+          drawLine(Width,0, Width,Height)
+          for (let y = 0; y <= Height; y += 10) {
+            switch (true) {
+              case (y % 100 === 0): drawLine(Width,y, Width-15,y, y); break
+              case (y % 50  === 0): drawLine(Width,y, Width-10,y); break
+              default:              drawLine(Width,y, Width-7,y)
+            }
+          }
+        } else {
+          Context.textAlign    = 'left'
+          Context.textBaseline = 'middle'
+
+          drawLine(0,0, 0,Height)
+          for (let y = 0; y <= Height; y += 10) {
+            switch (true) {
+              case (y % 100 === 0): drawLine(0,y, 15,y, y); break
+              case (y % 50  === 0): drawLine(0,y, 10,y); break
+              default:              drawLine(0,y, 7,y)
+            }
+          }
+        }
+      return ''
+    })
+  },`
+/**** verticalRuler ****/
+
+  .SNS.verticalRuler > canvas {
+    display:block; position:absolute;
+    left:0px; top:0px; right:0px; bottom:0px;
+  }
+  `)
+
 /**** flat List View ****/
 
-  registerBehavior('complex Controls', 'flat List View', 'FlatListView')
+  registerBehavior('other Controls', 'flat List View', 'FlatListView')
 
 /**** nested List View ****/
 
-  registerBehavior('complex Controls', 'nested List View', 'NestedListView')
+  registerBehavior('other Controls', 'nested List View', 'NestedListView')
 
 /**** QR-Code View ****/
 
-  registerBehavior('complex Controls', 'QR-Code View', 'QRCodeView')
+  registerBehavior('other Controls', 'QR-Code View', 'QRCodeView')
 
 /**** CSSStyleOfVisual ****/
 
