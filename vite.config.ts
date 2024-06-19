@@ -11,7 +11,7 @@ export default defineConfig({
   	},
   	minify: false,
   	rollupOptions: {
-  		external: ['javascript-interface-library','htm','preact','htm/preact','nanoid','nanoid-dictionary'],
+  		external: ['javascript-interface-library','htm','preact','htm/preact','hyperactiv','nanoid','nanoid-dictionary'],
       output: {
         entryFileNames: `[name].js`,
         chunkFileNames: `[name].js`,
