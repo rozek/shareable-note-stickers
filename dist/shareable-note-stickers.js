@@ -2,11 +2,9 @@ var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 import { ValidatorForClassifier, acceptNil, rejectNil, quoted, ValueIsTextline, ValueIsStringMatching, ValueIsFiniteNumber, ValueIsObject, ValueIsPlainObject, ValueIsOneOf, ValueIsText, expectOrdinal, allowOrdinal, ValueIsBoolean, ValueIsNumber, ValueIsNumberInRange, ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal, ValueIsString, ValueIsFunction, ValueIsList, ValueIsListSatisfying, ValueIsColor, ValueIsEMailAddress, ValueIsURL, expectTextline, allowPlainObject, allowFunction, allowColor, allowURL, allowTextline, allowIntegerInRange, allowOneOf, ValuesDiffer as ValuesDiffer$1, allowText, expectFunction, allowBoolean, allowCardinal, expectValue, expectInteger, allowInteger, expectIntegerInRange, expectListSatisfying, expectBoolean } from "javascript-interface-library";
-import { h } from "preact";
-import e from "htm";
+import { html } from "htm/preact";
 import { customAlphabet } from "nanoid";
 import { nolookalikesSafe } from "nanoid-dictionary";
-var m = e.bind(h);
 const BIND_IGNORED = [
   "String",
   "Number",
@@ -934,7 +932,7 @@ function acceptableURL(Value, Default) {
   return ValueIsURL(Value) ? Value : Default;
 }
 function DefaultRenderer() {
-  return m`<div class="SNS DefaultSticker" style=${CSSStyleOfVisual(this)}/>`;
+  return html`<div class="SNS DefaultSticker" style=${CSSStyleOfVisual(this)}/>`;
 }
 function ErrorRenderer() {
   const Error2 = this.Error;
@@ -942,7 +940,7 @@ function ErrorRenderer() {
     return DefaultRenderer.call(this);
   }
   const onClick = () => this.Project.showError(this, Error2);
-  return m`<div class="SNS DefaultSticker">
+  return html`<div class="SNS DefaultSticker">
       <div class="SNS ErrorIndicator" onClick=${onClick}/>
     </div>`;
 }
@@ -1112,7 +1110,7 @@ function useBehavior(BehaviorName) {
     this,
     this,
     this,
-    m,
+    html,
     reactively,
     onRender,
     onMount,
@@ -4078,7 +4076,7 @@ class SNS_Visual {
           this,
           this,
           this,
-          m,
+          html,
           reactively,
           onRender,
           onMount,
