@@ -196,7 +196,6 @@ export declare function acceptableOptionalNonEmptyString(Value: any, Default?: s
 export declare function acceptableStringMatching(Value: any, Default: string, Pattern: RegExp): string;
 /**** acceptableOptionalStringMatching ****/
 export declare function acceptableOptionalStringMatching(Value: any, Default: string | undefined, Pattern: RegExp): string | undefined;
-/**** acceptableText ****/
 export declare function acceptableText(Value: any, Default: string): string;
 /**** acceptableOptionalText ****/
 export declare function acceptableOptionalText(Value: any, Default?: string | undefined): string | undefined;

@@ -543,8 +543,9 @@ function acceptableStringMatching(Value, Default, Pattern) {
 function acceptableOptionalStringMatching(Value, Default, Pattern) {
   return ValueIsStringMatching(Value, Pattern) ? Value : Default;
 }
+const noCtrlCharsButCRLFTABPattern = /^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F\u2028\u2029\uFFF9-\uFFFB]*$/;
 function acceptableText(Value, Default) {
-  return ValueIsText(Value) ? Value : Default;
+  return ValueIsStringMatching(Value, noCtrlCharsButCRLFTABPattern) ? Value : Default;
 }
 function acceptableOptionalText(Value, Default) {
   return ValueIsText(Value) ? Value : Default;
