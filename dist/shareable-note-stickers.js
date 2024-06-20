@@ -1062,7 +1062,7 @@ registerBehavior("basic Views", "Icon", "Icon", {
     }
   }
   my.Renderer = () => {
-    const Value = acceptableURL(my.Value, "/img/pencil.png");
+    const Value = acceptableURL(my.Value, "/icons/pencil.png");
     const Color = acceptableColor(my.Color, "black");
     return html2`<div class="SNS Icon" style="
         -webkit-mask-image:url(${Value}); mask-image:url(${Value});
@@ -2244,7 +2244,7 @@ registerBehavior("native Controls", "Pseudo File Input", "PseudoFileInput", {
     }
   }
   my.Renderer = () => {
-    const Icon = acceptableURL(my.Icon, "/img/arrow-up-from-bracket.png");
+    const Icon = acceptableURL(my.Icon, "/icons/arrow-up-from-bracket.png");
     const Color = acceptableColor(my.Color, "black");
     const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes, "*");
     const multiple = acceptableOptionalBoolean(my.multiple);
@@ -2562,7 +2562,7 @@ registerBehavior("native Controls", "Pseudo DropDown", "PseudoDropDown", {
   }
   my.Renderer = () => {
     let Value = acceptableTextline(my.Value, "");
-    const Icon = acceptableURL(my.Icon, "/img/menu.png");
+    const Icon = acceptableURL(my.Icon, "/icons/menu.png");
     const Color = acceptableColor(my.Color, "black");
     const Options = acceptableListSatisfying(
       my.Options,
