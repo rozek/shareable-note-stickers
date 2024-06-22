@@ -3393,7 +3393,43 @@ registerBehavior("other Controls", "vertical Ruler", "verticalRuler", {
   `);
 registerBehavior("other Controls", "flat List View", "FlatListView");
 registerBehavior("other Controls", "nested List View", "NestedListView");
-registerBehavior("other Controls", "QR-Code View", "QRCodeView");
+registerBehavior("other Controls", "QR-Code View", "QRCodeView", {
+  Geometry: { x: 20, y: 20, Width: 120, Height: 120 },
+  activeScript: `
+  useBehavior('QRCodeView')
+//my.Value           = '...'
+//my.ForegroundColor = 'black'
+//my.BackgroundColor = 'white'
+//my.CorrectionLevel = 'low'|'medium'|'quartile'|'high'
+    `
+}, (me, my, html2, reactively, onRender, onMount, onUnmount) => {
+  onMount(() => me.rerender());
+  const CorrectionLevelSet = {
+    low: QRCode.CorrectLevel.L,
+    medium: QRCode.CorrectLevel.M,
+    quartile: QRCode.CorrectLevel.Q,
+    high: QRCode.CorrectLevel.H
+  };
+  onRender(() => {
+    if (my.View != null) {
+      my.View.innerHTML = "";
+      const CorrectionLevel = (
+        // @ts-ignore TS7053 allow indexing of "CorrectionLevelSet"
+        CorrectionLevelSet["" + my.CorrectionLevel] || QRCode.CorrectLevel.L
+      );
+      const Size = Math.min(my.Width, my.Height);
+      new QRCode(my.View, {
+        text: String(my.Value || ""),
+        width: Size,
+        height: Size,
+        colorDark: my.ForegroundColor || "black",
+        colorLight: my.BackgroundColor || "white",
+        correctLevel: CorrectionLevel
+      });
+    }
+    return "";
+  });
+});
 function CSSStyleOfVisual(Visual) {
   expectVisual("visual", Visual);
   let CSSStyleList = [];
