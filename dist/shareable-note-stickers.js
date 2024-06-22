@@ -3417,9 +3417,10 @@ registerBehavior("other Controls", "QR-Code View", "QRCodeView", {
         // @ts-ignore TS7053 allow indexing of "CorrectionLevelSet"
         CorrectionLevelSet["" + my.CorrectionLevel] || QRCode.CorrectLevel.L
       );
+      const Value = String(my.Value || "https://github.com/rozek/shareable-note-stickers");
       const Size = Math.min(my.Width, my.Height);
       new QRCode(my.View, {
-        text: String(my.Value || ""),
+        text: Value,
         width: Size,
         height: Size,
         colorDark: my.ForegroundColor || "black",
