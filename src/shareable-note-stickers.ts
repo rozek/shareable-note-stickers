@@ -4,6 +4,8 @@
 *                                                                              *
 *******************************************************************************/
 
+  declare const QRCode:Function|Indexable
+
   import {
 //  throwError,
     quoted,
@@ -4397,7 +4399,50 @@
 
 /**** QR-Code View ****/
 
-  registerBehavior('other Controls', 'QR-Code View', 'QRCodeView')
+  registerBehavior('other Controls', 'QR-Code View', 'QRCodeView', {
+    Geometry:{ x:20,y:20, Width:120,Height:120 },
+    activeScript:`
+  useBehavior('QRCodeView')
+//my.Value           = '...'
+//my.ForegroundColor = 'black'
+//my.BackgroundColor = 'white'
+//my.CorrectionLevel = 'low'|'medium'|'quartile'|'high'
+    `,
+  }, (
+    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    onMount(() => me.rerender())
+
+    const CorrectionLevelSet:Indexable = {
+      low:     (QRCode as Indexable).CorrectLevel.L,
+      medium:  (QRCode as Indexable).CorrectLevel.M,
+      quartile:(QRCode as Indexable).CorrectLevel.Q,
+      high:    (QRCode as Indexable).CorrectLevel.H
+    }
+
+    onRender(() => {
+      if (my.View != null) {
+        my.View.innerHTML = ''
+
+        const CorrectionLevel = (
+// @ts-ignore TS7053 allow indexing of "CorrectionLevelSet"
+          CorrectionLevelSet[''+my.CorrectionLevel] || QRCode.CorrectLevel.L
+        )
+        const Size = Math.min(my.Width,my.Height)
+
+// @ts-ignore TS2351 allow construction of "QRCode"
+        new QRCode(my.View,{
+          text:String(my.Value || ''),
+          width:Size, height:Size,
+          colorDark: my.ForegroundColor || 'black',
+          colorLight:my.BackgroundColor || 'white',
+          correctLevel:CorrectionLevel
+        })
+      }
+      return ''
+    })
+  })
 
 /**** CSSStyleOfVisual ****/
 
