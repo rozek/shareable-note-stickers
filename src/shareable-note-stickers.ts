@@ -3565,6 +3565,7 @@
 
   registerBehavior('straight Arrows', 'nw', 'straightArrow_nw', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3587,7 +3588,7 @@
           </defs>
 
           <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width},${Height}, L 0,0"
+            d="M ${Width-6},${Height-6}, L 6,6"
           />
         </svg>
       `
@@ -3606,6 +3607,7 @@
 
   registerBehavior('straight Arrows', 'n', 'straightArrow_n', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3647,6 +3649,7 @@
 
   registerBehavior('straight Arrows', 'ne', 'straightArrow_ne', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3669,7 +3672,7 @@
           </defs>
 
           <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M 0,${Height}, L ${Width},0"
+            d="M 6,${Height-6}, L ${Width-6},6"
           />
         </svg>
       `
@@ -3688,6 +3691,7 @@
 
   registerBehavior('straight Arrows', 'e', 'straightArrow_e', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3729,6 +3733,7 @@
 
   registerBehavior('straight Arrows', 'se', 'straightArrow_se', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3751,7 +3756,7 @@
           </defs>
 
           <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M 0,0, L ${Width},${Height}"
+            d="M 6,6, L ${Width-6},${Height-6}"
           />
         </svg>
       `
@@ -3770,6 +3775,7 @@
 
   registerBehavior('straight Arrows', 's', 'straightArrow_s', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3811,6 +3817,7 @@
 
   registerBehavior('straight Arrows', 'sw', 'straightArrow_sw', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
@@ -3833,7 +3840,7 @@
           </defs>
 
           <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width},0, L 0,${Height}"
+            d="M ${Width-6},6, L 6,${Height-6}"
           />
         </svg>
       `
@@ -3852,6 +3859,7 @@
 
   registerBehavior('straight Arrows', 'w', 'straightArrow_w', {
     Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
