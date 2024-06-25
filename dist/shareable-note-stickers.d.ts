@@ -226,7 +226,7 @@ export declare function acceptablePhoneNumber(Value: any, Default: string): stri
 /**** acceptableURL ****/
 export declare function acceptableURL(Value: any, Default: string): string;
 /**** newId - uses nanoid with custom dictionary ****/
-export declare const newId: (size?: number | undefined) => string;
+export declare const newId: (size?: number) => string;
 /**** removeIdsFrom ****/
 export declare function removeIdsFrom(Serialization: Serializable): void;
 /**** groupedBehaviorEntryList ****/
