@@ -3,13 +3,13 @@
   "version": "0.0.19",
   "description": "basic data model for a shareable application with scriptable \"sticky notes\"",
   "type": "module",
-  "source": "src/shareableNoteStickers.ts",
+  "source": "src/shareable-note-stickers.ts",
   "exports": {
     "types": "./dist/shareable-note-stickers.d.ts",
-    "default": "./dist/shareable-note-stickers.js"
+    "default": "./dist/shareable-note-stickers.modern.js"
   },
-  "module": "./dist/shareable-note-stickers.js",
-  "svelte": "./dist/shareable-note-stickers.js",
+  "module": "./dist/shareable-note-stickers.modern.js",
+  "svelte": "./dist/shareable-note-stickers.modern.js",
   "types": "./dist/shareable-note-stickers.d.ts",
   "keywords": [
     "crdt"
@@ -21,7 +21,7 @@
     "url": "https://github.com/rozek/shareable-note-stickers/issues"
   },
   "scripts": {
-    "build": "rimraf dist && tsc && vite build --sourcemap true --assetsDir .",
+    "build": "rimraf dist && tsc && microbundle",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -38,6 +38,7 @@
     "hyperactiv": "github:rozek/hyperactiv"
   },
   "devDependencies": {
+    "microbundle": "^0.15.1",
     "rimraf": "^3.0.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.13",
