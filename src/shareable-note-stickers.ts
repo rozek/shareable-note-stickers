@@ -1472,6 +1472,7 @@
   .SNS.Outline {
     outline:dotted 1px blue;
     outline-offset:2px;
+    pointer-events:none;
   }
   `)
 
@@ -1996,7 +1997,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = parseFloat(Event.target.value)
+      my.Value = my.ValueToShow = parseFloat(Event.target.value)
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2070,7 +2071,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2153,7 +2154,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2222,7 +2223,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = parseFloat(Event.target.value)
+      my.Value = my.ValueToShow = parseFloat(Event.target.value)
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2306,7 +2307,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2389,7 +2390,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2472,7 +2473,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2561,7 +2562,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2649,7 +2650,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2738,7 +2739,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2827,7 +2828,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -2916,7 +2917,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -3200,7 +3201,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -3279,7 +3280,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -3500,7 +3501,7 @@
     function onInput (Event:any):void {
       if (my.Enabling == false) { return consumingEvent(Event) }
 
-      my.Value = Event.target.value
+      my.Value = my.ValueToShow = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onInput === 'function') { my._onInput(Event) }
     }
@@ -3508,7 +3509,7 @@
     function onBlur () { me.rerender() }
 
     my.Renderer = () => {
-      let   Value         = acceptableTextline(my.Value,'')
+      let   Value         = acceptableText(my.Value,'')
       const Placeholder   = acceptableOptionalTextline(my.Placeholder)
       const readonly      = acceptableOptionalBoolean(my.readonly)
       const minLength     = acceptableOptionalOrdinal(my.minLength)
