@@ -1947,13 +1947,24 @@
       const Maximum = acceptableOptionalNumber(my.Maximum)
 
       return html`<progress class="SNS Progressbar" value=${Value} max=${Maximum}
-      style="accent-color:${my.BackgroundColor || 'white'}"/>`
+      style="accent-color:${my.ForegroundColor || 'dodgerblue'}"/>`
     }
   },`
 /**** Progressbar ****/
 
-  .SNS.Sticker > .SNS.Progressbar::-webkit-progress-value { background-color:white }
-  .SNS.Sticker > .SNS.Progressbar::-moz-progress-bar { background-color:white }
+  .SNS.Sticker > .SNS.Progressbar {
+    -webkit-appearance:none; -moz-appearance:none; appearance:none;
+    background-color:#EEEEEE;
+  }
+  .SNS.Sticker > .SNS.Progressbar::-webkit-progress-bar {
+    background-color:#EEEEEE;
+    border:solid 1px #E0E0E0; border-radius:2px;
+  }
+  .SNS.Sticker > .SNS.Progressbar::-webkit-progress-value,
+  .SNS.Sticker > .SNS.Progressbar::-moz-progress-bar {
+    background-color:dodgerblue;
+    border:none; border-radius:2px;
+  }
   `)
 
 /**** Slider ****/
