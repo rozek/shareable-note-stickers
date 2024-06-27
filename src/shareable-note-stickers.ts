@@ -1361,7 +1361,7 @@
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
-    my.Selectability = true
+    my.Selectability = true                       // for backwards compatibility
 
     my.Renderer = function (PropSet:Indexable) {
       const { builtinSelection,builtinDragging } = PropSet
@@ -1433,11 +1433,14 @@
 /**** Placeholder ****/
 
   registerBehavior('basic Views', 'Placeholder', 'Placeholder', {
+    Selectability:true,
     Geometry:{ x:20,y:20, Width:100,Height:80 },
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
+    my.Selectability = true                       // for backwards compatibility
+
     my.Renderer = function (PropSet:Indexable) {
       const { builtinDragging } = PropSet
       const { Width,Height }    = my.Geometry
