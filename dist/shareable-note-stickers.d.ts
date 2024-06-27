@@ -654,6 +654,13 @@ export declare class SNS_Sticker extends SNS_Visual {
     /**** isLocked ****/
     get isLocked(): boolean;
     set isLocked(newLock: boolean);
+    /**** Lock ****/
+    protected _Selectability: boolean;
+    get Selectability(): boolean;
+    set Selectability(newSelectability: boolean);
+    /**** isSelectable ****/
+    get isSelectable(): boolean;
+    set isSelectable(newSelectability: boolean);
     /**** Visibility ****/
     protected _Visibility: boolean;
     get Visibility(): boolean;
