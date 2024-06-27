@@ -1354,12 +1354,15 @@
 /**** sticky Note ****/
 
   registerBehavior('basic Views', 'sticky Note', 'stickyNote', {
+    Selectability:true,
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     minWidth:20, minHeight:10,
   }, (
     me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
+    my.Selectability = true
+
     my.Renderer = function (PropSet:Indexable) {
       const { builtinSelection,builtinDragging } = PropSet
 
@@ -6342,12 +6345,14 @@
 
   const SNS_StickerPropertySet:Indexable = Object.create(null)
     ;[
-      'Name','BackgroundColor','BackgroundTexture',
+      'Name',
+      'Lock','Selectability','Visibility','Enabling',
+      'minWidth','maxWidth','minHeight','maxHeight',
+      'BackgroundColor','BackgroundTexture',
       'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
       'ForegroundColor',
       'Value','activeScript','pendingScript',
-      'SnapToGrid','GridWidth','GridHeight',
-    ].forEach((Property:string) => SNS_BoardPropertySet[Property] = true)
+    ].forEach((Property:string) => SNS_StickerPropertySet[Property] = true)
 
   export class SNS_Sticker extends SNS_Visual {
     /* protected */ constructor (Project:SNS_Project, Id:SNS_Id|undefined) {
@@ -6600,6 +6605,26 @@
 
     public get isLocked ():boolean        { return this._Lock }
     public set isLocked (newLock:boolean) { this.Lock = newLock }
+
+  /**** Lock ****/
+
+    protected _Selectability:boolean = false
+
+    public get Selectability ():boolean { return this._Selectability }
+    public set Selectability (newSelectability:boolean) {
+      expectBoolean('sticker selectability',newSelectability)
+      if (this._Selectability !== newSelectability) {
+        this._Selectability = newSelectability
+
+        this._reportChange('configure',this,'Selectability',newSelectability)
+        this.rerender()
+      }
+    }
+
+  /**** isSelectable ****/
+
+    public get isSelectable ():boolean                 { return this._Selectability }
+    public set isSelectable (newSelectability:boolean) { this.Selectability = newSelectability }
 
   /**** Visibility ****/
 
