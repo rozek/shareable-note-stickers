@@ -1946,9 +1946,15 @@
       )
       const Maximum = acceptableOptionalNumber(my.Maximum)
 
-      return html`<progress class="SNS Progressbar" value=${Value} max=${Maximum}/>`
+      return html`<progress class="SNS Progressbar" value=${Value} max=${Maximum}
+      style="accent-color:${my.BackgroundColor || 'white'}"/>`
     }
-  })
+  },`
+/**** Progressbar ****/
+
+  .SNS.Sticker > .SNS.Progressbar::-webkit-progress-value { background-color:white }
+  .SNS.Sticker > .SNS.Progressbar::-moz-progress-bar { background-color:white }
+  `)
 
 /**** Slider ****/
 
