@@ -1728,7 +1728,7 @@
     }
 
     my.Renderer = () => {
-      const Value = acceptableURL(my.Value,'/icons/pencil.png')
+      const Value = acceptableURL(my.Value,'./icons/pencil.png')
       const Color = acceptableColor(my.Color,'black')
 
       return html`<div class="SNS Icon" style="
@@ -3083,7 +3083,7 @@
     }
 
     my.Renderer = () => {
-      const Icon            = acceptableURL(my.Icon,'/icons/arrow-up-from-bracket.png')
+      const Icon            = acceptableURL(my.Icon,'./icons/arrow-up-from-bracket.png')
       const Color           = acceptableColor(my.Color,'black')
       const acceptableTypes = acceptableOptionalTextline(my.acceptableTypes,'*')
       const multiple        = acceptableOptionalBoolean(my.multiple)
@@ -3430,7 +3430,7 @@
 
     my.Renderer = () => {
       let   Value = acceptableTextline(my.Value,'')
-      const Icon  = acceptableURL(my.Icon,'/icons/menu.png')
+      const Icon  = acceptableURL(my.Icon,'./icons/menu.png')
       const Color = acceptableColor(my.Color,'black')
 
       const Options = acceptableListSatisfying(
