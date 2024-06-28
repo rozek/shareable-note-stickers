@@ -1593,7 +1593,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     Value:'<b><u>HTML View</u></b>',
     activeScript:`
-  useBehavior('HTMLView')
+useBehavior('HTMLView')
 //my.Value = 'HTML Markup'
 `,
   }, (
@@ -1611,7 +1611,7 @@
     Geometry:{ x:20,y:20, Width:90,Height:90 },
     Value:'https://www.rozek.de/Bangle.js/Mandelbrot_240x240.png',
     activeScript:`
-  useBehavior('ImageView')
+useBehavior('ImageView')
 //my.Value = 'Image URL'
 `,
   }, (
@@ -1632,7 +1632,7 @@
   registerBehavior('basic Views', 'SVG View', 'SVGView', {
     Geometry:{ x:20,y:20, Width:90,Height:90 },
     activeScript:`
-  useBehavior('SVGView')
+useBehavior('SVGView')
 //my.Value = 'SVG Document'
 `,
   }, (
@@ -1662,7 +1662,7 @@
     minWidth:120, minHeight:80,
     Value:'https://www.rozek.de',
     activeScript:`
-  useBehavior('WebView')
+useBehavior('WebView')
 //my.Value = 'Document URL'
 `,
   }, (
@@ -1711,7 +1711,7 @@
     Geometry:{ x:20,y:20, Width:24,Height:24 },
     Value:null,
     activeScript:`
-  useBehavior('Icon')
+useBehavior('Icon')
 //my.Value = 'icon image url'
 //onClick(() => ...)
 `,
@@ -1797,7 +1797,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Button',
     activeScript:`
-  useBehavior('Button')
+useBehavior('Button')
 //my.Value = 'Label'
 //onClick(() => ...)
 `,
@@ -1837,7 +1837,7 @@
     Geometry:{ x:20,y:20, Width:20,Height:20 },
     Value:null,
     activeScript:`
-  useBehavior('Checkbox')
+useBehavior('Checkbox')
 //my.Value = null/true/false
 //onClick(() => ...)
 `,
@@ -1872,7 +1872,7 @@
     Geometry:{ x:20,y:20, Width:20,Height:20 },
     Value:null,
     activeScript:`
-  useBehavior('Radiobutton')
+useBehavior('Radiobutton')
 //my.Value = true/false
 //onClick(() => ...)
 `,
@@ -1904,7 +1904,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:20 },
     Value:0,
     activeScript:`
-  useBehavior('Gauge')
+useBehavior('Gauge')
 //my.Value      = 0
 //my.Minimum    = 0
 //my.lowerBound = 0
@@ -1939,7 +1939,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:10 },
     Value:0,
     activeScript:`
-  useBehavior('Progressbar')
+useBehavior('Progressbar')
 //my.Value   = 0
 //my.Maximum = 1
 `,
@@ -1982,7 +1982,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:20 },
     Value:null,
     activeScript:`
-  useBehavior('Slider')
+useBehavior('Slider')
 //my.Value     = 0
 //my.Minimum   = undefined
 //my.Stepping  = undefined
@@ -2057,7 +2057,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('TextlineInput')
+useBehavior('TextlineInput')
 //my.Value         = ''
 //my.Placeholder   = undefined
 //my.readonly      = false
@@ -2142,7 +2142,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('PasswordInput')
+useBehavior('PasswordInput')
 //my.Value       = ''
 //my.Placeholder = undefined
 //my.readonly    = false
@@ -2210,7 +2210,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('NumberInput')
+useBehavior('NumberInput')
 //my.Value       = 0
 //my.Placeholder = undefined
 //my.readonly    = false
@@ -2294,7 +2294,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('PhoneNumberInput')
+useBehavior('PhoneNumberInput')
 //my.Value         = ''
 //my.Placeholder   = undefined
 //my.readonly      = false
@@ -2377,7 +2377,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('EMailAddressInput')
+useBehavior('EMailAddressInput')
 //my.Value       = ''
 //my.Placeholder = undefined
 //my.readonly    = false
@@ -2460,7 +2460,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('URLInput')
+useBehavior('URLInput')
 //my.Value       = ''
 //my.Placeholder = undefined
 //my.readonly    = false
@@ -2550,7 +2550,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('TimeInput')
+useBehavior('TimeInput')
 //my.Value       = 0
 //my.readonly    = false
 //my.Minimum     = undefined
@@ -2638,7 +2638,7 @@
     Geometry:{ x:20,y:20, Width:180,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('DateTimeInput')
+useBehavior('DateTimeInput')
 //my.Value       = 0
 //my.readonly    = false
 //my.Minimum     = undefined
@@ -2727,7 +2727,7 @@
     Geometry:{ x:20,y:20, Width:120,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('DateInput')
+useBehavior('DateInput')
 //my.Value       = 0
 //my.readonly    = false
 //my.Minimum     = undefined
@@ -2816,7 +2816,7 @@
     Geometry:{ x:20,y:20, Width:150,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('WeekInput')
+useBehavior('WeekInput')
 //my.Value       = 0
 //my.readonly    = false
 //my.Minimum     = undefined
@@ -2905,7 +2905,7 @@
     Geometry:{ x:20,y:20, Width:150,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('MonthInput')
+useBehavior('MonthInput')
 //my.Value       = 0
 //my.readonly    = false
 //my.Minimum     = undefined
@@ -2987,7 +2987,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('FileInput')
+useBehavior('FileInput')
 //my.Value           = ''
 //my.Placeholder     = undefined
 //my.acceptableTypes = undefined
@@ -3063,7 +3063,7 @@
     Geometry:{ x:20,y:20, Width:24,Height:24 },
     Value:null,
     activeScript:`
-  useBehavior('PseudoFileInput')
+useBehavior('PseudoFileInput')
 //my.Value           = ''
 //my.Icon            = 'icon image url'
 //my.acceptableTypes = undefined
@@ -3116,7 +3116,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     Value:null,
     activeScript:`
-  useBehavior('FileDropArea')
+useBehavior('FileDropArea')
 //my.Value           = ['']
 //my.Placeholder     = undefined
 //my.acceptableTypes = undefined
@@ -3187,7 +3187,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('SearchInput')
+useBehavior('SearchInput')
 //my.Value         = ''
 //my.Placeholder   = undefined
 //my.readonly      = false
@@ -3272,7 +3272,7 @@
     Geometry:{ x:20,y:20, Width:40,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('ColorInput')
+useBehavior('ColorInput')
 //my.Value       = ''
 //my.Suggestions = ['...',...]
 //onInput(() => ...)
@@ -3338,7 +3338,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('DropDown')
+useBehavior('DropDown')
 //my.Value   = '...'
 //my.Options = ['...',...]
 //onInput(() => ...)
@@ -3406,7 +3406,7 @@
     Geometry:{ x:20,y:20, Width:24,Height:24 },
     Value:null,
     activeScript:`
-  useBehavior('PseudoDropDown')
+useBehavior('PseudoDropDown')
 //my.Value   = '...'
 //my.Icon    = 'icon image url'
 //my.Options = ['...',...]
@@ -3488,7 +3488,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:30 },
     Value:null,
     activeScript:`
-  useBehavior('TextInput')
+useBehavior('TextInput')
 //my.Value         = ''
 //my.Placeholder   = undefined
 //my.readonly      = false
@@ -4274,7 +4274,7 @@
   registerBehavior('other Controls', 'horizontal Ruler', 'horizontalRuler', {
     Geometry:{ x:20,y:20, Width:120,Height:40 },
     activeScript:`
-  useBehavior('horizontalRuler')
+useBehavior('horizontalRuler')
 //my.Placement = 'above'|'below'
     `,
   }, (
@@ -4360,7 +4360,7 @@
   registerBehavior('other Controls', 'vertical Ruler', 'verticalRuler', {
     Geometry:{ x:20,y:20, Width:40,Height:120 },
     activeScript:`
-  useBehavior('verticalRuler')
+useBehavior('verticalRuler')
 //my.Placement = 'left'|'right'
     `,
   }, (
@@ -4454,7 +4454,7 @@
   registerBehavior('other Controls', 'QR-Code View', 'QRCodeView', {
     Geometry:{ x:20,y:20, Width:120,Height:120 },
     activeScript:`
-  useBehavior('QRCodeView')
+useBehavior('QRCodeView')
 //my.Value           = '...'
 //my.ForegroundColor = 'black'
 //my.BackgroundColor = 'white'
