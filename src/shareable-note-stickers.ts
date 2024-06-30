@@ -4824,6 +4824,19 @@ useBehavior('QRCodeView')
     }
     public set unobserved (_:Indexable) { throwReadOnlyError('unobserved') }
 
+  /**** memoized ****/
+
+// @ts-ignore TS2564 allow "_memoized" to be assigned upon first use
+    protected _memoized:Indexable
+
+    public get memoized ():Indexable {
+      if (this._memoized == null) {
+        this._memoized = {}
+      }
+      return this._memoized
+    }
+    public set memoized (_:Indexable) { throwReadOnlyError('memoized') }
+
   /**** Script ****/
 
     public get Script ():SNS_Text|undefined {
@@ -5090,7 +5103,7 @@ useBehavior('QRCodeView')
         'Name','BackgroundColor','BackgroundTexture',
         'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
         'ForegroundColor',
-        'Value','activeScript','pendingScript',
+        'memoized','Value','activeScript','pendingScript',
       ].forEach((Name:string) => serializeProperty(Name))
     }
 
@@ -5116,8 +5129,18 @@ useBehavior('QRCodeView')
         'Name','BackgroundColor','BackgroundTexture',
         'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
         'ForegroundColor',
-        'Value','pendingScript',
+        /*'memoized',*/'Value','activeScript','pendingScript',
       ].forEach((Name:string) => deserializeProperty(Name))
+
+      if (ValueIsPlainObject(Serialization.memoized)) {
+        try {
+          Object.assign(this.memoized,Serialization.memoized)
+        } catch (Signal:any) {
+          console.warn(
+            'DeserializationError:invalid value for property "memoized"'
+          )
+        }
+      }
     }   // deserializing "activeScript" also automatically activates that script
   }
 
@@ -5795,7 +5818,7 @@ useBehavior('QRCodeView')
       'Name','BackgroundColor','BackgroundTexture',
       'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
       'ForegroundColor',
-      'Value','activeScript','pendingScript',
+      'memoized','Value','activeScript','pendingScript',
       'SnapToGrid','GridWidth','GridHeight',
     ].forEach((Property:string) => SNS_ProjectPropertySet[Property] = true)
 
@@ -5968,7 +5991,7 @@ useBehavior('QRCodeView')
       'Name','BackgroundColor','BackgroundTexture',
       'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
       'ForegroundColor',
-      'Value','activeScript','pendingScript',
+      'memoized','Value','activeScript','pendingScript',
       'SnapToGrid','GridWidth','GridHeight',
     ].forEach((Property:string) => SNS_BoardPropertySet[Property] = true)
 
@@ -6354,7 +6377,7 @@ useBehavior('QRCodeView')
       'BackgroundColor','BackgroundTexture',
       'FontFamily','FontSize','FontWeight','FontStyle','LineHeight',
       'ForegroundColor',
-      'Value','activeScript','pendingScript',
+      'memoized','Value','activeScript','pendingScript',
     ].forEach((Property:string) => SNS_StickerPropertySet[Property] = true)
 
   export class SNS_Sticker extends SNS_Visual {
@@ -6753,9 +6776,10 @@ useBehavior('QRCodeView')
       if (this._minHeight != null) { Serialization.minHeight = this._minHeight }
       if (this._maxHeight != null) { Serialization.maxHeight = this._maxHeight }
 
-      if (this.isLocked)    { Serialization.Lock       = true }
-      if (! this.isVisible) { Serialization.Visibility = false }
-      if (! this.isEnabled) { Serialization.Enabling   = false }
+      if (this.isSelectable) { Serialization.Selectability = true }
+      if (this.isLocked)     { Serialization.Lock          = true }
+      if (! this.isVisible)  { Serialization.Visibility    = false }
+      if (! this.isEnabled)  { Serialization.Enabling      = false }
     }
 
   /**** _deserializeConfigurationFrom ****/
@@ -6771,9 +6795,10 @@ useBehavior('QRCodeView')
 // @ts-ignore TS2322 "x","y","Width" and "Height" will never be "null"
       this.Geometry = { x,y, Width,Height }
 
-      if (Serialization.Lock       != null) { this.Lock       = Serialization.Lock       as boolean }
-      if (Serialization.Visibility != null) { this.Visibility = Serialization.Visibility as boolean }
-      if (Serialization.Enabling   != null) { this.Enabling   = Serialization.Enabling   as boolean }
+      if (Serialization.Selectability === true)  { this.Selectability = true }
+      if (Serialization.Lock          === true)  { this.Lock          = true }
+      if (Serialization.Visibility    === false) { this.Visibility    = false }
+      if (Serialization.Enabling      === false) { this.Enabling      = false }
     }
   }
 
