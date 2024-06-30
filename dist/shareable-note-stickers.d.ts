@@ -316,6 +316,10 @@ export declare class SNS_Visual {
     protected _unobserved: Indexable;
     get unobserved(): Indexable;
     set unobserved(_: Indexable);
+    /**** memoized ****/
+    protected _memoized: Indexable;
+    get memoized(): Indexable;
+    set memoized(_: Indexable);
     /**** Script ****/
     get Script(): SNS_Text | undefined;
     set Script(_: SNS_Text | undefined);
