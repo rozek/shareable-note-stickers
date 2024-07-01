@@ -96,7 +96,7 @@
 
 /**** Rendering Callback ****/
 
-  export type SNS_onRenderCallback = (
+  export type SNS_onRenderingCallback = (
     Project:SNS_Project, Board?:SNS_Board, Sticker?:SNS_Sticker
   ) => void
 
@@ -4986,10 +4986,26 @@ useBehavior('QRCodeView')
       this.Renderer = newRenderer
     }
 
-  /**** Rendering (to be overwritten) ****/
+  /**** Rendering ****/
 
-// @ts-ignore TS2564 allow "PropSet" to be never read
-    public Rendering (PropSet:Indexable):any { return '' }
+    public Rendering (PropSet:Indexable):any {
+      if (this.hasError) {
+        return ErrorRenderer.call(this)
+      }
+
+      let Renderer = this._Renderer
+      if (Renderer == null) { return '' }
+
+      try {
+        return Renderer.call(this,PropSet)
+      } catch (Signal:any) {
+        this.Error = {
+          Type:'Rendering Failure',
+          Message:''+Signal, Cause:Signal
+        }
+        return ErrorRenderer.call(this)
+      }
+    }
 
   /**** rerender (to be overwritten) ****/
 
@@ -5701,27 +5717,6 @@ useBehavior('QRCodeView')
       }
     }
 
-  /**** Rendering ****/
-
-    public Rendering (PropSet:Indexable):any {
-      if (this.hasError) {
-        return ErrorRenderer.call(this)
-      }
-
-      let Renderer = this._Renderer
-      if (Renderer == null) { return '' }
-
-      try {
-        return Renderer.call(this,PropSet)
-      } catch (Signal:any) {
-        this.Error = {
-          Type:'Rendering Failure',
-          Message:''+Signal, Cause:Signal
-        }
-        return ErrorRenderer.call(this)
-      }
-    }
-
   /**** _attachBoardAt ****/
 
     /* protected */ _attachBoardAt (Board:SNS_Board, Index:number):void {
@@ -5919,20 +5914,20 @@ useBehavior('QRCodeView')
       )
     }
 
-  /**** onRender ****/
+  /**** onRendering ****/
 
-    protected _onRender:SNS_onRenderCallback[] = []
+    protected _onRendering:SNS_onRenderingCallback[] = []
 
-    public onRender (Callback:SNS_onRenderCallback):void {
-      expectFunction('"onRender" callback',Callback)
-      this._onRender.push(Callback)
+    public onRendering (Callback:SNS_onRenderingCallback):void {
+      expectFunction('"onRendering" callback',Callback)
+      this._onRendering.push(Callback)
     }
 
-  /**** rerender ****/
+  /**** rerender - warning: semantics differs from that of other visuals ****/
 
     public rerender (Board?:SNS_Board, Sticker?:SNS_Sticker):void {
-      this._onRender.forEach(
-        (Callback:SNS_onRenderCallback) => Callback(this, Board, Sticker)
+      this._onRendering.forEach(
+        (Callback:SNS_onRenderingCallback) => Callback(this, Board, Sticker)
       )
     }
 
@@ -6282,6 +6277,27 @@ useBehavior('QRCodeView')
       )
     }
 
+  /**** Rendering ****/
+
+    public Rendering (PropSet:Indexable):any {
+      if (this.hasError) {
+        return ErrorRenderer.call(this)
+      }
+
+      let Renderer = this._Renderer
+      if (Renderer == null) { return '' }
+
+      try {
+        return Renderer.call(this,PropSet)
+      } catch (Signal:any) {
+        this.Error = {
+          Type:'Rendering Failure',
+          Message:''+Signal, Cause:Signal
+        }
+        return ErrorRenderer.call(this)
+      }
+    }
+
   /**** rerender ****/
 
     public rerender ():void {
@@ -6393,6 +6409,22 @@ useBehavior('QRCodeView')
     public get Board ():SNS_Board  { return this._Folder as SNS_Board }
     public set Board (_:SNS_Board) { throwReadOnlyError('Board') }
 
+  /**** BackgroundColor ****/
+
+    public get BackgroundColor ():SNS_Color|undefined {
+      return this._BackgroundColor
+    }
+
+    public set BackgroundColor (newColor:SNS_Color|undefined) {
+      allowColor('sticker background color',newColor)
+      if (this._BackgroundColor !== newColor) {
+        this._BackgroundColor = newColor
+
+        this._reportChange('configure',this,'BackgroundColor',newColor)
+        this.rerender()
+      }
+    }
+
   /**** BackgroundTexture ****/
 
     public get BackgroundTexture ():SNS_URL|undefined {
@@ -6400,7 +6432,7 @@ useBehavior('QRCodeView')
     }
 
     public set BackgroundTexture (newTexture:SNS_URL|undefined) {
-      allowURL('visual background texture',newTexture)
+      allowURL('sticker background texture',newTexture)
       if (this._BackgroundTexture !== newTexture) {
         this._BackgroundTexture = newTexture
 
