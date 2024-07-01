@@ -44,7 +44,7 @@ export type SNS_Geometry = {
 export declare const SNS_FontStyles: string[];
 export type SNS_FontStyle = typeof SNS_FontStyles[number];
 /**** Rendering Callback ****/
-export type SNS_onRenderCallback = (Project: SNS_Project, Board?: SNS_Board, Sticker?: SNS_Sticker) => void;
+export type SNS_onRenderingCallback = (Project: SNS_Project, Board?: SNS_Board, Sticker?: SNS_Sticker) => void;
 /**** Error Report ****/
 export declare const SNS_ErrorTypes: string[];
 export type SNS_ErrorType = typeof SNS_ErrorTypes[number];
@@ -346,7 +346,7 @@ export declare class SNS_Visual {
     set Renderer(newRenderer: Function | undefined);
     /**** onRender ****/
     onRender(newRenderer: Function): void;
-    /**** Rendering (to be overwritten) ****/
+    /**** Rendering ****/
     Rendering(PropSet: Indexable): any;
     /**** rerender (to be overwritten) ****/
     rerender(Board?: SNS_Board, Sticker?: SNS_Sticker): void;
@@ -471,8 +471,6 @@ export declare class SNS_Folder extends SNS_Visual {
     destroyBoard(BoardOrNameOrIndex: SNS_Board | SNS_Name | number): void;
     /**** clear ****/
     clear(): void;
-    /**** Rendering ****/
-    Rendering(PropSet: Indexable): any;
     /**** _attachBoardAt ****/
     _attachBoardAt(Board: SNS_Board, Index: number): void;
     /**** _detachBoardAt ****/
@@ -509,10 +507,10 @@ export declare class SNS_Project extends SNS_Folder {
     onChange(Callback: SNS_onChangeCallback): void;
     /**** _reportChange ****/
     _reportChange(Change: SNS_Change | 'configure', Visual: SNS_Visual, ...ArgList: any[]): void;
-    /**** onRender ****/
-    protected _onRender: SNS_onRenderCallback[];
-    onRender(Callback: SNS_onRenderCallback): void;
-    /**** rerender ****/
+    /**** onRendering ****/
+    protected _onRendering: SNS_onRenderingCallback[];
+    onRendering(Callback: SNS_onRenderingCallback): void;
+    /**** rerender - warning: semantics differs from that of other visuals ****/
     rerender(Board?: SNS_Board, Sticker?: SNS_Sticker): void;
     /**** onError ****/
     protected _onError: SNS_onErrorCallback[];
@@ -573,6 +571,8 @@ export declare class SNS_Board extends SNS_Folder {
     clear(): void;
     /**** recursivelyActivateAllScripts ****/
     recursivelyActivateAllScripts(): void;
+    /**** Rendering ****/
+    Rendering(PropSet: Indexable): any;
     /**** rerender ****/
     rerender(): void;
     /**** onClick ****/
@@ -598,6 +598,9 @@ export declare class SNS_Sticker extends SNS_Visual {
     /**** Board ****/
     get Board(): SNS_Board;
     set Board(_: SNS_Board);
+    /**** BackgroundColor ****/
+    get BackgroundColor(): SNS_Color | undefined;
+    set BackgroundColor(newColor: SNS_Color | undefined);
     /**** BackgroundTexture ****/
     get BackgroundTexture(): SNS_URL | undefined;
     set BackgroundTexture(newTexture: SNS_URL | undefined);
