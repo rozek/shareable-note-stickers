@@ -1046,7 +1046,7 @@
 // @ts-ignore TS2532 "ErrorRenderer.call(this)" will define "this"
     const onClick = () => this.Project.showError(this,Error)
 
-    return html`<div class="SNS DefaultSticker">
+    return html`<div class="SNS brokenSticker">
       <div class="SNS ErrorIndicator" onClick=${onClick}/>
     </div>`
   }
@@ -1641,7 +1641,7 @@ useBehavior('SVGView')
   ):void => {
     my.Renderer = () => {
       const DataURL = 'data:image/svg+xml;base64,' + btoa(acceptableText(my.Value,''))
-      return html`<div class="SNS SVGView" src=${DataURL}/>`
+      return html`<img class="SNS SVGView" src=${DataURL}/>`
     }
   },`
 /**** SVG View ****/
