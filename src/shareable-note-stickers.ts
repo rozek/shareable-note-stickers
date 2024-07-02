@@ -6851,8 +6851,42 @@ useBehavior('QRCodeView')
 
 // @ts-ignore TS2339 allow global variable "SNS"
   window.SNS = {
+    SNS_FontStyles, SNS_ErrorTypes,
     throwError, throwReadOnlyError,
-    SNS_Project
+    ValueIsVisual, allowVisual, allowedVisual, expectVisual, expectedVisual,
+    ValueIsFolder, allowFolder, allowedFolder, expectFolder, expectedFolder,
+    ValueIsProject, allowProject, allowedProject, expectProject, expectedProject,
+    ValueIsBoard, allowBoard, allowedBoard, expectBoard, expectedBoard,
+    ValueIsSticker, allowSticker, allowedSticker, expectSticker, expectedSticker,
+    ValueIsId, allowId, allowedId, expectId, expectedId,
+    ValueIsIdentifier, allowIdentifier, allowedIdentifier, expectIdentifier, expectedIdentifier,
+    ValueIsName, allowName, allowedName, expectName, expectedName,
+    ValueIsLocation, allowLocation, allowedLocation, expectLocation, expectedLocation,
+    ValueIsDimension, allowDimension, allowedDimension, expectDimension, expectedDimension,
+    ValueIsPosition, allowPosition, allowedPosition, expectPosition, expectedPosition,
+    ValueIsSize, allowSize, allowedSize, expectSize, expectedSize,
+    ValueIsGeometry, allowGeometry, allowedGeometry, expectGeometry, expectedGeometry,
+    ValueIsError, allowError, allowedError, expectError, expectedError,
+    ValueIsSerializable, allowSerializable, allowedSerializable, expectSerializable, expectedSerializable,
+    acceptableBoolean, acceptableOptionalBoolean,
+    acceptableNumber, acceptableOptionalNumber,
+    acceptableNumberInRange, acceptableOptionalNumberInRange,
+    acceptableInteger, acceptableOptionalInteger,
+    acceptableIntegerInRange, acceptableOptionalIntegerInRange,
+    acceptableOrdinal, acceptableOptionalOrdinal,
+    acceptableString, acceptableOptionalString,
+    acceptableNonEmptyString, acceptableOptionalNonEmptyString,
+    acceptableStringMatching, acceptableOptionalStringMatching,
+    acceptableText, acceptableOptionalText,
+    acceptableTextline, acceptableOptionalTextline,
+    acceptableFunction, acceptableOptionalFunction,
+    acceptableList, acceptableOptionalList,
+    acceptableListSatisfying, acceptableOptionalListSatisfying,
+    acceptableColor, acceptableOptionalColor,
+    acceptableEMailAddress, acceptablePhoneNumber, acceptableURL,
+    newId,
+    CSSStyleOfVisual,
+    SNS_ConnectionStates
   }
 console.log('SNS is globally available now')
 
