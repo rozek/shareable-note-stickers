@@ -31,6 +31,7 @@
     allowOneOf,
     allowColor, ValueIsEMailAddress, allowURL,
   } from 'javascript-interface-library'
+  import * as JIL from 'javascript-interface-library'
 
   const ValueIsPhoneNumber = ValueIsTextline // *C* should be implemented
 
@@ -1308,7 +1309,7 @@
     const onUnmount = this.onUnmount.bind(this)
 
     BehaviorFunction.call(
-      this, this,this, html,reactively, onRender,onMount,onUnmount
+      this, this,this, SNS,JIL, html,reactively, onRender,onMount,onUnmount
     )
   }
 
@@ -1339,7 +1340,8 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     activeScript:'onRender(() => html`<div class="SNS Placeholder">Script me!</div>`)',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => html`<div class="SNS plainSticker"></div>`)
@@ -1358,7 +1360,8 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     minWidth:20, minHeight:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Selectability = true                       // for backwards compatibility
@@ -1436,7 +1439,8 @@
     Selectability:true,
     Geometry:{ x:20,y:20, Width:100,Height:80 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Selectability = true                       // for backwards compatibility
@@ -1466,7 +1470,8 @@
   registerBehavior('basic Views', 'Outline', 'Outline', {
     Geometry:{ x:20,y:20, Width:100,Height:80 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = function (PropSet:Indexable) {
@@ -1488,7 +1493,8 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Title',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => {
@@ -1509,7 +1515,8 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Subtitle',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => {
@@ -1530,7 +1537,8 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Label',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => {
@@ -1551,7 +1559,8 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Text',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => {
@@ -1572,7 +1581,8 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'FinePrint',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => {
@@ -1597,7 +1607,8 @@ useBehavior('HTMLView')
 //my.Value = 'HTML Markup'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => html`<div class="SNS HTMLView"
@@ -1615,7 +1626,8 @@ useBehavior('ImageView')
 //my.Value = 'Image URL'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => html`<img class="SNS ImageView" src=${acceptableURL(my.Value,'')}/>`
@@ -1636,7 +1648,8 @@ useBehavior('SVGView')
 //my.Value = 'SVG Document'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => {
@@ -1651,10 +1664,6 @@ useBehavior('SVGView')
   }
   `)
 
-/**** 2D Canvas View ****/
-
-  registerBehavior('basic Views', '2D Canvas View', 'Canvas2DView')
-
 /**** Web View ****/
 
   registerBehavior('basic Views', 'Web View', 'WebView', {
@@ -1666,7 +1675,8 @@ useBehavior('WebView')
 //my.Value = 'Document URL'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => html`<iframe class="SNS WebView"
@@ -1680,7 +1690,8 @@ useBehavior('WebView')
     Geometry:{ x:20,y:20, Width:30,Height:30 },
     Value:1, ForegroundColor:'red', BackgroundColor:'white',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => {
@@ -1716,7 +1727,8 @@ useBehavior('Icon')
 //onClick(() => ...)
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onClick (Event:any):void {
@@ -1752,7 +1764,8 @@ useBehavior('Icon')
     Geometry:{ x:20,y:20, Width:80,Height:10 },
     minWidth:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => html`<div class="SNS horizontalSeparator"></div>`)
@@ -1771,7 +1784,8 @@ useBehavior('Icon')
     Geometry:{ x:20,y:20, Width:10,Height:40 },
     minHeight:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onRender(() => html`<div class="SNS verticalSeparator"></div>`)
@@ -1802,7 +1816,8 @@ useBehavior('Button')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onClick (Event:any):void {
@@ -1842,7 +1857,8 @@ useBehavior('Checkbox')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onClick (Event:any):void {
@@ -1877,7 +1893,8 @@ useBehavior('Radiobutton')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onClick (Event:any):void {
@@ -1913,7 +1930,8 @@ useBehavior('Gauge')
 //my.Maximum    = 1
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => {
@@ -1944,7 +1962,8 @@ useBehavior('Progressbar')
 //my.Maximum = 1
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.Renderer = () => {
@@ -1991,7 +2010,8 @@ useBehavior('Slider')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = 0
@@ -2069,7 +2089,8 @@ useBehavior('TextlineInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2152,7 +2173,8 @@ useBehavior('PasswordInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2221,7 +2243,8 @@ useBehavior('NumberInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = 0
@@ -2305,7 +2328,8 @@ useBehavior('PhoneNumberInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2388,7 +2412,8 @@ useBehavior('EMailAddressInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2471,7 +2496,8 @@ useBehavior('URLInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2560,7 +2586,8 @@ useBehavior('TimeInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2648,7 +2675,8 @@ useBehavior('DateTimeInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2737,7 +2765,8 @@ useBehavior('DateInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2826,7 +2855,8 @@ useBehavior('WeekInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2915,7 +2945,8 @@ useBehavior('MonthInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -2996,7 +3027,8 @@ useBehavior('FileInput')
 //onDrop(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onInput (Event:any):void {
@@ -3071,7 +3103,8 @@ useBehavior('PseudoFileInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onInput (Event:any):void {
@@ -3125,7 +3158,8 @@ useBehavior('FileDropArea')
 //onDrop(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     function onInput (Event:any):void {
@@ -3199,7 +3233,8 @@ useBehavior('SearchInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -3278,7 +3313,8 @@ useBehavior('ColorInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -3344,7 +3380,8 @@ useBehavior('DropDown')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -3413,7 +3450,8 @@ useBehavior('PseudoDropDown')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -3499,7 +3537,8 @@ useBehavior('TextInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     my.ValueToShow = ''
@@ -3557,6 +3596,686 @@ useBehavior('TextInput')
   }
   `)
 
+/**** straightArrow_nw ****/
+
+  registerBehavior('straight Arrows', 'nw', 'straightArrow_nw', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M ${Width-6},${Height-6}, L 6,6"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_n ****/
+
+  registerBehavior('straight Arrows', 'n', 'straightArrow_n', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M ${Width/2},${Height}, L ${Width/2},0"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_ne ****/
+
+  registerBehavior('straight Arrows', 'ne', 'straightArrow_ne', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M 6,${Height-6}, L ${Width-6},6"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_e ****/
+
+  registerBehavior('straight Arrows', 'e', 'straightArrow_e', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M 0,${Height/2}, L ${Width},${Height/2}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_se ****/
+
+  registerBehavior('straight Arrows', 'se', 'straightArrow_se', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M 6,6, L ${Width-6},${Height-6}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_s ****/
+
+  registerBehavior('straight Arrows', 's', 'straightArrow_s', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M ${Width/2},0, L ${Width/2},${Height}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_sw ****/
+
+  registerBehavior('straight Arrows', 'sw', 'straightArrow_sw', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M ${Width-6},6, L 6,${Height-6}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** straightArrow_w ****/
+
+  registerBehavior('straight Arrows', 'w', 'straightArrow_w', {
+    Geometry:{ x:20,y:20, Width:40,Height:40 },
+    minWidth:12, minHeight:12,
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="4" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
+            d="M ${Width},${Height/2}, L 0,${Height/2}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** straight Arrows ****/
+
+  .SNS.straightArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow cw n ****/
+
+  registerBehavior('curved Arrows', 'cw n', 'curvedArrow_cw_n', {
+    Geometry:{ x:20,y:20, Width:50,Height:60 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M ${Width},${Height-6}, A ${Width-6} ${Height-18} 0 0 1 6 12"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow cw e ****/
+
+  registerBehavior('curved Arrows', 'cw e', 'curvedArrow_cw_e', {
+    Geometry:{ x:20,y:20, Width:60,Height:50 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M 6,${Height}, A ${Width-18} ${Height-6} 0 0 1 ${Width-12} 6"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow cw s ****/
+
+  registerBehavior('curved Arrows', 'cw s', 'curvedArrow_cw_s', {
+    Geometry:{ x:20,y:20, Width:50,Height:60 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M 0,6, A ${Width-6} ${Height-18} 0 0 1 ${Width-6} ${Height-12}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow cw w ****/
+
+  registerBehavior('curved Arrows', 'cw w', 'curvedArrow_cw_w', {
+    Geometry:{ x:20,y:20, Width:60,Height:50 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M ${Width-6},0, A ${Width-18} ${Height-6} 0 0 1 12 ${Height-6}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow ccw n ****/
+
+  registerBehavior('curved Arrows', 'ccw n', 'curvedArrow_ccw_n', {
+    Geometry:{ x:20,y:20, Width:50,Height:60 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M 0,${Height-6}, A ${Width-6} ${Height-18} 0 0 0 ${Width-6} 12"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow ccw e ****/
+
+  registerBehavior('curved Arrows', 'ccw e', 'curvedArrow_ccw_e', {
+    Geometry:{ x:20,y:20, Width:60,Height:50 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M 6,0, A ${Width-18} ${Height-6} 0 0 0 ${Width-12} ${Height-6}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow ccw s ****/
+
+  registerBehavior('curved Arrows', 'ccw s', 'curvedArrow_ccw_s', {
+    Geometry:{ x:20,y:20, Width:50,Height:60 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M ${Width},6, A ${Width-6} ${Height-18} 0 0 0 6 ${Height-12}"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
+/**** curvedArrow ccw w ****/
+
+  registerBehavior('curved Arrows', 'ccw w', 'curvedArrow_ccw_w', {
+    Geometry:{ x:20,y:20, Width:60,Height:50 },
+  }, (
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
+    onRender:Function, onMount:Function, onUnmount:Function
+  ):void => {
+    my.Renderer = function () {
+      const { Width,Height } = my.Geometry
+      const Color = my.ForegroundColor || 'black'
+
+      const SVGSource = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          width="${Width}" height="${Height}"
+        >
+          <defs>
+            <marker id="arrow-head" orient="auto"
+              markerWidth="5" markerHeight="4"
+              refX="0" refY="2"
+            >
+              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
+            </marker>
+          </defs>
+
+          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
+            d="M ${Width-6},${Height}, A ${Width-18} ${Height-8} 0 0 0 12 6"
+          />
+        </svg>
+      `
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
+      return html`<img class="SNS straightArrow" src=${DataURL}/>`
+    }
+  },`
+/**** curved Arrows ****/
+
+  .SNS.curvedArrow {
+    overflow:visible;
+  }
+  `)
+
 /**** Line ****/
 
   registerBehavior('basic Shapes', 'Line', 'Line')
@@ -3605,670 +4324,6 @@ useBehavior('TextInput')
 
   registerBehavior('basic Shapes', 'regular Polygon', 'regularPolygon')
 
-/**** straightArrow_nw ****/
-
-  registerBehavior('straight Arrows', 'nw', 'straightArrow_nw', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width-6},${Height-6}, L 6,6"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_n ****/
-
-  registerBehavior('straight Arrows', 'n', 'straightArrow_n', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width/2},${Height}, L ${Width/2},0"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_ne ****/
-
-  registerBehavior('straight Arrows', 'ne', 'straightArrow_ne', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M 6,${Height-6}, L ${Width-6},6"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_e ****/
-
-  registerBehavior('straight Arrows', 'e', 'straightArrow_e', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M 0,${Height/2}, L ${Width},${Height/2}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_se ****/
-
-  registerBehavior('straight Arrows', 'se', 'straightArrow_se', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M 6,6, L ${Width-6},${Height-6}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_s ****/
-
-  registerBehavior('straight Arrows', 's', 'straightArrow_s', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width/2},0, L ${Width/2},${Height}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_sw ****/
-
-  registerBehavior('straight Arrows', 'sw', 'straightArrow_sw', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width-6},6, L 6,${Height-6}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** straightArrow_w ****/
-
-  registerBehavior('straight Arrows', 'w', 'straightArrow_w', {
-    Geometry:{ x:20,y:20, Width:40,Height:40 },
-    minWidth:12, minHeight:12,
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="4" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}"
-            d="M ${Width},${Height/2}, L 0,${Height/2}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** straight Arrows ****/
-
-  .SNS.straightArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow cw n ****/
-
-  registerBehavior('curved Arrows', 'cw n', 'curvedArrow_cw_n', {
-    Geometry:{ x:20,y:20, Width:50,Height:60 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M ${Width},${Height-6}, A ${Width-6} ${Height-18} 0 0 1 6 12"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow cw e ****/
-
-  registerBehavior('curved Arrows', 'cw e', 'curvedArrow_cw_e', {
-    Geometry:{ x:20,y:20, Width:60,Height:50 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M 6,${Height}, A ${Width-18} ${Height-6} 0 0 1 ${Width-12} 6"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow cw s ****/
-
-  registerBehavior('curved Arrows', 'cw s', 'curvedArrow_cw_s', {
-    Geometry:{ x:20,y:20, Width:50,Height:60 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M 0,6, A ${Width-6} ${Height-18} 0 0 1 ${Width-6} ${Height-12}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow cw w ****/
-
-  registerBehavior('curved Arrows', 'cw w', 'curvedArrow_cw_w', {
-    Geometry:{ x:20,y:20, Width:60,Height:50 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M ${Width-6},0, A ${Width-18} ${Height-6} 0 0 1 12 ${Height-6}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow ccw n ****/
-
-  registerBehavior('curved Arrows', 'ccw n', 'curvedArrow_ccw_n', {
-    Geometry:{ x:20,y:20, Width:50,Height:60 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M 0,${Height-6}, A ${Width-6} ${Height-18} 0 0 0 ${Width-6} 12"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow ccw e ****/
-
-  registerBehavior('curved Arrows', 'ccw e', 'curvedArrow_ccw_e', {
-    Geometry:{ x:20,y:20, Width:60,Height:50 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M 6,0, A ${Width-18} ${Height-6} 0 0 0 ${Width-12} ${Height-6}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow ccw s ****/
-
-  registerBehavior('curved Arrows', 'ccw s', 'curvedArrow_ccw_s', {
-    Geometry:{ x:20,y:20, Width:50,Height:60 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M ${Width},6, A ${Width-6} ${Height-18} 0 0 0 6 ${Height-12}"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
-/**** curvedArrow ccw w ****/
-
-  registerBehavior('curved Arrows', 'ccw w', 'curvedArrow_ccw_w', {
-    Geometry:{ x:20,y:20, Width:60,Height:50 },
-  }, (
-    me:SNS_Sticker, my:SNS_Sticker, html:Function, reactively:Function,
-    onRender:Function, onMount:Function, onUnmount:Function
-  ):void => {
-    my.Renderer = function () {
-      const { Width,Height } = my.Geometry
-      const Color = my.ForegroundColor || 'black'
-
-      const SVGSource = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-          width="${Width}" height="${Height}"
-        >
-          <defs>
-            <marker id="arrow-head" orient="auto"
-              markerWidth="5" markerHeight="4"
-              refX="0" refY="2"
-            >
-              <path d="M0,0 V4 L5,2 Z" fill="${Color}"/>
-            </marker>
-          </defs>
-
-          <path marker-end="url(#arrow-head)" stroke-width="3" stroke="${Color}" fill="none"
-            d="M ${Width-6},${Height}, A ${Width-18} ${Height-8} 0 0 0 12 6"
-          />
-        </svg>
-      `
-      const DataURL = 'data:image/svg+xml;base64,' + btoa(SVGSource)
-      return html`<img class="SNS straightArrow" src=${DataURL}/>`
-    }
-  },`
-/**** curved Arrows ****/
-
-  .SNS.curvedArrow {
-    overflow:visible;
-  }
-  `)
-
 /**** horizontal Ruler ****/
 
   registerBehavior('other Controls', 'horizontal Ruler', 'horizontalRuler', {
@@ -4278,7 +4333,8 @@ useBehavior('horizontalRuler')
 //my.Placement = 'above'|'below'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     let Canvas = my.unobserved.Canvas = document.createElement('canvas')
@@ -4364,7 +4420,8 @@ useBehavior('verticalRuler')
 //my.Placement = 'left'|'right'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     let Canvas = my.unobserved.Canvas = document.createElement('canvas')
@@ -4461,7 +4518,8 @@ useBehavior('QRCodeView')
 //my.CorrectionLevel = 'low'|'medium'|'quartile'|'high'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, html:Function, reactively:Function,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
     onMount(() => me.rerender())
@@ -6850,7 +6908,7 @@ useBehavior('QRCodeView')
   }
 
 // @ts-ignore TS2339 allow global variable "SNS"
-  window.SNS = {
+  const SNS:Indexable = window.SNS = {
     SNS_FontStyles, SNS_ErrorTypes,
     throwError, throwReadOnlyError,
     ValueIsVisual, allowVisual, allowedVisual, expectVisual, expectedVisual,
