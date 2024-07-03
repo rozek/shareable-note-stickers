@@ -5988,7 +5988,7 @@ useBehavior('QRCodeView')
 
     public get Application ():Indexable  { return { ...this._Application } }
     public set Application (newInterface:Indexable) {
-      if (ObjectIsEmpty(this._Application)) throwError(
+      if (! ObjectIsEmpty(this._Application)) throwError(
         'AlreadySet: the "Application" interface has already been set'
       )
 
