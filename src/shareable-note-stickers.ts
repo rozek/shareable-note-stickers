@@ -9,7 +9,7 @@
   import {
 //  throwError,
     quoted,
-    ValuesDiffer,
+    ValuesDiffer, ObjectIsEmpty,
     ValueIsBoolean,
     ValueIsNumber, ValueIsNumberInRange, ValueIsFiniteNumber,
       ValueIsInteger, ValueIsIntegerInRange, ValueIsOrdinal,
@@ -1309,7 +1309,8 @@
     const onUnmount = this.onUnmount.bind(this)
 
     BehaviorFunction.call(
-      this, this,this, SNS,JIL, html,reactively, onRender,onMount,onUnmount
+      this, this,this, SNS,JIL, this.Project.Application, html,reactively,
+      onRender,onMount,onUnmount, // onClick,onInput,onDrop
     )
   }
 
@@ -1340,7 +1341,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     activeScript:'onRender(() => html`<div class="SNS Placeholder">Script me!</div>`)',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1360,7 +1361,7 @@
     Geometry:{ x:20,y:20, Width:100,Height:80 },
     minWidth:20, minHeight:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1438,7 +1439,7 @@
   registerBehavior('basic Views', 'Outline', 'Outline', {
     Geometry:{ x:20,y:20, Width:100,Height:80 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1461,7 +1462,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Title',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1483,7 +1484,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Subtitle',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1505,7 +1506,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Label',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1527,7 +1528,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'Text',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1549,7 +1550,7 @@
     Geometry:{ x:20,y:20, Width:80,Height:30 },
     Value:'FinePrint',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1575,7 +1576,7 @@ useBehavior('HTMLView')
 //my.Value = 'HTML Markup'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1594,7 +1595,7 @@ useBehavior('ImageView')
 //my.Value = 'Image URL'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1616,7 +1617,7 @@ useBehavior('SVGView')
 //my.Value = 'SVG Document'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1643,7 +1644,7 @@ useBehavior('WebView')
 //my.Value = 'Document URL'
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1658,7 +1659,7 @@ useBehavior('WebView')
     Geometry:{ x:20,y:20, Width:30,Height:30 },
     Value:1, ForegroundColor:'red', BackgroundColor:'white',
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1695,7 +1696,7 @@ useBehavior('Icon')
 //onClick(() => ...)
 `,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1732,7 +1733,7 @@ useBehavior('Icon')
     Geometry:{ x:20,y:20, Width:80,Height:10 },
     minWidth:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1752,7 +1753,7 @@ useBehavior('Icon')
     Geometry:{ x:20,y:20, Width:10,Height:40 },
     minHeight:10,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1784,7 +1785,7 @@ useBehavior('Button')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1825,7 +1826,7 @@ useBehavior('Checkbox')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1861,7 +1862,7 @@ useBehavior('Radiobutton')
 //onClick(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1898,7 +1899,7 @@ useBehavior('Gauge')
 //my.Maximum    = 1
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1930,7 +1931,7 @@ useBehavior('Progressbar')
 //my.Maximum = 1
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -1978,7 +1979,7 @@ useBehavior('Slider')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2057,7 +2058,7 @@ useBehavior('TextlineInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2141,7 +2142,7 @@ useBehavior('PasswordInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2211,7 +2212,7 @@ useBehavior('NumberInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2296,7 +2297,7 @@ useBehavior('PhoneNumberInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2380,7 +2381,7 @@ useBehavior('EMailAddressInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2464,7 +2465,7 @@ useBehavior('URLInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2554,7 +2555,7 @@ useBehavior('TimeInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2643,7 +2644,7 @@ useBehavior('DateTimeInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2733,7 +2734,7 @@ useBehavior('DateInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2823,7 +2824,7 @@ useBehavior('WeekInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2913,7 +2914,7 @@ useBehavior('MonthInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -2995,7 +2996,7 @@ useBehavior('FileInput')
 //onDrop(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3071,7 +3072,7 @@ useBehavior('PseudoFileInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3126,7 +3127,7 @@ useBehavior('FileDropArea')
 //onDrop(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3201,7 +3202,7 @@ useBehavior('SearchInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3281,7 +3282,7 @@ useBehavior('ColorInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3348,7 +3349,7 @@ useBehavior('DropDown')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3418,7 +3419,7 @@ useBehavior('PseudoDropDown')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3505,7 +3506,7 @@ useBehavior('TextInput')
 //onInput(() => ...)
 `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3570,7 +3571,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3613,7 +3614,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3656,7 +3657,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3699,7 +3700,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3742,7 +3743,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3785,7 +3786,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3828,7 +3829,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3871,7 +3872,7 @@ useBehavior('TextInput')
     Geometry:{ x:20,y:20, Width:40,Height:40 },
     minWidth:12, minHeight:12,
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3913,7 +3914,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'cw n', 'curvedArrow_cw_n', {
     Geometry:{ x:20,y:20, Width:50,Height:60 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3955,7 +3956,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'cw e', 'curvedArrow_cw_e', {
     Geometry:{ x:20,y:20, Width:60,Height:50 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -3997,7 +3998,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'cw s', 'curvedArrow_cw_s', {
     Geometry:{ x:20,y:20, Width:50,Height:60 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4039,7 +4040,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'cw w', 'curvedArrow_cw_w', {
     Geometry:{ x:20,y:20, Width:60,Height:50 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4081,7 +4082,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'ccw n', 'curvedArrow_ccw_n', {
     Geometry:{ x:20,y:20, Width:50,Height:60 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4123,7 +4124,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'ccw e', 'curvedArrow_ccw_e', {
     Geometry:{ x:20,y:20, Width:60,Height:50 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4165,7 +4166,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'ccw s', 'curvedArrow_ccw_s', {
     Geometry:{ x:20,y:20, Width:50,Height:60 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4207,7 +4208,7 @@ useBehavior('TextInput')
   registerBehavior('curved Arrows', 'ccw w', 'curvedArrow_ccw_w', {
     Geometry:{ x:20,y:20, Width:60,Height:50 },
   }, (
-    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable,
+    me:SNS_Sticker, my:SNS_Sticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4301,7 +4302,7 @@ useBehavior('horizontalRuler')
 //my.Placement = 'above'|'below'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4388,7 +4389,7 @@ useBehavior('verticalRuler')
 //my.Placement = 'left'|'right'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4486,7 +4487,7 @@ useBehavior('QRCodeView')
 //my.CorrectionLevel = 'low'|'medium'|'quartile'|'high'
     `,
   }, (
-    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable,
+    me:IndexableSticker, my:IndexableSticker, SNS:Indexable, JIL:Indexable, Application:Indexable,
     html:Function, reactively:Function,
     onRender:Function, onMount:Function, onUnmount:Function
   ):void => {
@@ -4618,6 +4619,11 @@ useBehavior('QRCodeView')
       return (this._Folder == null ? ValueIsProject(this) : this._Folder.isAttached )
     }
     public set isAttached (_:boolean) { throwReadOnlyError('isAttached') }
+
+  /**** Application ****/
+
+    public get Application ():Indexable  { return this._Project.Application }
+    public set Application (_:Indexable) { throwReadOnlyError('Application') }
 
   /**** BackgroundColor ****/
 
@@ -4924,8 +4930,9 @@ useBehavior('QRCodeView')
         let compiledScript
         try {
           compiledScript = new Function(
-            'me,my, html,reactively, onRender,onMount,onUnmount, useBehavior, ' +
-            'onClick,onInput,onDrop', activeScript
+            'me,my, SNS,JIL, Application, html,reactively, ' +
+            'onRender,onMount,onUnmount, onClick,onInput,onDrop, ' +
+            'useBehavior', activeScript
           )
         } catch (Signal:any) {
           console.error('visual script compilation failure',Signal)
@@ -4955,8 +4962,9 @@ useBehavior('QRCodeView')
 
         try {
           compiledScript.call(
-            this, this,this, html,reactively, onRender,onMount,onUnmount,
-            useBehavior.bind(this), onClick,onInput,onDrop
+            this, this,this, SNS,JIL, this.Project.Application, html,reactively,
+            onRender,onMount,onUnmount, onClick,onInput,onDrop,
+            useBehavior.bind(this)
           )
         } catch (Signal) {
           console.error('visual script execution failure',Signal)
@@ -5972,6 +5980,24 @@ useBehavior('QRCodeView')
       this._onError.forEach(
         (Callback:SNS_onErrorCallback) => Callback(this, Visual, Error)
       )
+    }
+
+  /**** Application ****/
+
+    private _Application:Indexable = {}
+
+    public get Application ():Indexable  { return { ...this._Application } }
+    public set Application (newInterface:Indexable) {
+      if (ObjectIsEmpty(this._Application)) throwError(
+        'AlreadySet: the "Application" interface has already been set'
+      )
+
+      expectSerializable('application interface',newInterface)
+      if (ObjectIsEmpty(newInterface)) throwError(
+        'InvalidArgument: the given application interface is empty'
+      )
+
+      this._Application = { ...newInterface }
     }
 
   /**** Serialization ****/
