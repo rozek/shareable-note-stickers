@@ -266,6 +266,9 @@ export declare class SNS_Visual {
     /**** isAttached ****/
     get isAttached(): boolean;
     set isAttached(_: boolean);
+    /**** Application ****/
+    get Application(): Indexable;
+    set Application(_: Indexable);
     /**** BackgroundColor ****/
     protected _BackgroundColor: SNS_Color | undefined;
     get BackgroundColor(): SNS_Color | undefined;
@@ -517,6 +520,10 @@ export declare class SNS_Project extends SNS_Folder {
     onError(Callback: SNS_onErrorCallback): void;
     /**** showError ****/
     showError(Visual: SNS_Visual, Error: SNS_Error): void;
+    /**** Application ****/
+    private _Application;
+    get Application(): Indexable;
+    set Application(newInterface: Indexable);
     /**** Serialization ****/
     get Serialization(): Serializable;
     set Serialization(_: Serializable);
