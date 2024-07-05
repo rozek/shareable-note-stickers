@@ -123,6 +123,14 @@
     Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error
   ) => void
 
+/**** Board-specific Dialogs ****/
+
+  export type SNS_Dialog = {
+    Id:SNS_Id, Name:SNS_Name, Title:SNS_Textline, isResizable:boolean,
+    x:SNS_Location, y:SNS_Location, Width:SNS_Dimension, Height:SNS_Dimension,
+    minWidth:number, maxWidth?:number, minHeight:number, maxHeight?:number,
+    Renderer:Function, onClose?:Function
+  }
 /**** throwError - simplifies construction of named errors ****/
 
   export function throwError (Message:string):never {
@@ -3415,7 +3423,7 @@ useBehavior('DropDown')
 useBehavior('PseudoDropDown')
 //my.Value   = '...'
 //my.Icon    = 'icon image url'
-//my.Options = ['...',...]
+//my.Options = ['value:label',...]
 //onInput(() => ...)
 `,
   }, (
@@ -6372,6 +6380,194 @@ useBehavior('QRCodeView')
     public onDrop (newHandler:Function):void {
       expectFunction('"drop" event handler',newHandler)
       this._onDrop = newHandler
+    }
+
+  /**** DialogList ****/
+
+    private _DialogList:SNS_Dialog[] = []
+
+    public get DialogList ():SNS_Dialog[] {
+      return this._DialogList.map((Dialog:SNS_Dialog) => ({ ...Dialog }))
+    }
+    public set DialogList (_:SNS_Dialog[]) { throwReadOnlyError('_DialogList') }
+
+  /**** IndexOfDialog ****/
+
+    public IndexOfDialog (DialogName:SNS_Name):number {
+      expectName('dialog name',DialogName)
+      DialogName = DialogName.trim().toLowerCase()
+        const DialogList = this._DialogList
+        for (let i = 0, l = DialogList.length; i < l; i++) {
+          const Dialog = DialogList[i]
+          if (Dialog.Name.trim().toLowerCase() === DialogName) { return i }
+        }
+      return -1
+    }
+
+  /**** openDialog ****/
+
+    public openDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      } = OptionSet
+
+      expectName                 ('dialog name',Name)
+      allowTextline             ('dialog title',Title)
+      allowBoolean       ('dialog resizability',isResizable)
+      allowLocation      ('dialog x coordinate',x)
+      allowLocation      ('dialog y coordinate',y)
+      allowDimension            ('dialog width',Width)
+      allowDimension           ('dialog height',Height)
+      allowDimension    ('minimal dialog width',minWidth)
+      allowDimension    ('maximal dialog width',maxWidth)
+      allowDimension   ('minimal dialog height',minHeight)
+      allowDimension   ('maximal dialog height',maxHeight)
+      expectFunction ('dialog content renderer',Renderer)
+      allowFunction('dialog "onClose" callback',onClose)
+
+      if (Title       == null) { Title = Name }
+      if (isResizable == null) { isResizable = false }
+      if (Width       == null) { Width  = 320 }
+      if (Height      == null) { Height = 240 }
+      if (x           == null) { x = -Number.MAX_SAFE_INTEGER }     // to center
+      if (y           == null) { y = -Number.MAX_SAFE_INTEGER }          // dto.
+      if (minWidth    == null) { minWidth  = 40 }
+      if (maxWidth    != null) { maxWidth  = Math.max(minWidth,maxWidth) }
+      if (minHeight   == null) { minHeight = 30 }
+      if (maxHeight   != null) { maxHeight = Math.max(minHeight,maxHeight) }
+
+      const DialogIndex = this.IndexOfDialog(Name)
+      if (DialogIndex < 0) {
+        this._DialogList.push({
+          Id:newId(), Name, Title, isResizable, x,y, Width,Height,
+          minWidth,maxWidth, minHeight,maxHeight, Renderer, onClose
+        })
+        this.rerender()
+      } else {
+        Object.assign(this._DialogList[DialogIndex],{
+          Name, Title, isResizable, x,y, Width,Height,
+          minWidth,maxWidth, minHeight,maxHeight, Renderer, onClose
+        })
+        this.bringDialogToFront(Name)
+      }
+    }
+
+  /**** DialogIsOpen ****/
+
+    public DialogIsOpen (DialogName:SNS_Name):boolean {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      return (DialogIndex >= 0)
+    }
+
+  /**** titleDialogAs ****/
+
+    public titleDialogAs (DialogName:SNS_Name, newTitle:SNS_Textline):void {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      if (DialogIndex < 0) throwError(
+        'NoSuchDialog: no open dialog named ' + quoted(DialogName) + ' found'
+      )
+      const Dialog = this._DialogList[DialogIndex] as SNS_Dialog
+
+      allowTextline('dialog title',newTitle)
+      if (newTitle == null) { newTitle = Dialog.Title }
+
+      if (Dialog.Title !== newTitle) {
+        Dialog.Title = newTitle
+        this.rerender()
+      }
+    }
+
+  /**** positionDialogAt ****/
+
+    public positionDialogAt (
+      DialogName:SNS_Name, newX:SNS_Location,newY:SNS_Location
+    ):void {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      if (DialogIndex < 0) throwError(
+        'NoSuchDialog: no open dialog named ' + quoted(DialogName) + ' found'
+      )
+      const Dialog = this._DialogList[DialogIndex] as SNS_Dialog
+
+      allowLocation('dialog x coordinate',newX)
+      allowLocation('dialog y coordinate',newY)
+
+      if (newX == null) { newX = Dialog.x }
+      if (newY == null) { newY = Dialog.y }
+
+      if ((Dialog.x !== newX) || (Dialog.y !== newY)) {
+        Dialog.x = newX; Dialog.y = newY
+        this.rerender()
+      }
+    }
+
+  /**** sizeDialogTo ****/
+
+    public sizeDialogTo (
+      DialogName:SNS_Name, newWidth:SNS_Dimension,newHeight:SNS_Dimension
+    ):void {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      if (DialogIndex < 0) throwError(
+        'NoSuchDialog: no open dialog named ' + quoted(DialogName) + ' found'
+      )
+      const Dialog = this._DialogList[DialogIndex] as SNS_Dialog
+
+      allowDimension ('dialog width',newWidth)
+      allowDimension('dialog height',newHeight)
+
+      if (newWidth  == null) { newWidth  = Dialog.Width }
+      if (newHeight == null) { newHeight = Dialog.Height }
+
+      if ((Dialog.Width !== newWidth) || (Dialog.Height !== newHeight)) {
+        Dialog.Width = newWidth; Dialog.Height = newHeight
+        this.rerender()
+      }
+    }
+
+  /**** DialogIsFrontmost ****/
+
+    public DialogIsFrontmost (DialogName:SNS_Name):boolean {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      return (DialogIndex === this._DialogList.length-1)
+    }
+
+  /**** bringDialogToFront ****/
+
+    public bringDialogToFront (DialogName:SNS_Name):void {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      if (DialogIndex < 0) throwError(
+        'NoSuchDialog: no open dialog named ' + quoted(DialogName) + ' found'
+      )
+
+      if (DialogIndex < this._DialogList.length-1) {
+        const DialogList = this._DialogList               // reference, not copy
+
+        const Dialog = DialogList[DialogIndex]
+        DialogList.splice(DialogIndex,1)
+        DialogList.push(Dialog)
+
+        this.rerender()
+      }
+    }
+
+  /**** closeDialog ****/
+
+    public closeDialog (DialogName:SNS_Name):void {
+      const DialogIndex = this.IndexOfDialog(DialogName)
+      if (DialogIndex < 0) { return }
+
+      this._DialogList.splice(DialogIndex,1)
+      this.rerender()
+    }
+
+  /**** closeAllDialogs ****/
+
+    public closeAllDialogs ():void {
+      if (this._DialogList.length > 0) {
+        this._DialogList = []
+        this.rerender()
+      }
     }
 
   /**** _attachStickerAt ****/
