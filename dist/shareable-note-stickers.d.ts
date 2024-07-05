@@ -55,6 +55,23 @@ export type SNS_Error = {
 };
 /**** Error Callback ****/
 export type SNS_onErrorCallback = (Project: SNS_Project, Visual: SNS_Visual, Error: SNS_Error) => void;
+/**** Board-specific Dialogs ****/
+export type SNS_Dialog = {
+    Id: SNS_Id;
+    Name: SNS_Name;
+    Title: SNS_Textline;
+    isResizable: boolean;
+    x: SNS_Location;
+    y: SNS_Location;
+    Width: SNS_Dimension;
+    Height: SNS_Dimension;
+    minWidth: number;
+    maxWidth?: number;
+    minHeight: number;
+    maxHeight?: number;
+    Renderer: Function;
+    onClose?: Function;
+};
 /**** throwError - simplifies construction of named errors ****/
 export declare function throwError(Message: string): never;
 /**** throwReadOnlyError ****/
@@ -588,6 +605,30 @@ export declare class SNS_Board extends SNS_Folder {
     /**** onDrop ****/
     protected _onDrop: Function | undefined;
     onDrop(newHandler: Function): void;
+    /**** DialogList ****/
+    private _DialogList;
+    get DialogList(): SNS_Dialog[];
+    set DialogList(_: SNS_Dialog[]);
+    /**** IndexOfDialog ****/
+    IndexOfDialog(DialogName: SNS_Name): number;
+    /**** openDialog ****/
+    openDialog(OptionSet: Indexable): void;
+    /**** DialogIsOpen ****/
+    DialogIsOpen(DialogName: SNS_Name): boolean;
+    /**** titleDialogAs ****/
+    titleDialogAs(DialogName: SNS_Name, newTitle: SNS_Textline): void;
+    /**** positionDialogAt ****/
+    positionDialogAt(DialogName: SNS_Name, newX: SNS_Location, newY: SNS_Location): void;
+    /**** sizeDialogTo ****/
+    sizeDialogTo(DialogName: SNS_Name, newWidth: SNS_Dimension, newHeight: SNS_Dimension): void;
+    /**** DialogIsFrontmost ****/
+    DialogIsFrontmost(DialogName: SNS_Name): boolean;
+    /**** bringDialogToFront ****/
+    bringDialogToFront(DialogName: SNS_Name): void;
+    /**** closeDialog ****/
+    closeDialog(DialogName: SNS_Name): void;
+    /**** closeAllDialogs ****/
+    closeAllDialogs(): void;
     /**** _attachStickerAt ****/
     _attachStickerAt(Sticker: SNS_Sticker, Index: number): void;
     /**** _detachStickerAt ****/
