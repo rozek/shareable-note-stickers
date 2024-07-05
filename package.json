@@ -1,6 +1,6 @@
 {
   "name": "shareable-note-stickers",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "basic data model for a shareable application with scriptable \"sticky notes\"",
   "type": "module",
   "source": "src/shareable-note-stickers.ts",
