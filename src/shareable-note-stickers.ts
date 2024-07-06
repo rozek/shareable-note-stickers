@@ -6444,7 +6444,6 @@ useBehavior('QRCodeView')
           Id:newId(), Name, Title, isResizable, x,y, Width,Height,
           minWidth,maxWidth, minHeight,maxHeight, Renderer, onClose
         })
-        this.rerender()
       } else {
         Object.assign(this._DialogList[DialogIndex],{
           Name, Title, isResizable, x,y, Width,Height,
@@ -6452,6 +6451,7 @@ useBehavior('QRCodeView')
         })
         this.bringDialogToFront(Name)
       }
+      this.rerender()
     }
 
   /**** DialogIsOpen ****/
@@ -6459,6 +6459,134 @@ useBehavior('QRCodeView')
     public DialogIsOpen (DialogName:SNS_Name):boolean {
       const DialogIndex = this.IndexOfDialog(DialogName)
       return (DialogIndex >= 0)
+    }
+
+  /**** openTextViewDialog ****/
+
+    public openTextViewDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Content,isFormatted, onClose
+      } = OptionSet
+
+      Content     = acceptableText(Content,'')
+      isFormatted = acceptableBoolean(isFormatted,false)
+
+      function Renderer () {
+        return html`<textarea class="SNS Content" style="
+          resize:none; padding:4px;
+          ${isFormatted
+            ? 'white-space:pre;      overflow-wrap:normal'
+            : 'white-space:pre-wrap; overflow-wrap:break-word'
+          }
+        " value=${Content}/>`
+      }
+
+      this.openDialog({
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      })
+    }
+
+  /**** openHTMLViewDialog ****/
+
+    public openHTMLViewDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Content, onClose
+      } = OptionSet
+
+      Content = acceptableText(Content,'')
+
+      function Renderer () {
+        return html`<div class="SNS Content" style="padding:4px"
+          dangerouslySetInnerHTML=${{__html:acceptableText(Content,'')}}
+        />`
+      }
+
+      this.openDialog({
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      })
+    }
+
+  /**** openImageViewDialog ****/
+
+    public openImageViewDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Content, onClose
+      } = OptionSet
+
+      Content = acceptableURL(Content,'')
+
+      function Renderer () {
+        return html`<img class="SNS Content" style="
+          padding:4px;
+          object-fit:contain; object-position:center;
+        " src=${Content}/>`
+      }
+
+      this.openDialog({
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      })
+    }
+
+  /**** openSVGViewDialog ****/
+
+    public openSVGViewDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Content, onClose
+      } = OptionSet
+
+      Content = acceptableText(Content,'')
+
+      const DataURL = 'data:image/svg+xml;base64,' + btoa(Content)
+
+      function Renderer () {
+        return html`<img class="SNS Content" style="
+          padding:4px; object-fit:contain; object-position:center;
+        " src=${DataURL}/>`
+      }
+
+      this.openDialog({
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      })
+    }
+
+  /**** openWebViewDialog ****/
+
+    public openWebViewDialog (OptionSet:Indexable):void {
+      let {
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Content, onClose
+      } = OptionSet
+
+      Content = acceptableURL(Content,'')
+
+      function Renderer () {
+        return html`<iframe class="SNS Content" style="padding:4px"
+          src=${Content}
+        />`
+      }
+
+      this.openDialog({
+        Name, Title, isResizable, x, y, Width, Height,
+        minWidth, maxWidth, minHeight, maxHeight,
+        Renderer, onClose
+      })
     }
 
   /**** titleDialogAs ****/
