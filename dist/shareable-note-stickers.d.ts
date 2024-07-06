@@ -615,6 +615,16 @@ export declare class SNS_Board extends SNS_Folder {
     openDialog(OptionSet: Indexable): void;
     /**** DialogIsOpen ****/
     DialogIsOpen(DialogName: SNS_Name): boolean;
+    /**** openTextViewDialog ****/
+    openTextViewDialog(OptionSet: Indexable): void;
+    /**** openHTMLViewDialog ****/
+    openHTMLViewDialog(OptionSet: Indexable): void;
+    /**** openImageViewDialog ****/
+    openImageViewDialog(OptionSet: Indexable): void;
+    /**** openSVGViewDialog ****/
+    openSVGViewDialog(OptionSet: Indexable): void;
+    /**** openWebViewDialog ****/
+    openWebViewDialog(OptionSet: Indexable): void;
     /**** titleDialogAs ****/
     titleDialogAs(DialogName: SNS_Name, newTitle: SNS_Textline): void;
     /**** positionDialogAt ****/
