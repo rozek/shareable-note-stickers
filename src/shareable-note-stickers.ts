@@ -1711,7 +1711,6 @@ useBehavior('Icon')
     function onClick (Event:any):void {
       if (my.Enabling == false) { return }
 
-      my.Value = Event.target.value
 // @ts-ignore TS2445 well, this object *is* a subinstance of SNS_Sticker
       if (typeof my._onClick === 'function') { my._onClick(Event) }
     }
