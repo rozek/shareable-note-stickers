@@ -129,7 +129,7 @@
     Id:SNS_Id, Name:SNS_Name, Title:SNS_Textline, isResizable:boolean,
     x:SNS_Location, y:SNS_Location, Width:SNS_Dimension, Height:SNS_Dimension,
     minWidth:number, maxWidth?:number, minHeight:number, maxHeight?:number,
-    Renderer:Function, onClose?:Function
+    Visibility:boolean, Renderer:Function, onClose?:Function
   }
 /**** throwError - simplifies construction of named errors ****/
 
@@ -6203,28 +6203,34 @@ useBehavior('TextInput')
       expectFunction ('dialog content renderer',Renderer)
       allowFunction('dialog "onClose" callback',onClose)
 
-      if (Title       == null) { Title = Name }
-      if (isResizable == null) { isResizable = false }
-      if (Width       == null) { Width  = 320 }
-      if (Height      == null) { Height = 240 }
-      if (x           == null) { x = -Number.MAX_SAFE_INTEGER }     // to center
-      if (y           == null) { y = -Number.MAX_SAFE_INTEGER }          // dto.
-      if (minWidth    == null) { minWidth  = 40 }
-      if (maxWidth    != null) { maxWidth  = Math.max(minWidth,maxWidth) }
-      if (minHeight   == null) { minHeight = 30 }
-      if (maxHeight   != null) { maxHeight = Math.max(minHeight,maxHeight) }
-
       const DialogIndex = this.IndexOfDialog(Name)
       if (DialogIndex < 0) {
+        if (Title       == null) { Title = Name }
+        if (isResizable == null) { isResizable = false }
+        if (Width       == null) { Width  = 320 }
+        if (Height      == null) { Height = 240 }
+        if (x           == null) { x = -Number.MAX_SAFE_INTEGER }   // to center
+        if (y           == null) { y = -Number.MAX_SAFE_INTEGER }        // dto.
+        if (minWidth    == null) { minWidth  = 40 }
+        if (maxWidth    != null) { maxWidth  = Math.max(minWidth,maxWidth) }
+        if (minHeight   == null) { minHeight = 30 }
+        if (maxHeight   != null) { maxHeight = Math.max(minHeight,maxHeight) }
+
         this._DialogList.push({
           Id:newId(), Name, Title, isResizable, x,y, Width,Height,
-          minWidth,maxWidth, minHeight,maxHeight, Renderer, onClose
+          minWidth,maxWidth, minHeight,maxHeight,
+          Visibility:true, Renderer, onClose
         })
       } else {
-        Object.assign(this._DialogList[DialogIndex],{
-          Name, Title, isResizable, x,y, Width,Height,
-          minWidth,maxWidth, minHeight,maxHeight, Renderer, onClose
-        })
+        const Dialog:Indexable = this._DialogList[DialogIndex]
+          ;(`
+            Name Title isResizable x y Width Height
+            minWidth maxWidth minHeight maxHeight Renderer onClose
+          `).trim().split(/\s+/).forEach((Property:string) => {
+            if (OptionSet[Property] != null) { Dialog[Property] = OptionSet[Property] }
+          })
+        Dialog.Visibility = true
+
         this.bringDialogToFront(Name)
       }
       this.rerender()
@@ -6234,7 +6240,7 @@ useBehavior('TextInput')
 
     public DialogIsOpen (DialogName:SNS_Name):boolean {
       const DialogIndex = this.IndexOfDialog(DialogName)
-      return (DialogIndex >= 0)
+      return (DialogIndex >= 0) && (this._DialogList[DialogIndex].Visibility == true)
     }
 
   /**** openTextViewDialog ****/
@@ -6461,17 +6467,15 @@ useBehavior('TextInput')
       const DialogIndex = this.IndexOfDialog(DialogName)
       if (DialogIndex < 0) { return }
 
-      this._DialogList.splice(DialogIndex,1)
+      this._DialogList[DialogIndex].Visibility = false
       this.rerender()
     }
 
   /**** closeAllDialogs ****/
 
     public closeAllDialogs ():void {
-      if (this._DialogList.length > 0) {
-        this._DialogList = []
-        this.rerender()
-      }
+      this._DialogList.forEach((Dialog:SNS_Dialog) => Dialog.Visibility = false)
+      this.rerender()
     }
 
   /**** _attachStickerAt ****/
