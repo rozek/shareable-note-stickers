@@ -69,6 +69,7 @@ export type SNS_Dialog = {
     maxWidth?: number;
     minHeight: number;
     maxHeight?: number;
+    Visibility: boolean;
     Renderer: Function;
     onClose?: Function;
 };
