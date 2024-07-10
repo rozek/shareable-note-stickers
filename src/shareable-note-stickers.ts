@@ -3563,7 +3563,7 @@ useBehavior('TextInput')
     left:1px; top:1px; right:1px; bottom:1px; width:auto; height:auto;
     border:solid 1px #888888; border-radius:2px;
     background:#e8f0ff;
-    padding:0px 2px 0px 2px;
+    padding:2px 2px 2px 2px;
   }
 
   .SNS.Sticker > .SNS.TextInput:read-only {
