@@ -55,6 +55,21 @@ export type SNS_Error = {
 };
 /**** Error Callback ****/
 export type SNS_onErrorCallback = (Project: SNS_Project, Visual: SNS_Visual, Error: SNS_Error) => void;
+/**** Search-related Types ****/
+export declare const SNS_MatchModes: string[];
+export type SNS_MatchMode = typeof SNS_MatchModes[number];
+export declare const SNS_matchableProperties: string[];
+export type SNS_matchableProperty = typeof SNS_matchableProperties[number];
+export type SNS_matchablePropertySet = {
+    [Key: string]: boolean;
+};
+export type SNS_ErrorRelevance = null | boolean;
+export type SNS_VisualMatch = {
+    Visual: SNS_Visual;
+    Property?: SNS_matchableProperty;
+    StartIndex?: SNS_Ordinal;
+    EndIndex?: SNS_Ordinal;
+};
 /**** Board-specific Dialogs ****/
 export type SNS_Dialog = {
     Id: SNS_Id;
@@ -263,7 +278,7 @@ export declare function groupedBehaviorEntryList(): SNS_groupedBehaviorEntryList
 export declare function TemplateOfBehavior(BehaviorName: SNS_Identifier): Serializable;
 /**** CSSStyleOfVisual ****/
 export declare function CSSStyleOfVisual(Visual: SNS_Visual): string;
-export declare class SNS_Visual {
+export declare abstract class SNS_Visual {
     protected constructor(Project: SNS_Project, Id: SNS_Id | undefined);
     /**** Id - for internal use only ****/
     private _Id;
@@ -391,6 +406,12 @@ export declare class SNS_Visual {
     /**** hasError ****/
     get hasError(): boolean;
     set hasError(_: boolean);
+    /**** ownMatchesFor ****/
+    ownMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
+    /**** allMatchesFor ****/
+    abstract allMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
+    /**** _pushMatch ****/
+    protected _pushMatch(Property: SNS_matchableProperty, Value: any, Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, Result: SNS_VisualMatch[]): void;
     /**** _reportChange ****/
     _reportChange(Change: SNS_Change | 'configure', ...ArgList: any[]): void;
     /**** _serializeConfigurationInto ****/
@@ -398,7 +419,7 @@ export declare class SNS_Visual {
     /**** _deserializeConfigurationFrom ****/
     protected _deserializeConfigurationFrom(Serialization: Serializable): void;
 }
-export declare class SNS_Folder extends SNS_Visual {
+export declare abstract class SNS_Folder extends SNS_Visual {
     protected constructor(Project: SNS_Project, Id: SNS_Id | undefined);
     /**** Path ****/
     get Path(): SNS_Textline;
@@ -521,6 +542,8 @@ export declare class SNS_Project extends SNS_Folder {
     BoardWithId(Id: SNS_Id): SNS_Board | undefined;
     /**** StickerWithId ****/
     StickerWithId(Id: SNS_Id): SNS_Sticker | undefined;
+    /**** allMatchesFor ****/
+    allMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
     /**** recursivelyActivateAllScripts ****/
     recursivelyActivateAllScripts(): void;
     /**** onChange ****/
@@ -594,6 +617,8 @@ export declare class SNS_Board extends SNS_Folder {
     destroySticker(StickerOrNameOrIndex: SNS_Sticker | SNS_Name | number): void;
     /**** clear ****/
     clear(): void;
+    /**** allMatchesFor ****/
+    allMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
     /**** recursivelyActivateAllScripts ****/
     recursivelyActivateAllScripts(): void;
     /**** Rendering ****/
@@ -747,6 +772,8 @@ export declare class SNS_Sticker extends SNS_Visual {
     /**** isEnabled ****/
     get isEnabled(): boolean;
     set isEnabled(newEnabling: boolean);
+    /**** allMatchesFor ****/
+    allMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
     /**** onClick ****/
     protected _onClick: Function | undefined;
     onClick(newHandler: Function): void;
