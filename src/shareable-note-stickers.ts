@@ -123,6 +123,22 @@
     Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error
   ) => void
 
+/**** Search-related Types ****/
+
+  export const SNS_MatchModes = ['equality','containment','match']
+  export type  SNS_MatchMode  = typeof SNS_MatchModes[number]
+
+  export const SNS_matchableProperties  = ['Name','Value','Script']
+  export type  SNS_matchableProperty    = typeof SNS_matchableProperties[number]
+  export type  SNS_matchablePropertySet = { [Key:string]:boolean }
+
+  export type SNS_ErrorRelevance = null|boolean
+
+  export type SNS_VisualMatch = {
+    Visual:SNS_Visual, Property?:SNS_matchableProperty,
+    StartIndex?:SNS_Ordinal, EndIndex?:SNS_Ordinal
+  }
+
 /**** Board-specific Dialogs ****/
 
   export type SNS_Dialog = {
@@ -1527,6 +1543,7 @@
 
   .SNS.Sticker > .SNS.Label {
     font-size:14px; font-weight:bold; line-height:21px;
+    top:4px;
   }
   `)
 
@@ -1549,6 +1566,7 @@
 
   .SNS.Sticker > .SNS.Text {
     font-size:14px; font-weight:normal; line-height:21px;
+    top:4px;
   }
   `)
 
@@ -4351,7 +4369,7 @@ useBehavior('TextInput')
 //--                                SNS_Visual                                --
 //------------------------------------------------------------------------------
 
-  export class SNS_Visual {
+  export abstract class SNS_Visual {
     protected constructor (Project:SNS_Project, Id:SNS_Id|undefined) {
       this._Project = Project
       this._Id = Id || newId()
@@ -4911,6 +4929,82 @@ useBehavior('TextInput')
     public get hasError ():boolean  { return (this._Error != null) }
     public set hasError (_:boolean) { throwReadOnlyError('hasError') }
 
+  /**** ownMatchesFor ****/
+
+    public ownMatchesFor (
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      PropertySet:SNS_matchablePropertySet, ErrorRelevance:SNS_ErrorRelevance
+    ):SNS_VisualMatch[] {
+      if ((ErrorRelevance != null) && (this.hasError !== ErrorRelevance)) {
+        return []                        // error is relevant but does not match
+      }
+
+      if (ObjectIsEmpty(PropertySet)) {
+        return [{ Visual:this }]
+      }
+
+      const Matches:SNS_VisualMatch[] = []
+        if (PropertySet['Name'] == true) {
+          this._pushMatch('Name',this.Name, Mode,Template,CaseSensitivity, Matches)
+        }
+
+        if (PropertySet['Value'] == true) {
+          this._pushMatch('Value',this.editableValue, Mode,Template,CaseSensitivity, Matches)
+        }
+
+        if (PropertySet['Script'] == true) {
+          this._pushMatch('Script',this.Script, Mode,Template,CaseSensitivity, Matches)
+        }
+      return Matches
+    }
+
+  /**** allMatchesFor ****/
+
+    public abstract allMatchesFor (
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      PropertySet:SNS_matchablePropertySet, ErrorRelevance:SNS_ErrorRelevance
+    ):SNS_VisualMatch[]
+
+  /**** _pushMatch ****/
+
+    protected _pushMatch (
+      Property:SNS_matchableProperty, Value:any,
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      Result:SNS_VisualMatch[]
+    ):void {
+      if (Value == null) { return }
+
+      if (CaseSensitivity == false) {
+        Value = Value.toLowerCase()
+      }
+
+      switch (Mode) {
+        case 'equality':
+          if (Value === Template) {
+            Result.push({
+              Visual:this, Property, StartIndex:0,EndIndex:(Template as string).length
+            })
+          }
+          break
+        case 'containment':
+          const StartIndex = Value.indexOf(Template as string)
+          if (StartIndex >= 0) {
+            Result.push({
+              Visual:this, Property, StartIndex,EndIndex:StartIndex+(Template as string).length
+            })
+          }
+          break
+        case 'match':
+          const Match = (Template as RegExp).exec(Value)
+          if (Match != null) {
+            Result.push({
+              Visual:this, Property,
+              StartIndex:Match.index,EndIndex:Match.index+Match[0].length
+            })
+          }
+      }
+    }
+
   /**** _reportChange ****/
 
     /* protected */ _reportChange (
@@ -4982,7 +5076,7 @@ useBehavior('TextInput')
 //--                                SNS_Folder                                --
 //------------------------------------------------------------------------------
 
-  export class SNS_Folder extends SNS_Visual {
+  export abstract class SNS_Folder extends SNS_Visual {
     protected constructor (Project:SNS_Project, Id:SNS_Id|undefined) {
       super(Project, Id)
     }   // IMPORTANT: SNS_Project constructor will pass "undefined" as "Project"
@@ -5697,6 +5791,24 @@ useBehavior('TextInput')
       return StickerWithId(this,Id)
     }
 
+  /**** allMatchesFor ****/
+
+    public allMatchesFor (
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      PropertySet:SNS_matchablePropertySet, ErrorRelevance:SNS_ErrorRelevance
+    ):SNS_VisualMatch[] {
+      const Matches = this.ownMatchesFor(
+        Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+      )
+        this._BoardList.forEach((Board:SNS_Board) => {
+          const innerMatches = Board.allMatchesFor(
+            Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+          )
+          if (innerMatches.length > 0) { Matches.push(...innerMatches) }
+        })
+      return Matches
+    }
+
   /**** recursivelyActivateAllScripts ****/
 
     public recursivelyActivateAllScripts ():void {
@@ -6097,6 +6209,31 @@ useBehavior('TextInput')
       for (let i = 0, l = this._StickerList.length; i < l; i++) {
         this.destroySticker(this._StickerList[0])
       }
+    }
+
+  /**** allMatchesFor ****/
+
+    public allMatchesFor (
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      PropertySet:SNS_matchablePropertySet, ErrorRelevance:SNS_ErrorRelevance
+    ):SNS_VisualMatch[] {
+      const Matches = this.ownMatchesFor(
+        Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+      )
+        this._BoardList.forEach((Board:SNS_Board) => {
+          const innerMatches = Board.allMatchesFor(
+            Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+          )
+          if (innerMatches.length > 0) { Matches.push(...innerMatches) }
+        })
+
+        this._StickerList.forEach((Sticker:SNS_Sticker) => {
+          const innerMatches = Sticker.allMatchesFor(
+            Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+          )
+          if (innerMatches.length > 0) { Matches.push(...innerMatches) }
+        })
+      return Matches
     }
 
   /**** recursivelyActivateAllScripts ****/
@@ -6889,6 +7026,17 @@ useBehavior('TextInput')
 
     public get isEnabled ():boolean            { return this._Enabling }
     public set isEnabled (newEnabling:boolean) { this.Enabling = newEnabling }
+
+  /**** allMatchesFor ****/
+
+    public allMatchesFor (
+      Mode:SNS_MatchMode, Template:string|RegExp, CaseSensitivity:boolean,
+      PropertySet:SNS_matchablePropertySet, ErrorRelevance:SNS_ErrorRelevance
+    ):SNS_VisualMatch[] {
+      return this.ownMatchesFor(
+        Mode, Template, CaseSensitivity, PropertySet, ErrorRelevance
+      )
+    }
 
   /**** onClick ****/
 
