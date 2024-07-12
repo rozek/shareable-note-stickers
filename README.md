@@ -19,7 +19,7 @@ Because of this modularity, it is not too difficult to use a different sharing f
 
 ## Usage ##
 
-"shareable-note-stickers" is intended for being used as a module within a "host application". In order to use it, simply import the necessary types, constants and classes:
+"shareable-note-stickers" is intended for being used as a module within a "host application". In order to use it, simply import the necessary types, constants, functions and classes:
 
 ```
   import {
@@ -39,6 +39,51 @@ Because of this modularity, it is not too difficult to use a different sharing f
 ```
 
 (Note: the above `import` statement is just an example - your imports may differ)
+
+To simplify scripting, most of the exported values are also available as part of the global variable `SNS`
+
+```
+  window.SNS = {
+    SNS_FontStyles, SNS_ErrorTypes,
+    throwError, throwReadOnlyError,
+    ValueIsVisual, allowVisual, allowedVisual, expectVisual, expectedVisual,
+    ValueIsFolder, allowFolder, allowedFolder, expectFolder, expectedFolder,
+    ValueIsProject, allowProject, allowedProject, expectProject, expectedProject,
+    ValueIsBoard, allowBoard, allowedBoard, expectBoard, expectedBoard,
+    ValueIsSticker, allowSticker, allowedSticker, expectSticker, expectedSticker,
+    ValueIsId, allowId, allowedId, expectId, expectedId,
+    ValueIsIdentifier, allowIdentifier, allowedIdentifier, expectIdentifier, expectedIdentifier,
+    ValueIsName, allowName, allowedName, expectName, expectedName,
+    ValueIsLocation, allowLocation, allowedLocation, expectLocation, expectedLocation,
+    ValueIsDimension, allowDimension, allowedDimension, expectDimension, expectedDimension,
+    ValueIsPosition, allowPosition, allowedPosition, expectPosition, expectedPosition,
+    ValueIsSize, allowSize, allowedSize, expectSize, expectedSize,
+    ValueIsGeometry, allowGeometry, allowedGeometry, expectGeometry, expectedGeometry,
+    ValueIsError, allowError, allowedError, expectError, expectedError,
+    ValueIsSerializable, allowSerializable, allowedSerializable, expectSerializable, expectedSerializable,
+    acceptableBoolean, acceptableOptionalBoolean,
+    acceptableNumber, acceptableOptionalNumber,
+    acceptableNumberInRange, acceptableOptionalNumberInRange,
+    acceptableInteger, acceptableOptionalInteger,
+    acceptableIntegerInRange, acceptableOptionalIntegerInRange,
+    acceptableOrdinal, acceptableOptionalOrdinal,
+    acceptableString, acceptableOptionalString,
+    acceptableNonEmptyString, acceptableOptionalNonEmptyString,
+    acceptableStringMatching, acceptableOptionalStringMatching,
+    acceptableText, acceptableOptionalText,
+    acceptableTextline, acceptableOptionalTextline,
+    acceptableFunction, acceptableOptionalFunction,
+    acceptableList, acceptableOptionalList,
+    acceptableListSatisfying, acceptableOptionalListSatisfying,
+    acceptableColor, acceptableOptionalColor,
+    acceptableEMailAddress, acceptablePhoneNumber, acceptableURL,
+    newId,
+    CSSStyleOfVisual,
+    SNS_ConnectionStates
+  }
+```
+
+## Exports ##
 
 
 (work in progress, see [NoteStickers](https://github.com/rozek/note-stickers) for a first usage example)
