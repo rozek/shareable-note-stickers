@@ -86,6 +86,45 @@ To simplify scripting, most of the exported values are also available as part of
 
 ## Exports ##
 
+(t.b.w.)
+
+### SNS_Visual ###
+
+(t.b.w.)
+
+### SNS_Folder ###
+
+(t.b.w.)
+
+### SNS_Project ###
+
+(t.b.w.)
+
+### SNS_Board ###
+
+(t.b.w.)
+
+### SNS_Sticker ###
+
+(t.b.w.)
+
+### Classification and Validation Functions ###
+
+(t.b.w.)
+
+### Acceptables ###
+
+(t.b.w.)
+
+### Adapter Support ###
+
+(t.b.w.)
+
+### UI Support ###
+
+(t.b.w.)
+
+## File Format ##
 
 (work in progress, see [NoteStickers](https://github.com/rozek/note-stickers) for a first usage example)
 
