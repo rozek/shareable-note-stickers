@@ -127,7 +127,7 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 * `type  SNS_matchablePropertySet = { [Key:string]:boolean }`
 <br>&nbsp;<br>
 * `type SNS_ErrorRelevance = null|boolean`
-<br>
+<br>&nbsp;<br>
 * `type SNS_VisualMatch = {`<br>`  Visual:SNS_Visual, Property?:SNS_matchableProperty,`<br>`  StartIndex?:SNS_Ordinal, EndIndex?:SNS_Ordinal`<br>`}`
 
 #### Dialogs ####
@@ -165,19 +165,19 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 (t.b.w.)
 
-### SNS_Folder ###
+### SNS_Folder (extends SNS_Visual) ###
 
 (t.b.w.)
 
-### SNS_Project ###
+### SNS_Project (extends SNS_Folder) ###
 
 (t.b.w.)
 
-### SNS_Board ###
+### SNS_Board (extends SNS_Folder) ###
 
 (t.b.w.)
 
-### SNS_Sticker ###
+### SNS_Sticker (extends SNS_Visual) ###
 
 (t.b.w.)
 
