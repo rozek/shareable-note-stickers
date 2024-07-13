@@ -111,11 +111,9 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 * `const SNS_FontStyles = ['normal','italic']`
 * `type  SNS_FontStyle  = typeof SNS_FontStyles[number]`
 
-#### Callbacks ####
+#### Rendering ####
 
 * `type SNS_onRenderingCallback = (`<br>`  Project:SNS_Project, Board?:SNS_Board, Sticker?:SNS_Sticker`<br>`) => void`
-<br>&nbsp;<br>
-* `type SNS_onErrorCallback = (`<br>`  Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error`<br>`) => void`
 
 #### Search Support ####
 
@@ -147,6 +145,8 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 * `type SNS_ErrorType = typeof SNS_ErrorTypes[number]`
 <br>&nbsp;<br>
 * `type SNS_Error = {`<br>`  Type:SNS_ErrorType,`<br>`  Message:SNS_Text,`<br>`  Cause:any`<br>`}`
+<br>&nbsp;<br>
+* `type SNS_onErrorCallback = (`<br>`  Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error`<br>`) => void`
 
 #### UI Support ####
 
