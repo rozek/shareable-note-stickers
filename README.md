@@ -40,7 +40,7 @@ Because of this modularity, it is not too difficult to use a different sharing f
 
 (Note: the above `import` statement is just an example - your imports may differ)
 
-To simplify scripting, most of the exported values are also available as part of the global variable `SNS`
+To simplify scripting, most of the exported functions are also available as part of the global variable `SNS`
 
 ```
   window.SNS = {
