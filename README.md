@@ -165,324 +165,324 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 ### SNS_Visual ###
 
-* Id
-* Name
+* `Id`
+* `Name`
 <br>&nbsp;<br>
-* Project
-* Folder
-* isAttached
-* Application
+* `Project`
+* `Folder`
+* `isAttached`
+* `Application`
 <br>&nbsp;<br>
-* BackgroundColor
-* BackgroundTexture
-* FontFamily
-* FontSize
-* FontWeight
-* FontStyle
-* LineHeight
-* ForegroundColor
-* Color
+* `BackgroundColor`
+* `BackgroundTexture`
+* `FontFamily`
+* `FontSize`
+* `FontWeight`
+* `FontStyle`
+* `LineHeight`
+* `ForegroundColor`
+* `Color`
 <br>&nbsp;<br>
-* Value
-* editableValue
+* `Value`
+* `editableValue`
 <br>&nbsp;<br>
-* observed
-* unobserved
-* memoized
+* `observed`
+* `unobserved`
+* `memoized`
 <br>&nbsp;<br>
-* Script
-* activeScript
-* pendingScript
-* activateScript
-* ScriptError
+* `Script`
+* `activeScript`
+* `pendingScript`
+* `activateScript`
+* `ScriptError`
 <br>&nbsp;<br>
-* CSSStyle
-* Renderer
-* onRender
-* Rendering
-* rerender
+* `CSSStyle`
+* `Renderer`
+* `onRender`
+* `Rendering`
+* `rerender`
 <br>&nbsp;<br>
-* View
-* isMounted
-* onMount
-* onUnmount
+* `View`
+* `isMounted`
+* `onMount`
+* `onUnmount`
 <br>&nbsp;<br>
-* Error
-* hasError
+* `Error`
+* `hasError`
 <br>&nbsp;<br>
-* ownMatchesFor
-* allMatchesFor
+* `ownMatchesFor`
+* `allMatchesFor`
 
 (t.b.w.)
 
 ### SNS_Folder (extends SNS_Visual) ###
 
-* Path
-* BoardAtPath
-* IndexPath
+* `Path`
+* `BoardAtPath`
+* `IndexPath`
 <br>&nbsp;<br>
-* SnapToGrid
-* GridWidth
-* GridHeight
+* `SnapToGrid`
+* `GridWidth`
+* `GridHeight`
 <br>&nbsp;<br>
-* Index
-* maybeShiftedUp
-* mayBeShiftedDown
-* mayBeShiftedIn
-* mayBeShiftedOut
+* `Index`
+* `maybeShiftedUp`
+* `mayBeShiftedDown`
+* `mayBeShiftedIn`
+* `mayBeShiftedOut`
 <br>&nbsp;<br>
-* containsFolder
+* `containsFolder`
 <br>&nbsp;<br>
-* BoardList
-* BoardCount
-* Board
-* existingBoard
-* BoardNamed
-* BoardAt
-* hasBoard
+* `BoardList`
+* `BoardCount`
+* `Board`
+* `existingBoard`
+* `BoardNamed`
+* `BoardAt`
+* `hasBoard`
 <br>&nbsp;<br>
-* newBoardAt
-* BoardDeserializedAt
-* DuplicateOfBoardAt
+* `newBoardAt`
+* `BoardDeserializedAt`
+* `DuplicateOfBoardAt`
 <br>&nbsp;<br>
-* mayShiftBoardUp
-* mayShiftBoardDown
-* shiftBoardToTop
-* shiftBoardUp
-* shiftBoardDown
-* shiftBoardToBottom
-* shiftBoardTo
-* shiftBoardsByIndex
+* `mayShiftBoardUp`
+* `mayShiftBoardDown`
+* `shiftBoardToTop`
+* `shiftBoardUp`
+* `shiftBoardDown`
+* `shiftBoardToBottom`
+* `shiftBoardTo`
+* `shiftBoardsByIndex`
 <br>&nbsp;<br>
-* mayShiftBoardIn
-* mayShiftBoardOut
-* shiftBoardIn
-* shiftBoardOut
+* `mayShiftBoardIn`
+* `mayShiftBoardOut`
+* `shiftBoardIn`
+* `shiftBoardOut`
 <br>&nbsp;<br>
-* mayMoveBoardTo
-* moveBoardTo
+* `mayMoveBoardTo`
+* `moveBoardTo`
 <br>&nbsp;<br>
-* destroyBoard
-* clear
+* `destroyBoard`
+* `clear`
 
 (t.b.w.)
 
 ### SNS_Project (extends SNS_Folder) ###
 
-* BoardAtIndexPath
+* `BoardAtIndexPath`
 <br>&nbsp;<br>
-* FolderWithId
-* BoardWithId
-* StickerWithId
+* `FolderWithId`
+* `BoardWithId`
+* `StickerWithId`
 <br>&nbsp;<br>
-* recursivelyActivateAllScripts
+* `recursivelyActivateAllScripts`
 <br>&nbsp;<br>
-* onChange
+* `onChange`
 <br>&nbsp;<br>
-* onRendering
-* rerender
+* `onRendering`
+* `rerender`
 <br>&nbsp;<br>
-* onError
+* `onError`
 <br>&nbsp;<br>
-* Application
+* `Application`
 <br>&nbsp;<br>
-* Serialization
-* deserializedFrom
+* `Serialization`
+* `deserializedFrom`
 
 (t.b.w.)
 
 ### SNS_Board (extends SNS_Folder) ###
 
-* StickerList
-* StickerCount
-* IndexOfSticker
-* Sticker
-* existingSticker
-* StickerNamed
-* StickerAt
-* hasSticker
+* `StickerList`
+* `StickerCount`
+* `IndexOfSticker`
+* `Sticker`
+* `existingSticker`
+* `StickerNamed`
+* `StickerAt`
+* `hasSticker`
 <br>&nbsp;<br>
-* newStickerAt
-* StickerDeserializedAt
-* DuplicateofStickerAt
+* `newStickerAt`
+* `StickerDeserializedAt`
+* `DuplicateofStickerAt`
 <br>&nbsp;<br>
-* mayShiftStickerUp
-* mayShiftStickerDown
-* shiftStickerToTop
-* shiftStickerUp
-* shiftStickerDown
-* shiftStickerToBottom
-* shiftStickerTo
-* shiftStickersByIndex
+* `mayShiftStickerUp`
+* `mayShiftStickerDown`
+* `shiftStickerToTop`
+* `shiftStickerUp`
+* `shiftStickerDown`
+* `shiftStickerToBottom`
+* `shiftStickerTo`
+* `shiftStickersByIndex`
 <br>&nbsp;<br>
-* destroySticker
-* clear
+* `destroySticker`
+* `clear`
 <br>&nbsp;<br>
-* onClick
-* onDrop
+* `onClick`
+* `onDrop`
 <br>&nbsp;<br>
-* DialogList
-* IndexOfDialog
-* openDialog
-* DialogIsOpen
-* openTextViewDialog
-* openHTMLViewDialog
-* openImageViewDialog
-* openSVGViewDialog
-* openWebViewDialog
-* positionDialogAt
-* sizeDialogTo
-* DialogIsFrontmost
-* bringDialogToFront
-* closeDialog
-* closeAllDialogs
+* `DialogList`
+* `IndexOfDialog`
+* `openDialog`
+* `DialogIsOpen`
+* `openTextViewDialog`
+* `openHTMLViewDialog`
+* `openImageViewDialog`
+* `openSVGViewDialog`
+* `openWebViewDialog`
+* `positionDialogAt`
+* `sizeDialogTo`
+* `DialogIsFrontmost`
+* `bringDialogToFront`
+* `closeDialog`
+* `closeAllDialogs`
 <br>&nbsp;<br>
-* Serialization
+* `Serialization`
 
 (t.b.w.)
 
 ### SNS_Sticker (extends SNS_Visual) ###
 
-* Board
+* `Board`
 <br>&nbsp;<br>
-* Index
-* mayBeShiftedUp
-* mayBeShiftedDown
+* `Index`
+* `mayBeShiftedUp`
+* `mayBeShiftedDown`
 <br>&nbsp;<br>
-* minWidth
-* maxWidth
-* minHeight
-* maxHeight
-* x
-* y
-* Width
-* Height
-* Position
-* Size
-* Geometry
+* `minWidth`
+* `maxWidth`
+* `minHeight`
+* `maxHeight`
+* `x`
+* `y`
+* `Width`
+* `Height`
+* `Position`
+* `Size`
+* `Geometry`
 <br>&nbsp;<br>
-* Lock
-* isLocked
-* lock
-* unlock
+* `Lock`
+* `isLocked`
+* `lock`
+* `unlock`
 <br>&nbsp;<br>
-* Selectability
-* isSelectable
+* `Selectability`
+* `isSelectable`
 <br>&nbsp;<br>
-* Visibility
-* show
-* hide
-* isVisible
+* `Visibility`
+* `show`
+* `hide`
+* `isVisible`
 <br>&nbsp;<br>
-* Enabling
-* enable
-* disable
-* isEnabled
+* `Enabling`
+* `enable`
+* `disable`
+* `isEnabled`
 <br>&nbsp;<br>
-* onClick
-* onDrop
+* `onClick`
+* `onDrop`
 <br>&nbsp;<br>
-* Rendering
-* rerender
+* `Rendering`
+* `rerender`
 <br>&nbsp;<br>
-* Serialization
+* `Serialization`
 
 (t.b.w.)
 
 ### SNS_Adapter ###
 
-* ConnectionState
-* isConnected
+* `ConnectionState`
+* `isConnected`
 <br>&nbsp;<br>
-* connect
-* disconnect
+* `connect`
+* `disconnect`
 
 (t.b.w.)
 
 ### Classification and Validation Functions ###
 
-* ValueIsVisual, allow/expect[ed]Visual
-* ValueIsFolder, allow/expect[ed]Folder
+* `ValueIsVisual`, `allow/expect[ed]Visual`
+* `ValueIsFolder`, `allow/expect[ed]Folder`
 <br>&nbsp;<br>
-* ValueIsProject, allow/expect[ed]Project
-* ValueIsBoard, allow/expect[ed]Board
-* ValueIsSticker, allow/expect[ed]Sticker
+* `ValueIsProjec`, `allow/expect[ed]Project`
+* `ValueIsBoard`, `allow/expect[ed]Board`
+* `ValueIsSticker`, `allow/expect[ed]Sticker`
 <br>&nbsp;<br>
-* ValueIsId, allow/expect[ed]Id
-* ValueIsIdentifier, allow/expect[ed]Identifier
-* ValueIsName, allow/expect[ed]Name
+* `ValueIsId`, `allow/expect[ed]Id`
+* `ValueIsIdentifie`, `allow/expect[ed]Identifier`
+* `ValueIsName`, `allow/expect[ed]Name`
 <br>&nbsp;<br>
-* ValueIsName, allow/expect[ed]Location
-* ValueIsName, allow/expect[ed]Dimension
-* ValueIsName, allow/expect[ed]Position
-* ValueIsName, allow/expect[ed]Size
-* ValueIsName, allow/expect[ed]Geometry
+* `ValueIsLocation`, `allow/expect[ed]Location`
+* `ValueIsDimension`, `allow/expect[ed]Dimension`
+* `ValueIsPosition`, `allow/expect[ed]Position`
+* `ValueIsSize`, `allow/expect[ed]Size`
+* `ValueIsGeometry`, `allow/expect[ed]Geometry`
 <br>&nbsp;<br>
-* ValueIsError, allow/expect[ed]Error
+* `ValueIsError`, `allow/expect[ed]Error`
 <br>&nbsp;<br>
-* ValueIsSerializable, allow/expect[ed]Serializable
+* `ValueIsSerializable`, `allow/expect[ed]Serializable`
 
 (t.b.w.)
 
 ### Acceptables ###
 
-* acceptable[Optional]Boolean
-* acceptable[Optional]Number
-* acceptable[Optional]NumberInRange
-* acceptable[Optional]Integer
-* acceptable[Optional]IntegerInRange
-* acceptable[Optional]Ordinal
-* acceptable[Optional]String
-* acceptable[Optional]NonEmptyString
-* acceptable[Optional]StringMatching
-* acceptable[Optional]Text
-* acceptable[Optional]Textline
-* acceptable[Optional]Function
-* acceptable[Optional]List
-* acceptable[Optional]ListSatisfying
-* acceptable[Optional]Color
-* acceptable[Optional]EMailAddress
-* acceptable[Optional]PhoneNumber
-* acceptable[Optional]URL
+* `acceptable[Optional]Boolean`
+* `acceptable[Optional]Number`
+* `acceptable[Optional]NumberInRange`
+* `acceptable[Optional]Integer`
+* `acceptable[Optional]IntegerInRange`
+* `acceptable[Optional]Ordinal`
+* `acceptable[Optional]String`
+* `acceptable[Optional]NonEmptyString`
+* `acceptable[Optional]StringMatching`
+* `acceptable[Optional]Text`
+* `acceptable[Optional]Textline`
+* `acceptable[Optional]Function`
+* `acceptable[Optional]List`
+* `acceptable[Optional]ListSatisfying`
+* `acceptable[Optional]Color`
+* `acceptable[Optional]EMailAddress`
+* `acceptable[Optional]PhoneNumber`
+* `acceptable[Optional]URL`
 
 (t.b.w.)
 
 ### Adapter Support ###
 
-* attachBoard
-* attachSticker
-* detachBoard
-* detachSticker
+* `attachBoard`
+* `attachSticker`
+* `detachBoard`
+* `detachSticker`
 <br>&nbsp;<br>
-* createBoard
-* createSticker
-* destroyBoard
-* destroySticker
+* `createBoard`
+* `createSticker`
+* `destroyBoard`
+* `destroySticker`
 <br>&nbsp;<br>
-* configureFolder
-* configureSticker
+* `configureFolder`
+* `configureSticker`
 <br>&nbsp;<br>
-* sanitizeBoardList
-* sanitizeStickerList
+* `sanitizeBoardList`
+* `sanitizeStickerList`
 
 (t.b.w.)
 
 ### UI Support ###
 
-* groupedBehaviorEntryList
+* `groupedBehaviorEntryList`
 
 (t.b.w.)
 
 ### Others ###
 
-* throwError
-* throwReadOnlyError
+* `throwError`
+* `throwReadOnlyError`
 <br>&nbsp;<br>
-* removeIdsFrom
+* `removeIdsFrom`
 <br>&nbsp;<br>
-* TemplateOfBehavior
+* `TemplateOfBehavior`
 <br>&nbsp;<br>
-* CSSStyleOfVisual
+* `CSSStyleOfVisual`
 
 (t.b.w.)
 
