@@ -134,12 +134,30 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 * `type SNS_Dialog = {`<br>`  Id:SNS_Id, Name:SNS_Name, Title:SNS_Textline, isResizable:boolean,`<br>`  x:SNS_Location, y:SNS_Location, Width:SNS_Dimension, Height:SNS_Dimension,`<br>`  minWidth:number, maxWidth?:number, minHeight:number, maxHeight?:number,`<br>`  Visibility:boolean, Renderer:Function, onClose?:Function`<br>`}`
 
+#### Change Reporting ####
+
+* `const SNS_Changes = [`<br>`  'createBoard',   'configureFolder',  'attachBoard',   'detachBoard',   'destroyBoard',`<br>`  'createSticker', 'configureSticker', 'attachSticker', 'detachSticker', 'destroySticker',`<br>`]`
+* `type SNS_Change = typeof SNS_Changes[number]`
+<br>
+* `type SNS_onChangeCallback = (`<br>`  Project:SNS_Project, Change:SNS_Change, Id:SNS_Id, ...ArgList:any[]`<br>`) => void`
+
 #### Error Reporting ####
 
 * `const SNS_ErrorTypes = [`<br>`  'missing Behaviour',         'Behaviour Execution Failure',`<br>`  'Script Compilation Failure','Script Execution Failure',`<br>`  'Rendering Failure',         'Event Handling Failure',`<br>`  '"onMount" Callback Failure','"onUnmount" Callback Failure'`<br>`]`
-* `type SNS_ErrorType = typeof SNS_ErrorTypes[number]
+* `type SNS_ErrorType = typeof SNS_ErrorTypes[number]`
 <br>
 * `type SNS_Error = {`<br>`  Type:SNS_ErrorType,`<br>`  Message:SNS_Text,`<br>`  Cause:any`<br>`}`
+
+#### UI Support ####
+
+* `type SNS_groupedBehaviorEntryList = SNS_BehaviorEntryGroup[]`
+* `type SNS_BehaviorEntryGroup = {`<br>
+  `  GroupLabel:SNS_Textline,`<br>
+  `  BehaviorEntryList:SNS_BehaviorEntry[]`<br>
+  `}`
+* `type SNS_BehaviorEntry = {`<br>
+  `  Label:SNS_Textline, Name:SNS_Identifier, disabled:boolean`<br>
+  `}`
 
 (t.b.w.)
 
