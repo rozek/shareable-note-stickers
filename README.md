@@ -101,7 +101,7 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 * `type SNS_Textline = string`
 * `type SNS_URL = string`
 * `type SNS_Color = string`
-<br>
+<br>&nbsp;<br>
 * `type SNS_Location  = number`
 * `type SNS_Dimension = number`
 * `type SNS_Position = { x:SNS_Location,y:SNS_Location }`
