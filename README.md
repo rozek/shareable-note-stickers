@@ -86,6 +86,61 @@ To simplify scripting, most of the exported values are also available as part of
 
 ## Exports ##
 
+"shareable-note-stickers" exports a few types and classes, and a bunch of helper functions.
+
+### Types and Constants ###
+
+Type exports are for TypeScript users only - all others may simply skip this section.
+
+* `type SNS_Id = string`
+* `type SNS_Identifier = string`
+* `type SNS_Name = string`
+* `type SNS_Ordinal = string`
+* `type SNS_Cardinal = string`
+* `type SNS_Text = string`
+* `type SNS_Textline = string`
+* `type SNS_URL = string`
+* `type SNS_Color = string`
+<br>
+* `type SNS_Location  = number`
+* `type SNS_Dimension = number`
+* `type SNS_Position = { x:SNS_Location,y:SNS_Location }`
+* `type SNS_Size = { Width:SNS_Dimension,Height:SNS_Dimension }`
+* `type SNS_Geometry = { x:SNS_Location,y:SNS_Location, Width:SNS_Dimension,Height:SNS_Dimension }`
+<br>
+* `const SNS_FontStyles = ['normal','italic']`
+* `type  SNS_FontStyle  = typeof SNS_FontStyles[number]`
+
+#### Callbacks ####
+
+* `type SNS_onRenderingCallback = (`<br>`  Project:SNS_Project, Board?:SNS_Board, Sticker?:SNS_Sticker`<br>`) => void`
+<br>
+* `type SNS_onErrorCallback = (`<br>`  Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error`<br>`) => void`
+
+#### Search Support ####
+
+* `const SNS_MatchModes = ['equality','containment','match']`
+* `type  SNS_MatchMode = typeof SNS_MatchModes[number]`
+<br>
+* `const SNS_matchableProperties = ['Name','Value','Script']`
+* `type  SNS_matchableProperty = typeof SNS_matchableProperties[number]`
+* `type  SNS_matchablePropertySet = { [Key:string]:boolean }`
+<br>
+* `type SNS_ErrorRelevance = null|boolean`
+<br>
+* `type SNS_VisualMatch = {`<br>`  Visual:SNS_Visual, Property?:SNS_matchableProperty,`<br>`  StartIndex?:SNS_Ordinal, EndIndex?:SNS_Ordinal`<br>`}`
+
+#### Dialogs ####
+
+* `type SNS_Dialog = {`<br>`  Id:SNS_Id, Name:SNS_Name, Title:SNS_Textline, isResizable:boolean,`<br>`  x:SNS_Location, y:SNS_Location, Width:SNS_Dimension, Height:SNS_Dimension,`<br>`  minWidth:number, maxWidth?:number, minHeight:number, maxHeight?:number,`<br>`  Visibility:boolean, Renderer:Function, onClose?:Function`<br>`}`
+
+#### Error Reporting ####
+
+* `const SNS_ErrorTypes = [`<br>`  'missing Behaviour',         'Behaviour Execution Failure',`<br>`  'Script Compilation Failure','Script Execution Failure',`<br>`  'Rendering Failure',         'Event Handling Failure',`<br>`  '"onMount" Callback Failure','"onUnmount" Callback Failure'`<br>`]`
+* `type SNS_ErrorType = typeof SNS_ErrorTypes[number]
+<br>
+* `type SNS_Error = {`<br>`  Type:SNS_ErrorType,`<br>`  Message:SNS_Text,`<br>`  Cause:any`<br>`}`
+
 (t.b.w.)
 
 ### SNS_Visual ###
