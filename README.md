@@ -13,7 +13,7 @@ It will often be used in combination with
 * [sns-boardview](https://github.com/rozek/sns-boardview) - a [preact](https://preactjs.com/) component that displays one of these boards of stickers and provides all methods to visually select and edit them, and
 * a "sharing adapter" such as the [sns-collabs-adapter](https://github.com/rozek/sns-collabs-adapter) that actually provides the sharing capability.
 
-To get a real application, you'll have to combine these modules and add a proper user interface - similar to [NoteStickers](https://github.com/rozek/note-stickers).
+To get a real application, you'll have to combine these modules and add a proper user interface - as done by [NoteStickers](https://github.com/rozek/note-stickers).
 
 Because of this modularity, it is not too difficult to use a different sharing framework (such as [Y.js](https://github.com/yjs/yjs) or [automerge](https://github.com/automerge/automerge)), modify the user interface according to your personal needs or even develop a headless tool that analyzes and/or changes the shared data without user intervention.
 
