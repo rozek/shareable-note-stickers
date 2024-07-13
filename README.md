@@ -107,25 +107,25 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 * `type SNS_Position = { x:SNS_Location,y:SNS_Location }`
 * `type SNS_Size = { Width:SNS_Dimension,Height:SNS_Dimension }`
 * `type SNS_Geometry = { x:SNS_Location,y:SNS_Location, Width:SNS_Dimension,Height:SNS_Dimension }`
-<br>
+<br>&nbsp;<br>
 * `const SNS_FontStyles = ['normal','italic']`
 * `type  SNS_FontStyle  = typeof SNS_FontStyles[number]`
 
 #### Callbacks ####
 
 * `type SNS_onRenderingCallback = (`<br>`  Project:SNS_Project, Board?:SNS_Board, Sticker?:SNS_Sticker`<br>`) => void`
-<br>
+<br>&nbsp;<br>
 * `type SNS_onErrorCallback = (`<br>`  Project:SNS_Project, Visual:SNS_Visual, Error:SNS_Error`<br>`) => void`
 
 #### Search Support ####
 
 * `const SNS_MatchModes = ['equality','containment','match']`
 * `type  SNS_MatchMode = typeof SNS_MatchModes[number]`
-<br>
+<br>&nbsp;<br>
 * `const SNS_matchableProperties = ['Name','Value','Script']`
 * `type  SNS_matchableProperty = typeof SNS_matchableProperties[number]`
 * `type  SNS_matchablePropertySet = { [Key:string]:boolean }`
-<br>
+<br>&nbsp;<br>
 * `type SNS_ErrorRelevance = null|boolean`
 <br>
 * `type SNS_VisualMatch = {`<br>`  Visual:SNS_Visual, Property?:SNS_matchableProperty,`<br>`  StartIndex?:SNS_Ordinal, EndIndex?:SNS_Ordinal`<br>`}`
@@ -138,14 +138,14 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 * `const SNS_Changes = [`<br>`  'createBoard',   'configureFolder',  'attachBoard',   'detachBoard',   'destroyBoard',`<br>`  'createSticker', 'configureSticker', 'attachSticker', 'detachSticker', 'destroySticker',`<br>`]`
 * `type SNS_Change = typeof SNS_Changes[number]`
-<br>
+<br>&nbsp;<br>
 * `type SNS_onChangeCallback = (`<br>`  Project:SNS_Project, Change:SNS_Change, Id:SNS_Id, ...ArgList:any[]`<br>`) => void`
 
 #### Error Reporting ####
 
 * `const SNS_ErrorTypes = [`<br>`  'missing Behaviour',         'Behaviour Execution Failure',`<br>`  'Script Compilation Failure','Script Execution Failure',`<br>`  'Rendering Failure',         'Event Handling Failure',`<br>`  '"onMount" Callback Failure','"onUnmount" Callback Failure'`<br>`]`
 * `type SNS_ErrorType = typeof SNS_ErrorTypes[number]`
-<br>
+<br>&nbsp;<br>
 * `type SNS_Error = {`<br>`  Type:SNS_ErrorType,`<br>`  Message:SNS_Text,`<br>`  Cause:any`<br>`}`
 
 #### UI Support ####
