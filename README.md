@@ -45,6 +45,7 @@ To simplify scripting, most of the exported values are also available as part of
 ```
   window.SNS = {
     SNS_FontStyles, SNS_ErrorTypes,
+    SNS_matchableProperties, SNS_MatchModes,
     throwError, throwReadOnlyError,
     ValueIsVisual, allowVisual, allowedVisual, expectVisual, expectedVisual,
     ValueIsFolder, allowFolder, allowedFolder, expectFolder, expectedFolder,
@@ -77,9 +78,9 @@ To simplify scripting, most of the exported values are also available as part of
     acceptableListSatisfying, acceptableOptionalListSatisfying,
     acceptableColor, acceptableOptionalColor,
     acceptableEMailAddress, acceptablePhoneNumber, acceptableURL,
-    newId,
+    newId, removeIdsFrom,
     CSSStyleOfVisual,
-    SNS_ConnectionStates
+    TemplateOfBehavior,
   }
 ```
 
