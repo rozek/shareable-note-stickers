@@ -163,21 +163,237 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 ### SNS_Visual ###
 
+* Id
+* Name
+<br>&nbsp;<br>
+* Project
+* Folder
+* isAttached
+* Application
+<br>&nbsp;<br>
+* BackgroundColor
+* BackgroundTexture
+* FontFamily
+* FontSize
+* FontWeight
+* FontStyle
+* LineHeight
+* ForegroundColor
+* Color
+<br>&nbsp;<br>
+* Value
+* editableValue
+<br>&nbsp;<br>
+* observed
+* unobserved
+* memoized
+<br>&nbsp;<br>
+* Script
+* activeScript
+* pendingScript
+* activateScript
+* ScriptError
+<br>&nbsp;<br>
+* CSSStyle
+* Renderer
+* onRender
+* Rendering
+* rerender
+<br>&nbsp;<br>
+* View
+* isMounted
+* onMount
+* onUnmount
+<br>&nbsp;<br>
+* Error
+* hasError
+<br>&nbsp;<br>
+* ownMatchesFor
+* allMatchesFor
+
 (t.b.w.)
 
 ### SNS_Folder (extends SNS_Visual) ###
+
+* Path
+* BoardAtPath
+* IndexPath
+<br>&nbsp;<br>
+* SnapToGrid
+* GridWidth
+* GridHeight
+<br>&nbsp;<br>
+* Index
+* maybeShiftedUp
+* mayBeShiftedDown
+* mayBeShiftedIn
+* mayBeShiftedOut
+<br>&nbsp;<br>
+* containsFolder
+<br>&nbsp;<br>
+* BoardList
+* BoardCount
+* Board
+* existingBoard
+* BoardNamed
+* BoardAt
+* hasBoard
+<br>&nbsp;<br>
+* newBoardAt
+* BoardDeserializedAt
+* DuplicateOfBoardAt
+<br>&nbsp;<br>
+* mayShiftBoardUp
+* mayShiftBoardDown
+* shiftBoardToTop
+* shiftBoardUp
+* shiftBoardDown
+* shiftBoardToBottom
+* shiftBoardTo
+* shiftBoardsByIndex
+<br>&nbsp;<br>
+* mayShiftBoardIn
+* mayShiftBoardOut
+* shiftBoardIn
+* shiftBoardOut
+<br>&nbsp;<br>
+* mayMoveBoardTo
+* moveBoardTo
+<br>&nbsp;<br>
+* destroyBoard
+* clear
 
 (t.b.w.)
 
 ### SNS_Project (extends SNS_Folder) ###
 
+* BoardAtIndexPath
+<br>&nbsp;<br>
+* FolderWithId
+* BoardWithId
+* StickerWithId
+<br>&nbsp;<br>
+* recursivelyActivateAllScripts
+<br>&nbsp;<br>
+* onChange
+<br>&nbsp;<br>
+* onRendering
+* rerender
+<br>&nbsp;<br>
+* onError
+<br>&nbsp;<br>
+* Application
+<br>&nbsp;<br>
+* Serialization
+* deserializedFrom
+
 (t.b.w.)
 
 ### SNS_Board (extends SNS_Folder) ###
 
+* StickerList
+* StickerCount
+* IndexOfSticker
+* Sticker
+* existingSticker
+* StickerNamed
+* StickerAt
+* hasSticker
+<br>&nbsp;<br>
+* newStickerAt
+* StickerDeserializedAt
+* DuplicateofStickerAt
+<br>&nbsp;<br>
+* mayShiftStickerUp
+* mayShiftStickerDown
+* shiftStickerToTop
+* shiftStickerUp
+* shiftStickerDown
+* shiftStickerToBottom
+* shiftStickerTo
+* shiftStickersByIndex
+<br>&nbsp;<br>
+* destroySticker
+* clear
+<br>&nbsp;<br>
+* onClick
+* onDrop
+<br>&nbsp;<br>
+* DialogList
+* IndexOfDialog
+* openDialog
+* DialogIsOpen
+* openTextViewDialog
+* openHTMLViewDialog
+* openImageViewDialog
+* openSVGViewDialog
+* openWebViewDialog
+* positionDialogAt
+* sizeDialogTo
+* DialogIsFrontmost
+* bringDialogToFront
+* closeDialog
+* closeAllDialogs
+<br>&nbsp;<br>
+* Serialization
+
 (t.b.w.)
 
 ### SNS_Sticker (extends SNS_Visual) ###
+
+* Board
+<br>&nbsp;<br>
+* Index
+* mayBeShiftedUp
+* mayBeShiftedDown
+<br>&nbsp;<br>
+* minWidth
+* maxWidth
+* minHeight
+* maxHeight
+* x
+* y
+* Width
+* Height
+* Position
+* Size
+* Geometry
+<br>&nbsp;<br>
+* Lock
+* isLocked
+* lock
+* unlock
+<br>&nbsp;<br>
+* Selectability
+* isSelectable
+<br>&nbsp;<br>
+* Visibility
+* show
+* hide
+* isVisible
+<br>&nbsp;<br>
+* Enabling
+* enable
+* disable
+* isEnabled
+<br>&nbsp;<br>
+* onClick
+* onDrop
+<br>&nbsp;<br>
+* Rendering
+* rerender
+<br>&nbsp;<br>
+* Serialization
+
+(t.b.w.)
+
+### SNS_Adapter ###
+
+* ConnectionState
+* isConnected
+<br>&nbsp;<br>
+* connect
+* disconnect
 
 (t.b.w.)
 
