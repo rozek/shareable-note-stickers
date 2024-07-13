@@ -17,6 +17,8 @@ To get a real application, you'll have to combine these modules and add a proper
 
 Because of this modularity, it is not too difficult to use a different sharing framework (such as [Y.js](https://github.com/yjs/yjs) or [automerge](https://github.com/automerge/automerge)), modify the user interface according to your personal needs or even develop a headless tool that analyzes and/or changes the shared data without user intervention.
 
+(work in progress, see [NoteStickers](https://github.com/rozek/note-stickers) for a first usage example)
+
 ## Usage ##
 
 "shareable-note-stickers" is intended for being used as a module within a "host application". In order to use it, simply import the necessary types, constants, functions and classes:
@@ -399,23 +401,94 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 ### Classification and Validation Functions ###
 
+* ValueIsVisual, allow/expect[ed]Visual
+* ValueIsFolder, allow/expect[ed]Folder
+<br>&nbsp;<br>
+* ValueIsProject, allow/expect[ed]Project
+* ValueIsBoard, allow/expect[ed]Board
+* ValueIsSticker, allow/expect[ed]Sticker
+<br>&nbsp;<br>
+* ValueIsId, allow/expect[ed]Id
+* ValueIsIdentifier, allow/expect[ed]Identifier
+* ValueIsName, allow/expect[ed]Name
+<br>&nbsp;<br>
+* ValueIsName, allow/expect[ed]Location
+* ValueIsName, allow/expect[ed]Dimension
+* ValueIsName, allow/expect[ed]Position
+* ValueIsName, allow/expect[ed]Size
+* ValueIsName, allow/expect[ed]Geometry
+<br>&nbsp;<br>
+* ValueIsError, allow/expect[ed]Error
+<br>&nbsp;<br>
+* ValueIsSerializable, allow/expect[ed]Serializable
+
 (t.b.w.)
 
 ### Acceptables ###
+
+* acceptable[Optional]Boolean
+* acceptable[Optional]Number
+* acceptable[Optional]NumberInRange
+* acceptable[Optional]Integer
+* acceptable[Optional]IntegerInRange
+* acceptable[Optional]Ordinal
+* acceptable[Optional]String
+* acceptable[Optional]NonEmptyString
+* acceptable[Optional]StringMatching
+* acceptable[Optional]Text
+* acceptable[Optional]Textline
+* acceptable[Optional]Function
+* acceptable[Optional]List
+* acceptable[Optional]ListSatisfying
+* acceptable[Optional]Color
+* acceptable[Optional]EMailAddress
+* acceptable[Optional]PhoneNumber
+* acceptable[Optional]URL
 
 (t.b.w.)
 
 ### Adapter Support ###
 
+* attachBoard
+* attachSticker
+* detachBoard
+* detachSticker
+<br>&nbsp;<br>
+* createBoard
+* createSticker
+* destroyBoard
+* destroySticker
+<br>&nbsp;<br>
+* configureFolder
+* configureSticker
+<br>&nbsp;<br>
+* sanitizeBoardList
+* sanitizeStickerList
+
 (t.b.w.)
 
 ### UI Support ###
+
+* groupedBehaviorEntryList
+
+(t.b.w.)
+
+### Others ###
+
+* throwError
+* throwReadOnlyError
+<br>&nbsp;<br>
+* removeIdsFrom
+<br>&nbsp;<br>
+* TemplateOfBehavior
+<br>&nbsp;<br>
+* CSSStyleOfVisual
 
 (t.b.w.)
 
 ## File Format ##
 
-(work in progress, see [NoteStickers](https://github.com/rozek/note-stickers) for a first usage example)
+(t.b.w.)
 
 ## License ##
 
