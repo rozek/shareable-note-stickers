@@ -488,6 +488,8 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 
 ## File Format ##
 
+The following JSON schema describes the file format used for exported NoteSticker projects:
+
 (t.b.w.)
 
 ## License ##
