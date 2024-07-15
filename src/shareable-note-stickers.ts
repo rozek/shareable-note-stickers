@@ -147,6 +147,7 @@
     minWidth:number, maxWidth?:number, minHeight:number, maxHeight?:number,
     Visibility:boolean, Renderer:Function, onClose?:Function
   }
+
 /**** throwError - simplifies construction of named errors ****/
 
   export function throwError (Message:string):never {
@@ -4745,6 +4746,8 @@ useBehavior('TextInput')
           return
         }
 
+        if (! this.isAttached) { return }              // script may fail anyway
+
         const reactively = (reactiveFunction:Function):void => {
           expectFunction('reactive function',reactiveFunction)
 // @ts-ignore TS2345 do not care about the specific signature of "reactiveFunction"
@@ -5686,6 +5689,16 @@ useBehavior('TextInput')
       ].forEach((Name:string) => deserializeProperty(Name))
     }
 
+  /**** recursivelyActivateAllScripts ****/
+
+    public recursivelyActivateAllScripts ():void {
+      this.activateScript();
+
+      this._BoardList.forEach(
+        (Board:SNS_Board) => Board.recursivelyActivateAllScripts()
+      )
+    }
+
   /**** _serializeBoardsInto ****/
 
     protected _serializeBoardsInto (Serialization:Serializable):void {
@@ -5807,16 +5820,6 @@ useBehavior('TextInput')
           if (innerMatches.length > 0) { Matches.push(...innerMatches) }
         })
       return Matches
-    }
-
-  /**** recursivelyActivateAllScripts ****/
-
-    public recursivelyActivateAllScripts ():void {
-      this.activateScript();
-
-      this._BoardList.forEach(
-        (Board:SNS_Board) => Board.recursivelyActivateAllScripts()
-      )
     }
 
   /**** onChange ****/
@@ -7156,6 +7159,7 @@ useBehavior('TextInput')
 // @ts-ignore TS2339 allow global variable "SNS"
   const SNS:Indexable = window.SNS = {
     SNS_FontStyles, SNS_ErrorTypes,
+    SNS_matchableProperties, SNS_MatchModes,
     throwError, throwReadOnlyError,
     ValueIsVisual, allowVisual, allowedVisual, expectVisual, expectedVisual,
     ValueIsFolder, allowFolder, allowedFolder, expectFolder, expectedFolder,
@@ -7188,9 +7192,9 @@ useBehavior('TextInput')
     acceptableListSatisfying, acceptableOptionalListSatisfying,
     acceptableColor, acceptableOptionalColor,
     acceptableEMailAddress, acceptablePhoneNumber, acceptableURL,
-    newId,
+    newId, removeIdsFrom,
     CSSStyleOfVisual,
-    SNS_ConnectionStates
+    TemplateOfBehavior,
   }
 console.log('SNS is globally available now')
 
