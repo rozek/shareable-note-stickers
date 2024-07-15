@@ -521,6 +521,8 @@ export declare abstract class SNS_Folder extends SNS_Visual {
     protected _serializeConfigurationInto(Serialization: Serializable): void;
     /**** _deserializeConfigurationFrom ****/
     protected _deserializeConfigurationFrom(Serialization: Serializable): void;
+    /**** recursivelyActivateAllScripts ****/
+    recursivelyActivateAllScripts(): void;
     /**** _serializeBoardsInto ****/
     protected _serializeBoardsInto(Serialization: Serializable): void;
     /**** _deserializeBoardsFrom ****/
@@ -544,8 +546,6 @@ export declare class SNS_Project extends SNS_Folder {
     StickerWithId(Id: SNS_Id): SNS_Sticker | undefined;
     /**** allMatchesFor ****/
     allMatchesFor(Mode: SNS_MatchMode, Template: string | RegExp, CaseSensitivity: boolean, PropertySet: SNS_matchablePropertySet, ErrorRelevance: SNS_ErrorRelevance): SNS_VisualMatch[];
-    /**** recursivelyActivateAllScripts ****/
-    recursivelyActivateAllScripts(): void;
     /**** onChange ****/
     protected _onChange: SNS_onChangeCallback[];
     onChange(Callback: SNS_onChangeCallback): void;
