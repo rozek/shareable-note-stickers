@@ -161,11 +161,16 @@ export declare function ValueIsError(Value: any): boolean;
 /**** allow/expect[ed]Error ****/
 export declare const allowError: Function, allowedError: Function;
 export declare const expectError: Function, expectedError: Function;
-/**** ValueIsSerializable ****/
-export declare function ValueIsSerializable(Value: any): boolean;
-/**** allow/expect[ed]Serializable ****/
-export declare const allowSerializable: Function, allowedSerializable: Function;
-export declare const expectSerializable: Function, expectedSerializable: Function;
+/**** ValueIsSerializableValue ****/
+export declare function ValueIsSerializableValue(Value: any): boolean;
+/**** allow/expect[ed]SerializableValue ****/
+export declare const allowSerializableValue: Function, allowedSerializableValue: Function;
+export declare const expectSerializableValue: Function, expectedSerializableValue: Function;
+/**** ValueIsSerializableObject ****/
+export declare function ValueIsSerializableObject(Value: any): boolean;
+/**** allow/expect[ed]SerializableObject ****/
+export declare const allowSerializableObject: Function, allowedSerializableObject: Function;
+export declare const expectSerializableObject: Function, expectedSerializableObject: Function;
 export declare const SNS_Changes: string[];
 export type SNS_Change = typeof SNS_Changes[number];
 export type SNS_onChangeCallback = (Project: SNS_Project, Change: SNS_Change, Id: SNS_Id, ...ArgList: any[]) => void;
