@@ -63,7 +63,8 @@ To simplify scripting, most of the exported functions are also available as part
     ValueIsSize, allowSize, allowedSize, expectSize, expectedSize,
     ValueIsGeometry, allowGeometry, allowedGeometry, expectGeometry, expectedGeometry,
     ValueIsError, allowError, allowedError, expectError, expectedError,
-    ValueIsSerializable, allowSerializable, allowedSerializable, expectSerializable, expectedSerializable,
+    ValueIsSerializableObject, allowSerializableObject, allowedSerializableObject, expectSerializableObject, expectedSerializableObject,
+    ValueIsSerializableValue, allowSerializableValue, allowedSerializableValue, expectSerializableValue, expectedSerializableValue,
     acceptableBoolean, acceptableOptionalBoolean,
     acceptableNumber, acceptableOptionalNumber,
     acceptableNumberInRange, acceptableOptionalNumberInRange,
@@ -420,7 +421,8 @@ Type exports are for TypeScript users only - all others may simply skip this sec
 <br>&nbsp;<br>
 * `ValueIsError`, `allow/expect[ed]Error`
 <br>&nbsp;<br>
-* `ValueIsSerializable`, `allow/expect[ed]Serializable`
+* `ValueIsSerializableObject`, `allow/expect[ed]SerializableObject`
+* `ValueIsSerializableValue`, `allow/expect[ed]SerializableValue`
 
 (t.b.w.)
 
