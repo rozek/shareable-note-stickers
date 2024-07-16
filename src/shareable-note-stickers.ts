@@ -416,21 +416,62 @@
     ValueIsError, rejectNil, 'error descriptor'
   ), expectedError = expectError
 
-/**** ValueIsSerializable ****/
+/**** ValueIsSerializableValue ****/
 
-  export function ValueIsSerializable (Value:any):boolean {
-    return ValueIsPlainObject(Value) // *C* could definitely be better!
+  export function ValueIsSerializableValue (Value:any):boolean {
+    switch (true) {
+      case (Value == null):
+      case ValueIsBoolean(Value):
+      case ValueIsNumber(Value):
+      case ValueIsString(Value):
+        return true
+      case ValueIsPlainObject(Value):
+        for (let Property in Value) {
+          if (
+            Value.hasOwnProperty(Property) &&
+            ! ValueIsSerializableValue(Value[Property])
+          ) { return false }
+        }
+        return true
+    }
+    return false
   }
 
-/**** allow/expect[ed]Serializable ****/
+/**** allow/expect[ed]SerializableValue ****/
 
-  export const allowSerializable = ValidatorForClassifier(
-    ValueIsSerializable, acceptNil, 'serializable object'
-  ), allowedSerializable = allowSerializable
+  export const allowSerializableValue = ValidatorForClassifier(
+    ValueIsSerializableValue, acceptNil, 'serializable value'
+  ), allowedSerializableValue = allowSerializableValue
 
-  export const expectSerializable = ValidatorForClassifier(
-    ValueIsSerializable, rejectNil, 'serializable object'
-  ), expectedSerializable = expectSerializable
+  export const expectSerializableValue = ValidatorForClassifier(
+    ValueIsSerializableValue, rejectNil, 'serializable value'
+  ), expectedSerializableValue = expectSerializableValue
+
+/**** ValueIsSerializableObject ****/
+
+  export function ValueIsSerializableObject (Value:any):boolean {
+    if (ValueIsPlainObject(Value)) {
+      for (let Property in Value) {
+        if (
+          Value.hasOwnProperty(Property) &&
+          ! ValueIsSerializableValue(Value[Property])
+        ) { return false }
+      }
+      return true
+    } else {
+      return false
+    }
+  }
+
+/**** allow/expect[ed]SerializableObject ****/
+
+  export const allowSerializableObject = ValidatorForClassifier(
+    ValueIsSerializableObject, acceptNil, 'serializable object'
+  ), allowedSerializableObject = allowSerializableObject
+
+  export const expectSerializableObject = ValidatorForClassifier(
+    ValueIsSerializableObject, rejectNil, 'serializable object'
+  ), expectedSerializableObject = expectSerializableObject
 
 //------------------------------------------------------------------------------
 //--                      Primitives and Change Reports                       --
@@ -1170,7 +1211,7 @@
 /**** removeIdsFrom ****/
 
   export function removeIdsFrom (Serialization:Serializable) {
-    expectSerializable('serialization',Serialization)
+    expectSerializableObject('serialization',Serialization)
 
     delete Serialization.Id
 
@@ -4615,6 +4656,7 @@ useBehavior('TextInput')
 
     public get Value ():serializableValue  { return this._Value }
     public set Value (newValue:serializableValue) {
+      allowSerializableValue('Value',newValue)
       if (ValuesDiffer(this._Value,newValue)) {
         this._Value = newValue
 
@@ -5366,8 +5408,8 @@ useBehavior('TextInput')
   /**** BoardDeserializedAt - nota bene: needs explicit script activation! ****/
 
     public BoardDeserializedAt (Serialization:Serializable, Index?:number):SNS_Board {
-      expectSerializable('board serialization',Serialization)
-      allowInteger     ('board insertionindex',Index)
+      expectSerializableObject('board serialization',Serialization)
+      allowInteger           ('board insertionindex',Index)
 
       if (Index == null) {
         Index = this._BoardList.length
@@ -5891,7 +5933,7 @@ useBehavior('TextInput')
         'AlreadySet: the "Application" interface has already been set'
       )
 
-      expectSerializable('application interface',newInterface)
+      expectSerializableObject('application interface',newInterface)
       if (ObjectIsEmpty(newInterface)) throwError(
         'InvalidArgument: the given application interface is empty'
       )
@@ -6044,8 +6086,8 @@ useBehavior('TextInput')
   /**** StickerDeserializedAt - nota bene: needs explicit script activation! ****/
 
     public StickerDeserializedAt (Serialization:Serializable, Index?:number):SNS_Sticker {
-      expectSerializable('sticker serialization',Serialization)
-      allowInteger          ('SNS sticker index',Index)
+      expectSerializableObject('sticker serialization',Serialization)
+      allowInteger                ('SNS sticker index',Index)
 
       if (Index == null) {
         Index = this._StickerList.length
@@ -7175,7 +7217,8 @@ useBehavior('TextInput')
     ValueIsSize, allowSize, allowedSize, expectSize, expectedSize,
     ValueIsGeometry, allowGeometry, allowedGeometry, expectGeometry, expectedGeometry,
     ValueIsError, allowError, allowedError, expectError, expectedError,
-    ValueIsSerializable, allowSerializable, allowedSerializable, expectSerializable, expectedSerializable,
+    ValueIsSerializableObject, allowSerializableObject, allowedSerializableObject, expectSerializableObject, expectedSerializableObject,
+    ValueIsSerializableValue, allowSerializableValue, allowedSerializableValue, expectSerializableValue, expectedSerializableValue,
     acceptableBoolean, acceptableOptionalBoolean,
     acceptableNumber, acceptableOptionalNumber,
     acceptableNumberInRange, acceptableOptionalNumberInRange,
