@@ -17,7 +17,7 @@ To get a real application, you'll have to combine these modules and add a proper
 
 Because of this modularity, it is not too difficult to use a different sharing framework (such as [Y.js](https://github.com/yjs/yjs) or [automerge](https://github.com/automerge/automerge)), modify the user interface according to your personal needs or even develop a headless tool that analyzes and/or changes the shared data without user intervention.
 
-(work in progress, see [NoteStickers](https://github.com/rozek/note-stickers) for a first usage example)
+> **Important: the project is currently being worked on intensively, and a practically usable version is to be submitted on August 28th for the [6th BackdropBuild Contest](https://backdropbuild.com/). A non-shared version should become available a bit earlier, see [NoteStickers](https://github.com/rozek/note-stickers)**
 
 ## Usage ##
 
